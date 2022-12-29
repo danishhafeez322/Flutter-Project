@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
@@ -6,10 +7,14 @@ import 'package:mad_project/pages/selectedcategory.dart';
 import 'package:mad_project/pages/userdetails.dart';
 import 'package:mad_project/users/lessor.dart';
 import 'package:mad_project/widgets/MyDrawerHeader.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'helper/utils.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MaterialApp(
       //debugShowCheckedModeBanner: false,
       home: SplashPage(duration: 3, gotoPage: WelcomePage())));

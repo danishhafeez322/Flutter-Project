@@ -96,15 +96,15 @@ class DetailsPageState extends State<DetailsPage> {
                   ),
                   AppBar(
                     title: const Text(
-                      "Rent itt",
+                      "Rent it",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.redAccent),
+                          color: Colors.black54),
                     ),
                     backgroundColor: Colors.transparent,
                     elevation: 0.0,
-                    iconTheme: const IconThemeData(color: Colors.redAccent),
+                    iconTheme: const IconThemeData(color: Colors.black54),
                     actions: [
                       Container(
                         padding: const EdgeInsets.all(10),

@@ -15,13 +15,13 @@ class SelectedCategory extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Rent itt",
+          "Rent it",
           style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.white,
         elevation: 0.0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black54),
         actions: [
           Container(
             padding: const EdgeInsets.all(10),

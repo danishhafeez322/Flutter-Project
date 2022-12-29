@@ -61,7 +61,7 @@ class WelcomePage extends StatelessWidget {
       ),
       appBar: AppBar(
         title: const Text(
-          "Rent itt",
+          "Rent it",
           style: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -113,25 +113,44 @@ class WelcomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(bottom: 100),
-                    itemCount: categories.length,
-                    itemBuilder: (BuildContext ctx, int index) {
-                      return Categorycard(
-                          category: categories[index],
-                          onCardClick: () {
-                            Navigator.push(
-                              ctx,
-                              MaterialPageRoute(
-                                builder: (context) => SelectedCategory(
-                                    selectedCategory: categories[index]),
-                              ),
-                            );
-                          });
-                    },
+                Container(
+                  height: 80,
+                  child: Expanded(
+                    child: Container(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        // padding: const EdgeInsets.only(bottom: 100),
+                        itemCount: categories.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return Categorycard(
+                              category: categories[index],
+                              onCardClick: () {
+                                Navigator.push(
+                                  ctx,
+                                  MaterialPageRoute(
+                                    builder: (context) => SelectedCategory(
+                                        selectedCategory: categories[index]),
+                                  ),
+                                );
+                              });
+                        },
+                      ),
+                    ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, bottom: 8),
+                  child: Text(
+                    "New Arrival",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  // height: 335,
+                  child: Text("temp"),
                 ),
               ],
             ),

@@ -32,13 +32,13 @@ class UserDetailsState extends State<UserDetails> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text(
-          "Rent itt",
+          "Rent it",
           style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black54),
         ),
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.white54,
         elevation: 0.0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black54),
         actions: [
           Container(
             padding: const EdgeInsets.all(10),

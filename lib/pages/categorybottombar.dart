@@ -24,7 +24,7 @@ class CategoryBottomBar extends StatelessWidget {
           ClipOval(
             child: Material(
               child: IconButton(
-                icon: const Icon(Icons.home_rounded, color: Colors.redAccent),
+                icon: const Icon(Icons.home_rounded, color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => WelcomePage()));
@@ -36,7 +36,7 @@ class CategoryBottomBar extends StatelessWidget {
             child: Material(
               child: IconButton(
                 icon: const Icon(Icons.notifications_active_outlined,
-                    color: Colors.redAccent),
+                    color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Notificationd()));
@@ -47,7 +47,20 @@ class CategoryBottomBar extends StatelessWidget {
           ClipOval(
             child: Material(
               child: IconButton(
-                icon: const Icon(Icons.settings, color: Colors.redAccent),
+                icon: const Icon(Icons.file_upload_outlined,
+                    color: Colors.black54),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => settings()));
+                },
+              ),
+            ),
+          ),
+          ClipOval(
+            child: Material(
+              child: IconButton(
+                icon: const Icon(Icons.person_outline_outlined,
+                    color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => settings()));

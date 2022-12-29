@@ -83,43 +83,12 @@ class DetailsPageState extends State<DetailsPage> {
                                 child: Text(
                                   "Rs " +
                                       widget.subCategory.price.toString() +
-                                      ".00/day",
+                                      "0/day",
                                   style: TextStyle(
                                       fontSize: 20, color: Colors.white),
                                 ),
                               )
                             ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: 20,
-                    top: 100,
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                          top: 5, left: 15, right: 15, bottom: 8),
-                      decoration: BoxDecoration(
-                          color: Colors.redAccent,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              blurRadius: 20,
-                              offset: Offset.zero,
-                            )
-                          ]),
-                      child: Row(
-                        children: [
-                          Text(
-                            '3',
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          ),
-                          Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                            size: 15,
                           )
                         ],
                       ),
@@ -185,20 +154,20 @@ class DetailsPageState extends State<DetailsPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             GestureDetector(
-                              onTap: widget.days < widget.subCategory.MaxDays
+                              onTap: widget.days > 1
                                   ? () {
-                                      //To Increment
+                                      //To decrement
                                       setState(() {
-                                        widget.days++;
+                                        widget.days--;
                                         widget.cost = widget.subCategory.price *
                                             widget.days;
                                       });
                                     }
                                   : null,
                               child: const Icon(
-                                Icons.add_circle_outline,
+                                Icons.remove_circle_outline,
                                 size: 50,
-                                color: Colors.green,
+                                color: Colors.red,
                               ),
                             ),
                             Expanded(
@@ -221,20 +190,20 @@ class DetailsPageState extends State<DetailsPage> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: widget.days > 1
+                              onTap: widget.days < widget.subCategory.MaxDays
                                   ? () {
-                                      //To decrement
+                                      //To Increment
                                       setState(() {
-                                        widget.days--;
+                                        widget.days++;
                                         widget.cost = widget.subCategory.price *
                                             widget.days;
                                       });
                                     }
                                   : null,
                               child: const Icon(
-                                Icons.remove_circle_outline,
+                                Icons.add_circle_outline,
                                 size: 50,
-                                color: Colors.red,
+                                color: Colors.green,
                               ),
                             ),
                           ],

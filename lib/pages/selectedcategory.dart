@@ -17,7 +17,7 @@ class SelectedCategory extends StatelessWidget {
         title: const Text(
           "Rent itt",
           style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         backgroundColor: Colors.redAccent,
         elevation: 0.0,

@@ -8,7 +8,6 @@ import 'package:mad_project/pages/userdetails.dart';
 import 'package:mad_project/users/lessor.dart';
 import 'package:mad_project/widgets/MyDrawerHeader.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:mad_project/widgets/carousal.dart';
 import 'helper/utils.dart';
 
 Future<void> main() async {

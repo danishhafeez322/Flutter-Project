@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
-import 'package:mad_project/models/categorypart.dart';
 import 'package:mad_project/models/subcategory.dart';
 
 class Utils {
@@ -64,7 +63,7 @@ class Utils {
           ]),
       Category(
           color: Color.fromARGB(255, 6, 82, 45),
-          name: "Electronic Appliances",
+          name: "Electronics",
           imgName: "electronics",
           icon: Icons.electrical_services_outlined,
           subCategories: [
@@ -232,6 +231,61 @@ class Utils {
           name: "Properties",
           imgName: "property",
           icon: Icons.house_outlined,
+          subCategories: [
+            SubCategory(
+                name: "Apartment",
+                icon: Icons.house_outlined,
+                color: Colors.blueAccent,
+                price: 2000,
+                MaxDays: 18,
+                imgName: 'apartment',
+                parts: []),
+            SubCategory(
+                name: "House 6Marla",
+                icon: Icons.house_outlined,
+                color: Colors.blueAccent,
+                price: 1200,
+                MaxDays: 12,
+                imgName: 'house6',
+                parts: []),
+            SubCategory(
+                name: "Penthouse",
+                icon: Icons.house_outlined,
+                color: Colors.blueAccent,
+                price: 3000,
+                MaxDays: 60,
+                imgName: 'penthouse',
+                parts: []),
+            SubCategory(
+                name: "House 5Marla",
+                icon: Icons.house_outlined,
+                color: Colors.blueAccent,
+                price: 1000,
+                MaxDays: 25,
+                imgName: 'house5',
+                parts: []),
+            SubCategory(
+                name: "Farms",
+                icon: Icons.house_outlined,
+                color: Colors.blueAccent,
+                price: 300,
+                MaxDays: 25,
+                imgName: 'farms',
+                parts: []),
+            SubCategory(
+                name: "Farmhouse",
+                icon: Icons.house_outlined,
+                color: Colors.blueAccent,
+                price: 7000,
+                MaxDays: 5,
+                imgName: 'farmhouse',
+                parts: []),
+          ]),
+      Category(
+          color: Colors.pinkAccent,
+          name: "Crockery",
+          imgName: "property",
+          icon: Icons.dining_sharp,
           subCategories: [
             SubCategory(
                 name: "Apartment",

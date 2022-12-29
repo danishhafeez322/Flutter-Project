@@ -80,55 +80,57 @@ class WelcomePage extends StatelessWidget {
         child: Stack(
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.only(
                     top: 10,
-                    bottom: 10,
+                    bottom: 15,
                   ),
-                  // child: Text(
-                  //   "Select any Category",
-                  //   style: TextStyle(
-                  //       color: Colors.redAccent,
-                  //       fontWeight: FontWeight.bold,
-                  //       fontSize: 20),
-                  // ),
                   child: Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: TextField(
                       maxLines: 1,
-                      //controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        //labelText: 'Email',
                         hintText: 'Find Cars, Vehicles, and many more',
                         prefixIcon: Icon(Icons.search),
                       ),
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, bottom: 8),
+                  child: Text(
+                    "Main Categories",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Expanded(
-                    child: ListView.builder(
-                  //scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.only(bottom: 120),
-                  itemCount: categories.length,
-                  itemBuilder: (BuildContext ctx, int index) {
-                    return Categorycard(
-                        category: categories[index],
-                        onCardClick: () {
-                          Navigator.push(
-                            ctx,
-                            MaterialPageRoute(
-                              builder: (context) => SelectedCategory(
-                                  selectedCategory: categories[index]),
-                            ),
-                          );
-                        });
-                  },
-                ))
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(bottom: 100),
+                    itemCount: categories.length,
+                    itemBuilder: (BuildContext ctx, int index) {
+                      return Categorycard(
+                          category: categories[index],
+                          onCardClick: () {
+                            Navigator.push(
+                              ctx,
+                              MaterialPageRoute(
+                                builder: (context) => SelectedCategory(
+                                    selectedCategory: categories[index]),
+                              ),
+                            );
+                          });
+                    },
+                  ),
+                ),
               ],
             ),
             const Positioned(

@@ -83,7 +83,10 @@ class WelcomePage extends StatelessWidget {
       body: Container(
         child: Stack(
           children: [
-            Carousel(),
+            Padding(
+              padding: const EdgeInsets.only(top: 60),
+              child: Carousel(),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -93,12 +96,13 @@ class WelcomePage extends StatelessWidget {
                     bottom: 15,
                   ),
                   child: Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    height: 50,
+                    padding: EdgeInsets.only(left: 15, right: 15),
                     child: TextField(
                       maxLines: 1,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(30),
                         ),
                         hintText: 'Find Cars, Vehicles, and many more',
                         prefixIcon: Icon(Icons.search),
@@ -107,7 +111,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 8, top: 100),
+                  padding: const EdgeInsets.only(left: 16, bottom: 6, top: 170),
                   child: Text(
                     "Main Categories",
                     style: const TextStyle(
@@ -122,6 +126,8 @@ class WelcomePage extends StatelessWidget {
                     child: Container(
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+
                         // padding: const EdgeInsets.only(bottom: 100),
                         itemCount: categories.length,
                         itemBuilder: (BuildContext ctx, int index) {
@@ -150,10 +156,6 @@ class WelcomePage extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
-                ),
-                Container(
-                  // height: 335,
-                  child: Carousel(),
                 ),
               ],
             ),

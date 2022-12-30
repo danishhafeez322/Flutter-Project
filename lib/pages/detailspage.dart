@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/subcategory.dart';
+import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/mappage.dart';
 import 'package:mad_project/pages/userdetails.dart';
 import 'package:mad_project/widgets/CategoryIcon.dart';
@@ -250,10 +251,7 @@ class DetailsPageState extends State<DetailsPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => UserDetails(
-                                            category: widget.subCategory.name,
-                                            days: widget.days,
-                                            cost: widget.cost,
+                                      builder: (context) => LoginView(                                         
                                           )));
                             },
                             icon: const Icon(

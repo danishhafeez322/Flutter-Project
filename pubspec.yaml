@@ -111,6 +111,8 @@ flutter:
     - assets/images/farmhouse.jpg
     - assets/images/farms.jpg
     - assets/images/penthouse.jpg
+    - assets/images/loginill.png
+    - assets/images/register.png
 
 
   #   - images/a_dot_ham.jpeg

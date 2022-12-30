@@ -73,8 +73,9 @@ class WelcomePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.only(right: 5),
-            child: ClipOval(
-              child: Image.asset("assets/images/danish.jpeg"),
+            child: IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: (() {}),
             ),
           ),
         ],

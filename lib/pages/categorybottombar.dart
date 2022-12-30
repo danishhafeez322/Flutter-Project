@@ -16,7 +16,7 @@ class CategoryBottomBar extends StatelessWidget {
             color: Colors.black.withOpacity(0.2),
             offset: Offset.zero),
       ]),
-      height: 80,
+      height: 70,
       padding: const EdgeInsets.only(bottom: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -35,8 +35,7 @@ class CategoryBottomBar extends StatelessWidget {
           ClipOval(
             child: Material(
               child: IconButton(
-                icon: const Icon(Icons.notifications_active_outlined,
-                    color: Colors.black54),
+                icon: const Icon(Icons.message_rounded, color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => Notificationd()));

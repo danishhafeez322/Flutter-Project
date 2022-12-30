@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/detailspage.dart';
@@ -21,13 +22,14 @@ class SelectedCategory extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
         elevation: 0.0,
-        iconTheme: const IconThemeData(color: Colors.black54),
+        iconTheme: const IconThemeData(color: Colors.black87),
         actions: [
           Container(
             padding: const EdgeInsets.all(10),
             margin: const EdgeInsets.only(right: 5),
-            child: ClipOval(
-              child: Image.asset("assets/images/danish.jpeg"),
+            child: IconButton(
+              icon: Icon(Icons.notifications),
+              onPressed: (() {}),
             ),
           ),
         ],
@@ -79,18 +81,55 @@ class SelectedCategory extends StatelessWidget {
                         },
                         child: Column(
                           children: [
-                            Image.asset(
-                              "assets/images/" +
-                                  this
-                                      .selectedCategory
-                                      .subCategories[index]
-                                      .imgName +
-                                  ".jpg",
-                              fit: BoxFit.cover,
-                              width: 125,
-                              height: 125,
+                            Badge(
+                              position: BadgePosition.topStart(),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black45,
+                                      offset: const Offset(
+                                        3.0,
+                                        3.0,
+                                      ), //Offset
+                                      blurRadius: 5.0,
+                                      spreadRadius: 1.0,
+                                    )
+                                  ],
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
+                                  child: Image.asset(
+                                    "assets/images/" +
+                                        this
+                                            .selectedCategory
+                                            .subCategories[index]
+                                            .imgName +
+                                        ".jpg",
+                                    fit: BoxFit.cover,
+                                    width: 125,
+                                    height: 125,
+                                  ),
+                                ),
+                              ),
+                              badgeContent: SizedBox(
+                                width: 50, height: 30, //badge size
+                                child: Center(
+                                  //aligh badge content to center
+                                  child: Text("New",
+                                      style: TextStyle(
+                                          color:
+                                              Colors.white, //badge font color
+                                          fontSize: 16 //badge font size
+                                          )),
+                                ),
+                              ),
+                              badgeColor: this.selectedCategory.color,
                             ),
-                            const SizedBox(width: 10),
+                            const SizedBox(width: 15),
                             Text(
                               this.selectedCategory.subCategories[index].name,
                               style: const TextStyle(

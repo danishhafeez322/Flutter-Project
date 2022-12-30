@@ -39,6 +39,7 @@ dependencies:
 
   #Firebase Database 
   cloud_firestore: ^4.3.1
+  badges: ^2.0.3
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.3"

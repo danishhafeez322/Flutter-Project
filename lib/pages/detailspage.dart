@@ -34,11 +34,12 @@ class DetailsPageState extends State<DetailsPage> {
                   Container(
                     height: 300,
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/' +
-                                widget.subCategory.imgName +
-                                '.jpg'),
-                            fit: BoxFit.cover)),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/' +
+                              widget.subCategory.imgName +
+                              '.jpg'),
+                          fit: BoxFit.cover),
+                    ),
                   ),
                   Positioned.fill(
                     child: Container(
@@ -100,19 +101,19 @@ class DetailsPageState extends State<DetailsPage> {
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black54),
+                          color: Colors.black87),
                     ),
                     backgroundColor: Colors.transparent,
                     elevation: 0.0,
-                    iconTheme: const IconThemeData(color: Colors.black54),
+                    iconTheme: const IconThemeData(color: Colors.black87),
                     actions: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.only(right: 5),
-                        child: ClipOval(
-                          child: Image.asset("assets/images/danish.jpeg"),
-                        ),
-                      ),
+                      // Container(
+                      //   padding: const EdgeInsets.all(10),
+                      //   margin: const EdgeInsets.only(right: 5),
+                      //   child: ClipOval(
+                      //     child: Image.asset("assets/images/danish.jpeg"),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
@@ -144,9 +145,9 @@ class DetailsPageState extends State<DetailsPage> {
                             borderRadius: BorderRadius.circular(50),
                             boxShadow: [
                               BoxShadow(
-                                blurRadius: 10,
+                                blurRadius: 8,
                                 offset: Offset.zero,
-                                color: Colors.black.withOpacity(0.1),
+                                color: Colors.black87.withOpacity(0.1),
                               )
                             ]),
                         child: Row(

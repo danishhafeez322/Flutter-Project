@@ -4,6 +4,7 @@ import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/pages/categorycard.dart';
 import 'package:mad_project/pages/selectedcategory.dart';
 import 'package:mad_project/users/lessor.dart';
+import 'package:mad_project/widgets/Carousel.dart';
 import 'package:mad_project/widgets/MyDrawerHeader.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'helper/utils.dart';
@@ -81,6 +82,7 @@ class WelcomePage extends StatelessWidget {
       body: Container(
         child: Stack(
           children: [
+            Carousel(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -104,7 +106,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 8),
+                  padding: const EdgeInsets.only(left: 16, bottom: 8, top: 100),
                   child: Text(
                     "Main Categories",
                     style: const TextStyle(
@@ -150,7 +152,7 @@ class WelcomePage extends StatelessWidget {
                 ),
                 Container(
                   // height: 335,
-                  child: Text("temp"),
+                  child: Carousel(),
                 ),
               ],
             ),

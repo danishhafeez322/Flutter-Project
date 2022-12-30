@@ -86,17 +86,24 @@ class SelectedCategory extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color: Colors.black54,
+                                    width: 1,
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black45,
                                       offset: const Offset(
-                                        3.0,
-                                        3.0,
+                                        2.0,
+                                        2.0,
                                       ), //Offset
-                                      blurRadius: 5.0,
+                                      blurRadius: 4.0,
                                       spreadRadius: 1.0,
                                     )
                                   ],
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
                                 ),
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.all(
@@ -118,7 +125,7 @@ class SelectedCategory extends StatelessWidget {
                               badgeContent: SizedBox(
                                 width: 50, height: 30, //badge size
                                 child: Center(
-                                  //aligh badge content to center
+                                  //align badge content to center
                                   child: Text("New",
                                       style: TextStyle(
                                           color:

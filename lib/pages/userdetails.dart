@@ -5,6 +5,7 @@ import 'package:mad_project/main.dart';
 import 'package:mad_project/widgets/themebutton.dart';
 
 import 'categorybottombar.dart';
+import 'Registorpage.dart';
 
 class UserDetails extends StatefulWidget {
   int days = 1;
@@ -20,6 +21,8 @@ class UserDetails extends StatefulWidget {
 
   UserDetailsState createState() => UserDetailsState();
 }
+
+
 
 class UserDetailsState extends State<UserDetails> {
   TextEditingController nameController = TextEditingController();
@@ -215,7 +218,30 @@ class UserDetailsState extends State<UserDetails> {
                                 }
                               });
                             },
-                            icon: const Icon(Icons.arrow_forward))
+                            icon: const Icon(Icons.arrow_forward)),
+                            GestureDetector(
+                              onTap: (){
+                                // Navigator.push(
+                                //   this.context,
+                                //   MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           RegisterView()));
+                              },
+                              child: Text(
+                              'Create New Account',
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,                                
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.black,
+                                decorationStyle: TextDecorationStyle.solid,
+                                letterSpacing: -1.0,
+                                wordSpacing: 5.0,
+                              )
+                            ),
+                            )
+                            
                       ],
                     ),
                   ),

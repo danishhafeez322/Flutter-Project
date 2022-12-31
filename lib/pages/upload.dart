@@ -41,7 +41,7 @@ class UploadView extends StatelessWidget {
                   ),
             context.emptySizedHeightBoxLow3x,
             Padding(
-              padding: const EdgeInsets.only(left:100,right:100),
+              padding: const EdgeInsets.only(left:50,right:50),
               child: Row(
                 children: [            
                   MyDropdownButton(),

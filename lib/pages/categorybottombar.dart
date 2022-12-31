@@ -6,6 +6,7 @@ import 'package:mad_project/pages/upload.dart';
 import '../helper/utils.dart';
 import '../main.dart';
 import '../models/category.dart';
+import 'lessee.dart';
 import 'notifications.dart';
 
 class CategoryBottomBar extends StatelessWidget {
@@ -54,7 +55,7 @@ class CategoryBottomBar extends StatelessWidget {
                     color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UploadView()));
+                      MaterialPageRoute(builder: (context) => Lessee()));
                 },
               ),
             ),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mad_project/pages/New%20Arrival.dart';
 import 'package:mad_project/pages/settings.dart';
 import 'package:mad_project/pages/upload.dart';
 
+import '../helper/utils.dart';
 import '../main.dart';
+import '../models/category.dart';
 import 'notifications.dart';
 
 class CategoryBottomBar extends StatelessWidget {
-  const CategoryBottomBar({Key? key}) : super(key: key);
+  List<Category> categories = Utils.getMockedCategories();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class CategoryBottomBar extends StatelessWidget {
                 icon: const Icon(Icons.message_rounded, color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Notificationd()));
+                      MaterialPageRoute(builder: (context) => MyApp()));
                 },
               ),
             ),

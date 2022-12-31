@@ -22,8 +22,6 @@ class UserDetails extends StatefulWidget {
   UserDetailsState createState() => UserDetailsState();
 }
 
-
-
 class UserDetailsState extends State<UserDetails> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -219,29 +217,26 @@ class UserDetailsState extends State<UserDetails> {
                               });
                             },
                             icon: const Icon(Icons.arrow_forward)),
-                            GestureDetector(
-                              onTap: (){
-                                // Navigator.push(
-                                //   this.context,
-                                //   MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           RegisterView()));
-                              },
-                              child: Text(
-                              'Create New Account',
+                        GestureDetector(
+                          onTap: () {
+                            // Navigator.push(
+                            //   this.context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) =>
+                            //           RegisterView()));
+                          },
+                          child: Text('Create New Account',
                               style: TextStyle(
                                 fontSize: 18.0,
                                 color: Colors.red,
-                                fontWeight: FontWeight.bold,                                
+                                fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
                                 decorationColor: Colors.black,
                                 decorationStyle: TextDecorationStyle.solid,
                                 letterSpacing: -1.0,
                                 wordSpacing: 5.0,
-                              )
-                            ),
-                            )
-                            
+                              )),
+                        )
                       ],
                     ),
                   ),
@@ -249,7 +244,7 @@ class UserDetailsState extends State<UserDetails> {
               ),
             ],
           ),
-          const Positioned(
+          Positioned(
             bottom: 0,
             left: 0,
             right: 0,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
-import 'package:mad_project/pages/NewArrival.dart';
+import 'package:mad_project/pages/New%20Arrival.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/pages/categorycard.dart';
 import 'package:mad_project/pages/selectedcategory.dart';
@@ -85,10 +85,6 @@ class WelcomePage extends StatelessWidget {
       body: Container(
         child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 60),
-              child: Carousel(),
-            ),
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,9 +109,17 @@ class WelcomePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 180,
+                        child: Carousel(),
+                      ),
+                    ],
+                  ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 16, bottom: 6, top: 170),
+                        const EdgeInsets.only(left: 16, bottom: 6, top: 10),
                     child: Text(
                       "Main Categories",
                       style: const TextStyle(
@@ -162,11 +166,11 @@ class WelcomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  //NewArrival(selectedCategory: categories[1])
+                  NewArrival(selectedCategory: categories[1]),
                 ],
               ),
             ),
-            const Positioned(
+            Positioned(
               bottom: 0,
               left: 0,
               right: 0,

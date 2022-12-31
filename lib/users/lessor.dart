@@ -117,7 +117,7 @@ class _LessorState extends State<Lessor> {
               ),
             ],
           ),
-          const Positioned(
+          Positioned(
             bottom: 0,
             left: 0,
             right: 0,

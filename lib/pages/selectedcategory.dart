@@ -151,7 +151,7 @@ class SelectedCategory extends StatelessWidget {
                 ),
               ],
             ),
-            const Positioned(
+            Positioned(
               bottom: 0,
               left: 0,
               right: 0,

@@ -16,4 +16,21 @@ class AppText {
   static const String registernow = "Register Now";
   static const String loginwith = "Log in with";
   static const String or = "OR";
+
+  static const String upload = "Upload";
+  static const String title = "Title";
+  static const String categories= "Categories";
+  static const String price = "Price";
+  static const String guaranteeprice = "Gaurantee Price";
+  static const String days = "Days";
+  static const String description = "Description";
+  static const String quantity = "Quantity";
+  static const List<String> list = <String>['Fashion', 'Electronics', 'Automobiles', 'Crockery', 'Sports'];
+  static const List<String> fashion_sub_list = <String>['Mens', 'womens', 'Kids'];
+
+
+
+
+
+
 }

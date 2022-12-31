@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/pages/settings.dart';
+import 'package:mad_project/pages/upload.dart';
 
 import '../main.dart';
 import 'notifications.dart';
@@ -50,7 +51,7 @@ class CategoryBottomBar extends StatelessWidget {
                     color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => settings()));
+                      MaterialPageRoute(builder: (context) => UploadView()));
                 },
               ),
             ),

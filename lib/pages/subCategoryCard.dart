@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
+import 'package:mad_project/models/subcategory.dart';
 
 import '../widgets/CategoryIcon.dart';
 
-class Categorycard extends StatelessWidget {
-  Category category;
+class subCategorycard extends StatelessWidget {
+  SubCategory category;
   Function onCardClick;
+  int index1;
 
-  Categorycard({
-    Key? key,
-    required this.category,
-    required this.onCardClick,
-  }) : super(key: key);
+  subCategorycard(
+      {Key? key,
+      required this.category,
+      required this.onCardClick,
+      required this.index1})
+      : super(key: key);
 
   @override
   Widget build(Object context) {

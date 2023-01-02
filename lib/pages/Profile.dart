@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mad_project/widgets/AppBar.dart';
+import 'package:mad_project/widgets/MyDrawerHeader.dart';
 
 class settings extends StatefulWidget {
   const settings({Key? key}) : super(key: key);
@@ -14,30 +16,13 @@ class _settingsState extends State<settings> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: const Text(
-            "Rent itt",
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          backgroundColor: Colors.redAccent,
-          elevation: 0.0,
-          iconTheme: const IconThemeData(color: Colors.white),
-          actions: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              margin: const EdgeInsets.only(right: 5),
-              child: ClipOval(
-                child: Image.asset("assets/images/danish.jpeg"),
-              ),
-            ),
-          ],
-        ),
+        appBar: MainAppBar(),
         body: Container(
           child: SingleChildScrollView(
             child: Container(
+              height: 900,
               child: Column(
-                children: [MyDrawerList()],
+                children: [MyDrawerHeader(), MyDrawerList()],
               ),
             ),
           ),

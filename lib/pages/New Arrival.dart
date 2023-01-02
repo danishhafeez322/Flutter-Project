@@ -15,9 +15,9 @@ class NewArrival extends StatelessWidget {
   Widget build(BuildContext context) {
     // return Scaffold(
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 20),
       child: Container(
-        height: 600,
+        height: 650,
         child: Expanded(
           child: GridView.count(
             physics: NeverScrollableScrollPhysics(),

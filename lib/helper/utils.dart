@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
+import 'package:mad_project/models/categorypart.dart';
 import 'package:mad_project/models/subcategory.dart';
 
 class Utils {
@@ -18,7 +19,9 @@ class Utils {
               price: 100,
               MaxDays: 20,
               imgName: 'pant',
-              parts: [],
+              parts: [
+                CategoryPart(name: "Danish", imgName: "pant", isSelected: true)
+              ],
             ),
             SubCategory(
                 name: "Shirt",
@@ -27,7 +30,10 @@ class Utils {
                 price: 80,
                 MaxDays: 30,
                 imgName: 'shirt',
-                parts: []),
+                parts: [
+                  CategoryPart(
+                      name: "Danish", imgName: "pant", isSelected: true)
+                ]),
             SubCategory(
                 name: "Trouser",
                 MaxDays: 25,
@@ -35,7 +41,10 @@ class Utils {
                 color: Colors.redAccent,
                 imgName: 'trouser',
                 price: 60,
-                parts: []),
+                parts: [
+                  CategoryPart(
+                      name: "Danish", imgName: "pant", isSelected: true)
+                ]),
             SubCategory(
                 name: "Shoes",
                 icon: Icons.store_mall_directory_outlined,
@@ -43,7 +52,10 @@ class Utils {
                 MaxDays: 10,
                 imgName: 'shoes',
                 price: 50,
-                parts: []),
+                parts: [
+                  CategoryPart(
+                      name: "Danish", imgName: "pant", isSelected: true)
+                ]),
             SubCategory(
                 name: "Bag",
                 icon: Icons.store_mall_directory_outlined,
@@ -51,7 +63,10 @@ class Utils {
                 price: 40,
                 MaxDays: 5,
                 imgName: 'bag',
-                parts: []),
+                parts: [
+                  CategoryPart(
+                      name: "Danish", imgName: "pant", isSelected: true)
+                ]),
             SubCategory(
                 name: "Capri Pant",
                 icon: Icons.store_mall_directory_outlined,
@@ -59,7 +74,10 @@ class Utils {
                 MaxDays: 30,
                 imgName: 'capri_pant',
                 price: 25,
-                parts: []),
+                parts: [
+                  CategoryPart(
+                      name: "Danish", imgName: "pant", isSelected: true)
+                ]),
           ]),
       Category(
           color: Color.fromARGB(255, 6, 82, 45),
@@ -180,7 +198,7 @@ class Utils {
             SubCategory(
                 name: "Honda Civic",
                 icon: Icons.car_rental_outlined,
-                color: Colors.blueAccent,
+                color: const Color.fromARGB(255, 235, 182, 8),
                 price: 3000,
                 MaxDays: 10,
                 imgName: 'civic',
@@ -188,7 +206,7 @@ class Utils {
             SubCategory(
                 name: "Suzuki Bolan",
                 icon: Icons.car_rental_outlined,
-                color: Colors.blueAccent,
+                color: const Color.fromARGB(255, 235, 182, 8),
                 price: 2000,
                 MaxDays: 15,
                 imgName: 'bolan',
@@ -196,7 +214,7 @@ class Utils {
             SubCategory(
                 name: "Honda 125",
                 icon: Icons.car_rental_outlined,
-                color: Colors.blueAccent,
+                color: const Color.fromARGB(255, 235, 182, 8),
                 price: 800,
                 MaxDays: 10,
                 imgName: 'honda125',
@@ -204,7 +222,7 @@ class Utils {
             SubCategory(
                 name: "Kia Sportage",
                 icon: Icons.car_rental_outlined,
-                color: Color(0xFF448AFF),
+                color: const Color.fromARGB(255, 235, 182, 8),
                 price: 4500,
                 MaxDays: 12,
                 imgName: 'sporatge',
@@ -212,7 +230,7 @@ class Utils {
             SubCategory(
                 name: "Suzuki Cultus",
                 icon: Icons.car_rental_outlined,
-                color: Colors.blueAccent,
+                color: const Color.fromARGB(255, 235, 182, 8),
                 price: 3800,
                 MaxDays: 14,
                 imgName: 'cultus',
@@ -220,7 +238,7 @@ class Utils {
             SubCategory(
                 name: "Auto Rickshaw",
                 icon: Icons.car_rental_outlined,
-                color: Colors.blueAccent,
+                color: const Color.fromARGB(255, 235, 182, 8),
                 price: 800,
                 MaxDays: 25,
                 imgName: 'auto',
@@ -235,7 +253,7 @@ class Utils {
             SubCategory(
                 name: "Apartment",
                 icon: Icons.house_outlined,
-                color: Colors.blueAccent,
+                color: Colors.pinkAccent,
                 price: 2000,
                 MaxDays: 18,
                 imgName: 'apartment',
@@ -243,7 +261,7 @@ class Utils {
             SubCategory(
                 name: "House 6Marla",
                 icon: Icons.house_outlined,
-                color: Colors.blueAccent,
+                color: Colors.pinkAccent,
                 price: 1200,
                 MaxDays: 12,
                 imgName: 'house6',
@@ -251,7 +269,7 @@ class Utils {
             SubCategory(
                 name: "Penthouse",
                 icon: Icons.house_outlined,
-                color: Colors.blueAccent,
+                color: Colors.pinkAccent,
                 price: 3000,
                 MaxDays: 60,
                 imgName: 'penthouse',
@@ -259,7 +277,7 @@ class Utils {
             SubCategory(
                 name: "House 5Marla",
                 icon: Icons.house_outlined,
-                color: Colors.blueAccent,
+                color: Colors.pinkAccent,
                 price: 1000,
                 MaxDays: 25,
                 imgName: 'house5',
@@ -267,7 +285,7 @@ class Utils {
             SubCategory(
                 name: "Farms",
                 icon: Icons.house_outlined,
-                color: Colors.blueAccent,
+                color: Colors.pinkAccent,
                 price: 300,
                 MaxDays: 25,
                 imgName: 'farms',
@@ -275,7 +293,7 @@ class Utils {
             SubCategory(
                 name: "Farmhouse",
                 icon: Icons.house_outlined,
-                color: Colors.blueAccent,
+                color: Colors.pinkAccent,
                 price: 7000,
                 MaxDays: 5,
                 imgName: 'farmhouse',

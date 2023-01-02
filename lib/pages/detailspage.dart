@@ -253,9 +253,9 @@ class DetailsPageState extends State<DetailsPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => LoginView(
-                                            // category: widget.subCategory.name,
-                                            // days: widget.days,
-                                            // cost: widget.cost,
+                                          // category: widget.subCategory.name,
+                                          // days: widget.days,
+                                          // cost: widget.cost,
                                           )));
                             },
                             icon: const Icon(

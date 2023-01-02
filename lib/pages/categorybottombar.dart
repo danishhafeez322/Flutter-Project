@@ -22,7 +22,7 @@ class CategoryBottomBar extends StatelessWidget {
             color: Colors.black.withOpacity(0.2),
             offset: Offset.zero),
       ]),
-      height: 70,
+      height: 65,
       padding: const EdgeInsets.only(bottom: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

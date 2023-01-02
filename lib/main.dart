@@ -57,7 +57,7 @@ class WelcomePage extends StatelessWidget {
           child: Container(
             height: 1000,
             child: Column(
-              children: [MyDrawerHeader(), MyDrawerList()],
+              children: [MyDrawerHeader()],
             ),
           ),
         ),
@@ -163,77 +163,4 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget MyDrawerList() {
-  var currentPage = DrawerSection.lessor;
-  return Container(
-    padding: EdgeInsets.only(top: 15),
-    child: Column(
-      children: [
-        MenuItems(1, "Become a lessor", Icons.person_search_outlined,
-            currentPage == DrawerSection.lessor ? true : false),
-        MenuItems(2, "Contact us", Icons.people_alt_outlined,
-            currentPage == DrawerSection.contacts ? true : false),
-        MenuItems(3, "Events", Icons.event,
-            currentPage == DrawerSection.events ? true : false),
-        MenuItems(4, "Privacy policy", Icons.privacy_tip,
-            currentPage == DrawerSection.privacy_policy ? true : false),
-        MenuItems(5, "Send feedback", Icons.feedback_outlined,
-            currentPage == DrawerSection.send_feedback ? true : false),
-      ],
-    ),
-  );
-}
-
-class MenuItems extends StatelessWidget {
-  int id;
-  String title;
-  IconData icon;
-  bool selected;
-  MenuItems(this.id, this.title, this.icon, this.selected);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: selected ? Colors.grey[300] : Colors.transparent,
-      child: InkWell(
-        onTap: () {
-          if (id == 1) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Lessor()));
-          }
-        },
-        child: Padding(
-          padding: EdgeInsets.all(15.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: Icon(
-                  icon,
-                  size: 20,
-                  color: Colors.black,
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  title,
-                  style: TextStyle(color: Colors.black, fontSize: 16),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-enum DrawerSection {
-  contacts,
-  events,
-  lessor,
-  privacy_policy,
-  send_feedback,
 }

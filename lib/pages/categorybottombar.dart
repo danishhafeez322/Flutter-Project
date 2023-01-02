@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/pages/New%20Arrival.dart';
-import 'package:mad_project/pages/settings.dart';
+import 'package:mad_project/pages/Profile.dart';
+import 'package:mad_project/pages/lessee.dart';
 import 'package:mad_project/pages/upload.dart';
 import 'package:mad_project/screens/chats/chats_screen.dart';
 
 import '../helper/utils.dart';
 import '../main.dart';
 import '../models/category.dart';
-import 'lessee.dart';
 import 'notifications.dart';
 
 class CategoryBottomBar extends StatelessWidget {
@@ -68,7 +68,7 @@ class CategoryBottomBar extends StatelessWidget {
                     color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => settings()));
+                      MaterialPageRoute(builder: (context) => Profile()));
                 },
               ),
             ),

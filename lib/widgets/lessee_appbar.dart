@@ -25,29 +25,7 @@ class LesseeAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   crossAxisAlignment: CrossAxisAlignment.end,
-          //   children: <Widget>[
-          //     WhatsAppIcons(
-          //       icon: Icons.camera_alt_outlined,
-          //       right: 20.0,
-          //       color: WhatsAppColors.white.withOpacity(0.5),
-          //       ontap: () async {},
-          //     ),
-          //     WhatsAppIcons(
-          //       icon: Icons.search,
-          //       right: 20.0,
-          //       color: WhatsAppColors.white.withOpacity(0.5),
-          //       ontap: () async {},
-          //     ),
-          //     WhatsAppIcons(
-          //       icon: Icons.more_vert,
-          //       color: WhatsAppColors.white.withOpacity(0.5),
-          //       ontap: () async {},
-          //     ),
-          //   ],
-          // ),
+          
         ],
       ),
       bottom: TabBar(

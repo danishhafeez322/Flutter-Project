@@ -8,12 +8,14 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final String? hinttext;
+  final String? text;
 
   const CustomTextField({
     Key? key,
     this.height,
     this.width,
     this.hinttext,
+    this.text,
     this.suffixIcon,
     this.prefixIcon,
     this.child,
@@ -48,6 +50,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
+            controller: TextEditingController(text: text),
           ),
         ),
     );

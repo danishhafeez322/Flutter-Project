@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
+import 'package:mad_project/models/category.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/ImagePicker.dart';
 
 
-class UploadView extends StatelessWidget {  
-  const UploadView({Key? key}) : super(key: key);
+class EditDetailView extends StatefulWidget {  
+  final title, category, subCategory, description, price, guaranteePrice, days, quantity;
+  const EditDetailView(
+    {Key? key, this.title, this.category, this.subCategory, this.description, this.price, this.guaranteePrice, this.days, this.quantity}) : super(key: key);
 
+  @override
+  State<EditDetailView> createState() => _EditDetailViewState();
+}
+
+class _EditDetailViewState extends State<EditDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,19 +43,21 @@ class UploadView extends StatelessWidget {
                     height: context.height * 0.07,
                     width: context.width * 0.8,
                     hinttext: AppText.title,
+                    text:widget.title,
                     prefixIcon: const Icon(
                       Icons.title,
                       color: AppColors.uploadColor,
                     ),
+                    
                   ),
             context.emptySizedHeightBoxLow3x,
             Padding(
               padding: const EdgeInsets.only(left:50,right:50),
               child: Row(
                 children: [            
-                  MyDropdownButton(),
+                  MyDropdownButton(category: widget.category,),
                   Spacer(),
-                  MyDropdownButtonSubCategory(),
+                  MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
                 ],
               ),
             ),
@@ -56,7 +66,7 @@ class UploadView extends StatelessWidget {
               height: context.height * 0.1,
               width: context.width * 0.8,
               hinttext: AppText.description,
-              
+              text: widget.description,
               prefixIcon: const Icon(
                 Icons.description,
                 color: AppColors.uploadColor,
@@ -67,6 +77,7 @@ class UploadView extends StatelessWidget {
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.price,
+              text: widget.price,
               prefixIcon: const Icon(
                 Icons.price_change,
                 color: AppColors.uploadColor,
@@ -77,6 +88,7 @@ class UploadView extends StatelessWidget {
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.guaranteeprice,
+              text: widget.guaranteePrice,
               prefixIcon: const Icon(
                 Icons.price_check,
                 color: AppColors.uploadColor,
@@ -87,6 +99,7 @@ class UploadView extends StatelessWidget {
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.days,
+              text: widget.days,
               prefixIcon: const Icon(
                 Icons.lock_clock,
                 color: AppColors.uploadColor,
@@ -97,6 +110,7 @@ class UploadView extends StatelessWidget {
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.quantity,
+              text: widget.quantity,
               prefixIcon: const Icon(
                 Icons.production_quantity_limits,
                 color: AppColors.uploadColor,
@@ -105,7 +119,7 @@ class UploadView extends StatelessWidget {
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
               child: Text(
-                AppText.upload.toUpperCase(),
+                "Save".toUpperCase(),
                 style: const TextStyle(color: Colors.white),
               ),
               borderRadius: 20,
@@ -129,25 +143,34 @@ class UploadView extends StatelessWidget {
       alignment: Alignment.center,
 
       child: Text(
-        AppText.upload.toUpperCase(),
+        AppText.edit.toUpperCase(),
         style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }
-
 }
+
+
+
+
+
+
+
+
 class MyDropdownButton extends StatefulWidget {
-  const MyDropdownButton({super.key});
+  final category;
+  const MyDropdownButton({super.key,this.category});
 
   @override
   State<MyDropdownButton> createState() => _DropdownButtonState();
 }
 
 class _DropdownButtonState extends State<MyDropdownButton> {
-  String dropdownValue = AppText.list.first;
+  String dropdownValue = "";
 
   @override
   Widget build(BuildContext context) {
+    dropdownValue = widget.category;
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
@@ -172,19 +195,20 @@ class _DropdownButtonState extends State<MyDropdownButton> {
     );
   }
 }
-
 class MyDropdownButtonSubCategory extends StatefulWidget {
-  const MyDropdownButtonSubCategory({super.key});
+  final subCategory;
+  const MyDropdownButtonSubCategory({super.key,this.subCategory});
 
   @override
   State<MyDropdownButtonSubCategory> createState() => _DropdownButtonSubState();
 }
 
 class _DropdownButtonSubState extends State<MyDropdownButtonSubCategory> {
-  String dropdownValue = AppText.fashion_sub_list.first;
+  String dropdownValue = "";
 
   @override
   Widget build(BuildContext context) {
+    dropdownValue = widget.subCategory;
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
@@ -197,7 +221,7 @@ class _DropdownButtonSubState extends State<MyDropdownButtonSubCategory> {
       onChanged: (String? value) {
         // This is called when the user selects an item.
         setState(() {
-          dropdownValue = value!;
+          dropdownValue= value!;
         });
       },
       items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {

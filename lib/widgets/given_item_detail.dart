@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 // import 'package:mad_project/widgets/whatsapp_plus_button.dart';
 
 class GivenItemDetail extends StatelessWidget {
-  final String  user, briefChat, date;
+  final String  user, imageUrl, briefChat, date;
 
   const GivenItemDetail({
     super.key,
     required this.user,
+    required this.imageUrl,
     required this.briefChat,
     required this.date,
   });
@@ -19,9 +20,12 @@ class GivenItemDetail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 1, color: Colors.black),
+        borderRadius: BorderRadius.circular(20),
+      ),
         width: width,
         height: 75.0,
-        color: Colors.white,
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -30,19 +34,20 @@ class GivenItemDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 10.0),
-                //   child: ClipRRect(
-                //     borderRadius: BorderRadius.circular(40.0),
-                //     child: Image.asset(
-                //       width: 58.0,
-                //       height: 58.0,
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 40.0),
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(0.0),
+                    child: Image.asset(
+                      imageUrl,
+                      width: 58.0,
+                      height: 58.0,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
                   child: Row(
                     children: <Widget>[
                       Column(
@@ -74,13 +79,13 @@ class GivenItemDetail extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(right: 20.0),
                   child: Row(
                     children: <Widget>[
                       Text(
                         date,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.5),
+                          color: Colors.black.withOpacity(0.5),
                         ),
                       ),
                     ],

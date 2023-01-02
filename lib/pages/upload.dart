@@ -4,7 +4,10 @@ import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
+import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/widgets/ImagePicker.dart';
+
+import 'categorybottombar.dart';
 
 
 class UploadView extends StatelessWidget {  
@@ -13,116 +16,128 @@ class UploadView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MainAppBar(),
       body: _body(context),
     );
   }
 
-  SizedBox _body(BuildContext context) {
-    return SizedBox(
-      height: context.height * 1,
-      width: context.width * 1,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            context.emptySizedHeightBoxLow3x,
-            context.emptySizedHeightBoxLow3x,
-            topText(context),
-            // context.emptySizedHeightBoxLow3x,
-            // topImage(context),
-            MyImagePicker(),
-            context.emptySizedHeightBoxLow3x,
-            CustomTextField(
-                    height: context.height * 0.07,
-                    width: context.width * 0.8,
-                    hinttext: AppText.title,
-                    prefixIcon: const Icon(
-                      Icons.title,
-                      color: AppColors.uploadColor,
-                    ),
+  Stack _body(BuildContext context) {
+    return Stack(
+      children: [
+        SizedBox(
+          height: context.height * 1,
+          width: context.width * 1,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                topText(context),
+                // context.emptySizedHeightBoxLow3x,
+                // topImage(context),
+                MyImagePicker(),
+                context.emptySizedHeightBoxLow3x,
+                CustomTextField(
+                        height: context.height * 0.07,
+                        width: context.width * 0.8,
+                        hinttext: AppText.title,
+                        prefixIcon: const Icon(
+                          Icons.title,
+                          color: AppColors.uploadColor,
+                        ),
+                      ),
+                context.emptySizedHeightBoxLow3x,
+                Padding(
+                  padding: const EdgeInsets.only(left:50,right:50),
+                  child: Row(
+                    children: [            
+                      MyDropdownButton(),
+                      Spacer(),
+                      MyDropdownButtonSubCategory(),
+                    ],
                   ),
-            context.emptySizedHeightBoxLow3x,
-            Padding(
-              padding: const EdgeInsets.only(left:50,right:50),
-              child: Row(
-                children: [            
-                  MyDropdownButton(),
-                  Spacer(),
-                  MyDropdownButtonSubCategory(),
-                ],
-              ),
+                ),
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  height: context.height * 0.1,
+                  width: context.width * 0.8,
+                  hinttext: AppText.description,
+                  
+                  prefixIcon: const Icon(
+                    Icons.description,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.price,
+                  prefixIcon: const Icon(
+                    Icons.price_change,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.guaranteeprice,
+                  prefixIcon: const Icon(
+                    Icons.price_check,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow,            
+                CustomTextField(
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.days,
+                  prefixIcon: const Icon(
+                    Icons.lock_clock,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.quantity,
+                  prefixIcon: const Icon(
+                    Icons.production_quantity_limits,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow3x,
+                CustomElevatedButton(
+                  child: Text(
+                    AppText.upload.toUpperCase(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  borderRadius: 20,
+                  color: AppColors.uploadColor,
+                  height: context.height * 0.07,
+                  width: context.width * 0.6,
+                ),
+                context.emptySizedHeightBoxLow,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+              ],
             ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              height: context.height * 0.1,
-              width: context.width * 0.8,
-              hinttext: AppText.description,
-              
-              prefixIcon: const Icon(
-                Icons.description,
-                color: AppColors.uploadColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.price,
-              prefixIcon: const Icon(
-                Icons.price_change,
-                color: AppColors.uploadColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.guaranteeprice,
-              prefixIcon: const Icon(
-                Icons.price_check,
-                color: AppColors.uploadColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,            
-            CustomTextField(
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.days,
-              prefixIcon: const Icon(
-                Icons.lock_clock,
-                color: AppColors.uploadColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.quantity,
-              prefixIcon: const Icon(
-                Icons.production_quantity_limits,
-                color: AppColors.uploadColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow3x,
-            CustomElevatedButton(
-              child: Text(
-                AppText.upload.toUpperCase(),
-                style: const TextStyle(color: Colors.white),
-              ),
-              borderRadius: 20,
-              color: AppColors.uploadColor,
-              height: context.height * 0.07,
-              width: context.width * 0.6,
-            ),
-            context.emptySizedHeightBoxLow,
-          ],
+          ),
         ),
-      ),
+        Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: CategoryBottomBar(),
+          )
+      ],
     );
   }
 
   Container topText(BuildContext context) {
     return Container(
-      // border???
+      padding: const EdgeInsets.only(left: 5, right: 5),
       height: context.height * 0.04,
       width: context.width * 1,
       decoration: BoxDecoration(border: Border.all(color: Colors.black)),

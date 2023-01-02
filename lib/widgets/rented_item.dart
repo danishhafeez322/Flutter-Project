@@ -73,6 +73,7 @@ class RentedItem extends StatelessWidget {
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '22/3/22',
             ),
+            SizedBox(height: 70),
           ],
         ),
       ),

@@ -55,8 +55,9 @@ class _MyAppState extends State<LoginView> {
               ),
               suffixIcon: const Icon(Icons.remove_red_eye),
             ),
-            midText(context),
             context.emptySizedHeightBoxLow,
+            context.emptySizedHeightBoxLow3x,
+            context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
               child: Text(
                 
@@ -68,12 +69,6 @@ class _MyAppState extends State<LoginView> {
               height: context.height * 0.07,
               width: context.width * 0.6,
             ),
-            // context.emptySizedHeightBoxLow3x,
-            // const Text(AppText.or),
-            // context.emptySizedHeightBoxLow3x,
-            // const Text(AppText.loginwith),
-            // context.emptySizedHeightBoxLow,
-            // // socialIcon(context),
             bottomText(context),
           ],
         ),
@@ -94,50 +89,6 @@ class _MyAppState extends State<LoginView> {
       style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
     );
   }
-
-  SizedBox midText(BuildContext context) {
-    return SizedBox(
-      height: context.height * 0.1,
-      width: context.width * 0.85,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            children: [
-              Switch(
-                value: true,
-                onChanged: (value) {},
-                activeColor: Colors.white,
-                activeTrackColor: AppColors.loginColor,
-              ),
-              const Text(AppText.rememberMe),
-            ],
-          ),
-          const Text(
-            AppText.already,
-          ),
-        ],
-      ),
-    );
-  }
-
-  // SizedBox socialIcon(BuildContext context) {
-  //   return SizedBox(
-  //     height: context.height * 0.1,
-  //     width: context.width * 0.8,
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-  //       children: [
-  //         IconButton(
-  //             onPressed: null, icon: Image.asset('asset/images/google.png')),
-  //         IconButton(
-  //             onPressed: null, icon: Image.asset('asset/images/apple.png')),
-  //         IconButton(
-  //             onPressed: null, icon: Image.asset('asset/images/face.png')),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   SizedBox bottomText(BuildContext context) {
     return SizedBox(

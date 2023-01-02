@@ -6,6 +6,7 @@ import '../widgets/lessee_appbar.dart';
 import '../widgets/rented_item.dart';
 import '../widgets/posted_item.dart';
 import '../widgets/given_item.dart';
+import 'categorybottombar.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({super.key});
@@ -17,26 +18,40 @@ class UploadPage extends StatefulWidget {
 class _ChatsPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: const LesseeAppBar(),
-        body: const TabBarView(
-          children: <Widget>[
-            PostedItems(),
-            GivenItem(),
-            RentedItem(),
-          ],
+    return Stack(
+      children: [
+        DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: const LesseeAppBar(),
+            body: const TabBarView(
+              children: <Widget>[
+                PostedItems(),
+                GivenItem(),
+                RentedItem(),
+              ],
+            ),
+            floatingActionButton: Padding(
+              padding: const EdgeInsets.only(bottom:60.0),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UploadView()));
+                },
+                child: Icon(Icons.add),
+                backgroundColor: AppColors.uploadColor,
+              ),
+            ),
+          ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => UploadView()));
-          },
-          child: Icon(Icons.add),
-          backgroundColor: AppColors.uploadColor,
-        ),
-      ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: CategoryBottomBar(),
+        )
+        
+      ],
     );
   }
 }

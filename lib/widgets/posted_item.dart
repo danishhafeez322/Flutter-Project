@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:mad_project/widgets/posted_item_detail.dart';
 
 class PostedItems extends StatelessWidget {
@@ -71,6 +72,8 @@ class PostedItems extends StatelessWidget {
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '22/3/22',
             ),
+            SizedBox(height: 70),
+
           ],
         ),
       ),

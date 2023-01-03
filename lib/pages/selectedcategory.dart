@@ -4,11 +4,9 @@ import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/detailspage.dart';
 import 'package:mad_project/pages/subCategoryCard.dart';
 import 'package:mad_project/widgets/AppBar.dart';
-import 'package:mad_project/widgets/CategoryIcon.dart';
 
 import '../helper/utils.dart';
 import 'categorybottombar.dart';
-import 'categorycard.dart';
 
 // ignore: must_be_immutable
 class SelectedCategory extends StatelessWidget {

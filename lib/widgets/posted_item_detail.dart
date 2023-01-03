@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'DetailEdit.dart';
 
 class postedItemDetail extends StatelessWidget {
@@ -18,7 +17,7 @@ class postedItemDetail extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
       child: Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: Colors.black),
@@ -48,7 +47,7 @@ class postedItemDetail extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
+                  padding: const EdgeInsets.only(right: 20.0),
                   child: Row(
                     children: <Widget>[
                       Column(

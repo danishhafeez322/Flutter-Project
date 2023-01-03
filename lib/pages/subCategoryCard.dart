@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mad_project/models/category.dart';
 import 'package:mad_project/models/subcategory.dart';
 
 import '../widgets/CategoryIcon.dart';

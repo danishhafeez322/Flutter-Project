@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/widgets/tabs.dart';
 
-import '../pages/notification/notification_main.dart';
-
-class LesseeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const LesseeAppBar({super.key});
+class NotificationAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const NotificationAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(100.0);
@@ -29,11 +27,7 @@ class LesseeAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Material(
               child: IconButton(
                 icon: Icon(Icons.notifications),
-                onPressed: (() {
-                  Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyNotification()));
-
-                }),
+                onPressed: (() {}),
               ),
             ),
           ),
@@ -45,10 +39,8 @@ class LesseeAppBar extends StatelessWidget implements PreferredSizeWidget {
         labelColor: AppColors.uploadColor,
         unselectedLabelColor: Colors.black,
         tabs: const <Widget>[
-          MyTabs(text: 'Posted'),
-          MyTabs(text: 'Given'),
-          MyTabs(text: 'Rented'),
-          MyTabs(text: 'Booked'),
+          MyTabs(text: 'Notification'),
+          MyTabs(text: 'Offers'),
         ],
       ),
     );

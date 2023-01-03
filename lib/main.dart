@@ -5,9 +5,7 @@ import 'package:mad_project/pages/New%20Arrival.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/pages/categorycard.dart';
 import 'package:mad_project/pages/selectedcategory.dart';
-import 'package:mad_project/users/lessor.dart';
 import 'package:mad_project/widgets/Carousel.dart';
-import 'package:mad_project/widgets/MyDrawerHeader.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'helper/utils.dart';
 

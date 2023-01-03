@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../pages/notification/notification_main.dart';
+
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(50);
   bool flag;
@@ -25,7 +27,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Material(
               child: IconButton(
                 icon: Icon(Icons.notifications),
-                onPressed: (() {}),
+                onPressed: (() {
+                  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyNotification()));
+                }),
               ),
             ),
           ),

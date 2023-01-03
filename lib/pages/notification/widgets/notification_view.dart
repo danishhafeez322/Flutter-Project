@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mad_project/widgets/posted_item_detail.dart';
+import 'package:mad_project/widgets/rented_item_detail.dart';
 
-class PostedItems extends StatelessWidget {
-  const PostedItems({super.key});
+import 'noticifation_view_detail.dart';
+// import 'package:mad_project/colors/colors.dart';
+// import 'package:mad_project/widgets/whatsapp_contact.dart';
+
+class NotificationView extends StatelessWidget {
+  const NotificationView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,62 +21,52 @@ class PostedItems extends StatelessWidget {
         child: ListView(
           primary: false,
           children: const <Widget>[
-            postedItemDetail(
-              user: 'Shervin',               
-              imageUrl: "assets/images/bag.jpg",
+            NotificationViewDetail(
+              user: 'Shervin',
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '12/3/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Ava',
-              imageUrl: "assets/images/badminton.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '03/2/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Arman',
-              imageUrl: "assets/images/bats.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '23/8/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Alireza',
-              imageUrl: "assets/images/cultus.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '18/6/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Amir Mahdi',
-              imageUrl: "assets/images/bats.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '09/11/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Sorena',
-              imageUrl: "assets/images/bats.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '08/6/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Aria',
-              imageUrl: "assets/images/freezer.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '29/6/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Sobhan',
-              imageUrl: "assets/images/bag.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '25/6/22',
             ),
-            postedItemDetail(
+            NotificationViewDetail(
               user: 'Danial',
-              imageUrl: "assets/images/auto.jpg",
               briefChat: 'Lorem ipsum dolor sit amet',
               date: '22/3/22',
             ),
             SizedBox(height: 70),
-
           ],
         ),
       ),

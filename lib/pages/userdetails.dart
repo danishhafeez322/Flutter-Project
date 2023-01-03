@@ -5,7 +5,6 @@ import 'package:mad_project/main.dart';
 import 'package:mad_project/widgets/themebutton.dart';
 
 import 'categorybottombar.dart';
-import 'Registorpage.dart';
 
 class UserDetails extends StatefulWidget {
   int days = 1;

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:mad_project/colors/colors.dart';
-// import 'package:mad_project/widgets/whatsapp_plus_button.dart';
 
-class GivenItemDetail extends StatelessWidget {
-  final String  user, imageUrl, briefChat, date;
+class BookedItemDetail extends StatelessWidget {
+  final String user, imageUrl, briefChat, date;
 
-  const GivenItemDetail({
+  const BookedItemDetail({
     super.key,
     required this.user,
     required this.imageUrl,
@@ -18,7 +16,7 @@ class GivenItemDetail extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+      padding: const EdgeInsets.only(top: 8.0),
       child: Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1, color: Colors.black),
@@ -43,6 +41,7 @@ class GivenItemDetail extends StatelessWidget {
                       width: 58.0,
                       height: 58.0,
                       fit: BoxFit.cover,
+                      
                     ),
                   ),
                 ),
@@ -79,7 +78,7 @@ class GivenItemDetail extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: Row(
                     children: <Widget>[
                       Text(

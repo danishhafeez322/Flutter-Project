@@ -23,7 +23,7 @@ class MessagesScreen extends StatelessWidget {
           const BackButton(),
           const CircleAvatar(
             backgroundImage: AssetImage(
-              "assets/images/user_2.png",
+              "assets/images/profile.png",
             ),
           ),
           const SizedBox(

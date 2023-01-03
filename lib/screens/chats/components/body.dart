@@ -48,7 +48,9 @@ class Body extends StatelessWidget {
                       );
                     },
                     chat: chatsData[index],
-                  )),
+                  ),
+                  
+            ),
         ),
       ],
     );

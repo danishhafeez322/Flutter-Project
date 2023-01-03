@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/pages/upload.dart';
 
+import '../widgets/booked_item.dart';
 import '../widgets/lessee_appbar.dart';
 import '../widgets/rented_item.dart';
 import '../widgets/posted_item.dart';
@@ -21,7 +22,7 @@ class _ChatsPageState extends State<UploadPage> {
     return Stack(
       children: [
         DefaultTabController(
-          length: 3,
+          length: 4,
           child: Scaffold(
             appBar: const LesseeAppBar(),
             body: const TabBarView(
@@ -29,6 +30,7 @@ class _ChatsPageState extends State<UploadPage> {
                 PostedItems(),
                 GivenItem(),
                 RentedItem(),
+                BookedItem(),
               ],
             ),
             floatingActionButton: Padding(

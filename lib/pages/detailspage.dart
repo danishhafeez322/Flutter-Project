@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/models/subcategory.dart';
-import 'package:mad_project/pages/mappage.dart';
 import 'package:mad_project/widgets/CategoryIcon.dart';
-import 'package:mad_project/widgets/themebutton.dart';
 
 import '../core/constant/app_color.dart';
 import '../core/constant/app_text.dart';

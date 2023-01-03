@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
-import 'package:mad_project/models/category.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/AppBar.dart';
@@ -149,17 +148,21 @@ class _EditDetailViewState extends State<EditDetailView> {
     );
   }
 
+ 
   Container topText(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 5, right: 5),
-      height: context.height * 0.04,
+      height: context.height * 0.06,
       width: context.width * 1,
-      decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white),
+        color: AppColors.uploadColor,
+      ),
       alignment: Alignment.center,
 
       child: Text(
         AppText.edit.toUpperCase(),
-        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
+        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

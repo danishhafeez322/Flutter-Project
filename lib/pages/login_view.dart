@@ -83,10 +83,21 @@ class _MyAppState extends State<LoginView> {
     );
   }
 
-  Text topText(BuildContext context) {
-    return Text(
-      AppText.login.toUpperCase(),
-      style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
+  Container topText(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(left: 5, right: 5),
+      height: context.height * 0.06,
+      width: context.width * 1,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white),
+        color: AppColors.loginColor,
+      ),
+      alignment: Alignment.center,
+
+      child: Text(
+        AppText.login.toUpperCase(),
+        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+      ),
     );
   }
 

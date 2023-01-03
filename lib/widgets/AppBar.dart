@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(50);
-  const MainAppBar({super.key});
+  bool flag;
+  MainAppBar({super.key, this.flag = true});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: flag,
       title: const Text(
         "Rent it",
         style: TextStyle(

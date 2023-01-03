@@ -52,18 +52,20 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(Object context) {
     return Scaffold(
-      drawer: Drawer(
-        child: SingleChildScrollView(
-          child: Container(
-            height: 1000,
-            child: Column(
-              children: [MyDrawerHeader()],
-            ),
-          ),
-        ),
-        backgroundColor: Colors.white,
+      // drawer: Drawer(
+      //   child: SingleChildScrollView(
+      //     child: Container(
+      //       height: 1000,
+      //       child: Column(
+      //         children: [MyDrawerHeader()],
+      //       ),
+      //     ),
+      //   ),
+      //   backgroundColor: Colors.white,
+      // ),
+      appBar: MainAppBar(
+        flag: false,
       ),
-      appBar: MainAppBar(),
       body: Container(
         child: Stack(
           children: [

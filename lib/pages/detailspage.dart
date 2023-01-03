@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kartal/kartal.dart';
 import 'package:mad_project/models/subcategory.dart';
-import 'package:mad_project/pages/Registorpage.dart';
-import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/mappage.dart';
-import 'package:mad_project/pages/userdetails.dart';
 import 'package:mad_project/widgets/CategoryIcon.dart';
 import 'package:mad_project/widgets/themebutton.dart';
 
+import '../core/constant/app_color.dart';
+import '../core/constant/app_text.dart';
+import '../product/widget/custom_elevated_button.dart';
 import 'categorybottombar.dart';
+import 'login_view.dart';
 
 class DetailsPage extends StatefulWidget {
   int days = 1;
@@ -245,44 +247,41 @@ class DetailsPageState extends State<DetailsPage> {
                     child: Column(
                       children: [
                         GestureDetector(
-                          onTap: () {},
-                          child: ThemeButton(
-                            label: 'Rent it',
-                            onClick: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginView(
-                                          // category: widget.subCategory.name,
-                                          // days: widget.days,
-                                          // cost: widget.cost,
-                                          )));
-                            },
-                            icon: const Icon(
-                              Icons.shopping_cart,
-                              color: Colors.black,
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LoginView(
+                                        // category: widget.subCategory.name,
+                                        // days: widget.days,
+                                        // cost: widget.cost,
+                                        )));
+                          },
+                          child: CustomElevatedButton(
+                            child: Text(
+                              AppText.rentit.toUpperCase(),
+                              style: const TextStyle(color: Colors.white),
                             ),
-                            color: Colors.redAccent,
+                            borderRadius: 20,
+                            color: AppColors.uploadColor,
+                            height: context.height * 0.07,
+                            width: context.width * 0.8,
                           ),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         GestureDetector(
                           onTap: () {},
-                          child: ThemeButton(
-                            label: 'Product Location',
-                            onClick: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MapPage(
-                                            subCategory: widget.subCategory,
-                                          )));
-                            },
-                            icon: const Icon(
-                              Icons.location_pin,
-                              color: Colors.black,
+                          child: CustomElevatedButton(
+                            child: Text(
+                              AppText.ChatNow.toUpperCase(),
+                              style: const TextStyle(color: Colors.white),
                             ),
-                            color: Colors.green,
-                            highlight: Color.fromARGB(255, 20, 90, 22),
+                            borderRadius: 20,
+                            color: AppColors.chatColor,
+                            height: context.height * 0.07,
+                            width: context.width * 0.8,
                           ),
                         ),
                       ],
@@ -306,3 +305,41 @@ class DetailsPageState extends State<DetailsPage> {
     );
   }
 }
+
+
+// child: ThemeButton(
+                          //   label: 'Rent it',
+                          //   onClick: () {
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) => LoginView(
+                          //                 // category: widget.subCategory.name,
+                          //                 // days: widget.days,
+                          //                 // cost: widget.cost,
+                          //                 )));
+                          //   },
+                          //   icon: const Icon(
+                          //     Icons.shopping_cart,
+                          //     color: Colors.black,
+                          //   ),
+                          //   color: Colors.redAccent,
+                          // ),
+
+                          // child: ThemeButton(
+                          //   label: 'Product Location',
+                          //   onClick: () {
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) => MapPage(
+                          //                   subCategory: widget.subCategory,
+                          //                 )));
+                          //   },
+                          //   icon: const Icon(
+                          //     Icons.location_pin,
+                          //     color: Colors.black,
+                          //   ),
+                          //   color: Colors.green,
+                          //   highlight: Color.fromARGB(255, 20, 90, 22),
+                          // ),

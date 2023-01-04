@@ -23,6 +23,8 @@ class _MyAppState extends State<LoginView> {
 }
 
   SizedBox _body(BuildContext context) {
+    final controllerName = TextEditingController();
+    final controllerPassword = TextEditingController();
     return SizedBox(
       height: context.height * 1,
       width: context.width * 1,
@@ -35,6 +37,7 @@ class _MyAppState extends State<LoginView> {
             topText(context),
             context.emptySizedHeightBoxLow3x,
             CustomTextField(
+              controller: controllerName,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.email,
@@ -45,7 +48,7 @@ class _MyAppState extends State<LoginView> {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
-              
+              controller: controllerPassword,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.password,

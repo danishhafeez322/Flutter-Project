@@ -22,6 +22,16 @@ class UploadView extends StatelessWidget {
   }
 
   Stack _body(BuildContext context) {
+    
+    
+  final controllerName = TextEditingController();
+  final controllerAddress = TextEditingController();
+  final controllerCity = TextEditingController();
+  final controllerEmail = TextEditingController();
+  final controllerContact = TextEditingController();
+  final controllerCnic = TextEditingController();
+  final controllerPassword = TextEditingController();
+  final controllerConfirm = TextEditingController();
     return Stack(
       children: [
         SizedBox(
@@ -36,6 +46,7 @@ class UploadView extends StatelessWidget {
                 MyImagePicker(),
                 context.emptySizedHeightBoxLow3x,
                 CustomTextField(
+                  controller: controllerName,
                         height: context.height * 0.07,
                         width: context.width * 0.8,
                         hinttext: AppText.title,
@@ -57,6 +68,7 @@ class UploadView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerAddress,
                   height: context.height * 0.1,
                   width: context.width * 0.8,
                   hinttext: AppText.description,
@@ -68,6 +80,7 @@ class UploadView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerCity,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.price,
@@ -78,6 +91,7 @@ class UploadView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerEmail,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.guaranteeprice,
@@ -88,6 +102,7 @@ class UploadView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,            
                 CustomTextField(
+                  controller: controllerContact,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.days,
@@ -98,6 +113,7 @@ class UploadView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerCnic,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.quantity,

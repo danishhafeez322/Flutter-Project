@@ -3,7 +3,7 @@ class AppText {
   static const String signUp = "Sign Up";
   static const String email = "Email";
   static const String password = "Password";
-  static const String firstName = "Name";
+  static const String uname = "Username";
   static const String contact = "Contact";
   static const String cnic = "CNIC";
   static const String city = "City";
@@ -29,7 +29,10 @@ class AppText {
   static const String days = "Days";
   static const String description = "Description";
   static const String quantity = "Quantity";
+  
+  static int count = 1;
   static const List<String> list = <String>[
+    
     'Fashion',
     'Electronics',
     'Automobiles',

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
@@ -10,11 +11,7 @@ import '../categorybottombar.dart';
 
 
 class EditUserDetailView extends StatelessWidget {
-  final name, address, city, email, phone;
-
-
-
-  
+  final name, address, city, email, phone; 
   const EditUserDetailView({Key? key, this.name, this.address, this.city, this.email, this.phone}) : super(key: key);
 
   @override
@@ -26,6 +23,11 @@ class EditUserDetailView extends StatelessWidget {
   }
 
   Stack _body(BuildContext context) {
+  final controllerName = TextEditingController();
+  final controllerAddress = TextEditingController();
+  final controllerCity = TextEditingController();
+  final controllerEmail = TextEditingController();
+  final controllerContact = TextEditingController();
     return Stack(
       children: [
         SizedBox(
@@ -39,9 +41,10 @@ class EditUserDetailView extends StatelessWidget {
                 topText(context),
                 context.emptySizedHeightBoxLow3x,
                 CustomTextField(
+                  controller: controllerName,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
-                  hinttext: AppText.firstName,
+                  hinttext: AppText.uname,
                   text: name,
                   prefixIcon: const Icon(
                     Icons.person,
@@ -50,6 +53,7 @@ class EditUserDetailView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerEmail,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.email,
@@ -61,6 +65,7 @@ class EditUserDetailView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerAddress,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.address,
@@ -72,6 +77,7 @@ class EditUserDetailView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerCity,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.city,
@@ -83,6 +89,7 @@ class EditUserDetailView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow,            
                 CustomTextField(
+                  controller: controllerContact,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.contact,
@@ -94,6 +101,36 @@ class EditUserDetailView extends StatelessWidget {
                 ),
                 context.emptySizedHeightBoxLow3x,
                 CustomElevatedButton(
+                  onPressed: (){
+                    
+                final user = User(
+                  id: controllerName.text,
+                  name: controllerName.text,
+                  address: controllerAddress.text,
+                  city: controllerCity.text,
+                  email: controllerEmail.text,
+                  contact_no: int.parse(controllerContact.text),
+                  // isLogin: false,
+                  // isVerified: false,
+                  // rating: 5,
+                  );
+                // final user = User(
+                //   id: "my id",
+                //   name: "my name",
+                //   address: "my address",
+                //   city: "my city",
+                //   email: "my email",
+                //   contact_no: 789456123,
+                //   cnic: 6789456123,
+                //   password: " my password",
+                //   isLogin: false,
+                //   isVerified: false,
+                //   rating: 5,
+                //   );
+                  updateUser(user:user);
+                  Navigator.pop(context);
+                
+                  },
                   child: Text(
                     AppText.signUp.toUpperCase(),
                     style: const TextStyle(color: Colors.white),
@@ -135,4 +172,53 @@ class EditUserDetailView extends StatelessWidget {
       ),
     );
   }
+   Future updateUser({required User user}) async{
+    final docUser = await FirebaseFirestore.instance.collection('/users').doc().get();
+    final json = user.toMap();
+    await docUser.reference.set(json);    
+  }
 }
+
+class User{
+  String id;
+  final String name;
+  final String email;
+  final String address;
+  final String city;
+  final int contact_no;
+  // final int rating;
+  // final bool isLogin;
+  // final bool isVerified;
+
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.address,
+    required this.city,
+    required this.contact_no,
+    // required this.rating,
+    // required this.isLogin,
+    // required this.isVerified,
+  });
+
+  Map<String, dynamic> toMap(){
+    
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'address': address,
+      'city': city,
+      'contact_no': contact_no,
+      // 'isLogin': isLogin,
+      // 'isVerified': isVerified,
+      // 'rating': rating,
+    };
+
+  }
+
+
+}
+
+

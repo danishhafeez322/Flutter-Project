@@ -20,6 +20,16 @@ class EditDetailView extends StatefulWidget {
 }
 
 class _EditDetailViewState extends State<EditDetailView> {
+  final controllerTitle = TextEditingController();
+  final controllerCategory = TextEditingController();
+  final controllerSubCategory = TextEditingController();
+  final controllerDescription = TextEditingController();
+  final controllerPrice = TextEditingController();
+  final controllerGuaranteePrice = TextEditingController();
+  final controllerDays = TextEditingController();
+  final controllerQuantity = TextEditingController();
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +53,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                 MyImagePicker(),
                 context.emptySizedHeightBoxLow3x,
                 CustomTextField(
+                  controller: controllerTitle,
                         height: context.height * 0.07,
                         width: context.width * 0.8,
                         hinttext: AppText.title,
@@ -66,6 +77,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerDescription,
                   height: context.height * 0.1,
                   width: context.width * 0.8,
                   hinttext: AppText.description,
@@ -77,6 +89,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerPrice,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.price,
@@ -88,6 +101,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerGuaranteePrice,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.guaranteeprice,
@@ -99,6 +113,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,            
                 CustomTextField(
+                  controller: controllerDays,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.days,
@@ -110,6 +125,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerQuantity,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.quantity,

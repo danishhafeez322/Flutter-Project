@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final Widget? child;
   final double? height;
   final double? width;
@@ -9,23 +9,31 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final String? hinttext;
   final String? text;
+  final TextEditingController controller;
+  
 
   const CustomTextField({
     Key? key,
+    required this.controller,
     this.height,
     this.width,
     this.hinttext,
     this.text,
     this.suffixIcon,
     this.prefixIcon,
-    this.child,
+    this.child, 
   }) : super(key: key);
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: width ?? 250,
-      height: height ?? 50,
+      width: widget.width ?? 250,
+      height: widget.height ?? 50,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -40,9 +48,9 @@ class CustomTextField extends StatelessWidget {
         child: Center(
           child: TextField(
             decoration: InputDecoration(
-              prefixIcon: prefixIcon,
-              suffixIcon: suffixIcon,
-              hintText: hinttext,
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: widget.suffixIcon,
+              hintText: widget.hinttext,
               hintStyle: context.textTheme.bodyText1!
                   .copyWith(fontWeight: FontWeight.normal),
               border: OutlineInputBorder(
@@ -50,7 +58,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
             ),
-            controller: TextEditingController(text: text),
+            controller: widget.controller,
           ),
         ),
     );

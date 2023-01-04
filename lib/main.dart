@@ -14,8 +14,10 @@ Future<void> main() async {
   await Firebase.initializeApp();
 
   runApp(MaterialApp(
-      //debugShowCheckedModeBanner: false,
-      home: SplashPage(duration: 3, gotoPage: WelcomePage())));
+    // //debugShowCheckedModeBanner: false,
+    // home: SplashPage(duration: 3, gotoPage: WelcomePage()),
+    home: WelcomePage(),
+  ));
 }
 
 class SplashPage extends StatelessWidget {

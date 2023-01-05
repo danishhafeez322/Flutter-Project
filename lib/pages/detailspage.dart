@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
+import 'package:mad_project/main.dart';
 import 'package:mad_project/models/subcategory.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/widgets/DividerPlus.dart';
@@ -8,6 +10,7 @@ import '../core/constant/app_color.dart';
 import '../core/constant/app_text.dart';
 import '../product/widget/custom_elevated_button.dart';
 import '../widgets/DetailsCarousal.dart';
+import 'Registorpage.dart';
 import 'categorybottombar.dart';
 import 'login_view.dart';
 
@@ -273,11 +276,23 @@ class DetailsPageState extends State<DetailsPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => LoginView(
-                                            // category: widget.subCategory.name,
-                                            // days: widget.days,
-                                            // cost: widget.cost,
-                                            )));
+                                        builder: (context) => StreamBuilder<User?>(
+                                          stream: FirebaseAuth.instance.authStateChanges(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                              return RegisterView(
+                                                // category: widget.subCategory.name,
+                                                // days: widget.days,
+                                                // cost: widget.cost,
+                                              );
+                                            }
+                                            return LoginView(
+                                                // category: widget.subCategory.name,
+                                                // days: widget.days,
+                                                // cost: widget.cost,
+                                                );
+                                          }
+                                        )));
                               },
                               child: CustomElevatedButton(
                                 child: Text(

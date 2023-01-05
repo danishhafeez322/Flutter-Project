@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 
@@ -8,6 +9,14 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    print(currentUser!.email);
+    print(currentUser.uid);
+    print(currentUser.displayName);
+    print(currentUser.photoURL);
+    print(currentUser.phoneNumber);
+    print(currentUser.emailVerified);
+    print(currentUser.metadata);
     return Stack(
       children: [
         Container(
@@ -36,7 +45,7 @@ class ProfileHeader extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'User Name',
                     style: TextStyle(
                       color: Colors.white,
@@ -47,8 +56,8 @@ class ProfileHeader extends StatelessWidget {
                   const SizedBox(
                     height: 5,
                   ),
-                  const Text(
-                    'User Email',
+                  Text(
+                    'Email',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -70,7 +79,7 @@ class ProfileHeader extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const EditUserDetailView(
-                        name: "user1",
+                        name: "name",
                         email: "abc@gmail.com",
                         phone: "0123456789",
                         address: "ABC address",

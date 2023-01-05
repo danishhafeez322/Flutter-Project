@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
+import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/pages/New%20Arrival.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
@@ -9,13 +10,19 @@ import 'package:mad_project/widgets/Carousel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'helper/utils.dart';
 
+
+final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   runApp(MaterialApp(
+    navigatorKey: navigatorKey,
     // //debugShowCheckedModeBanner: false,
     // home: SplashPage(duration: 3, gotoPage: WelcomePage()),
+    routes: {
+        "login" : (context) => LoginView(),
+      },
     home: WelcomePage(),
   ));
 }

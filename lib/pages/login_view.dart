@@ -1,13 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
+import 'package:mad_project/pages/forgot_password_view.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
+import '../helper/utils.dart';
+import '../main.dart';
+import '../models/category.dart';
 import 'Registorpage.dart';
+import 'detailspage.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+
+
+  LoginView({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -23,8 +31,22 @@ class _MyAppState extends State<LoginView> {
 }
 
   SizedBox _body(BuildContext context) {
-    final controllerName = TextEditingController();
+  Category selectedCategory;
+  List<Category> categories = Utils.getMockedCategories();
+    final controllerEmail = TextEditingController();
     final controllerPassword = TextEditingController();
+       
+    Future signIn() async {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: controllerEmail.text.trim(), password: controllerPassword.text.trim())
+            .then((value) => Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => WelcomePage()
+                ))
+                )
+            .catchError((e) => print(e));
+      
+      }
     return SizedBox(
       height: context.height * 1,
       width: context.width * 1,
@@ -37,7 +59,7 @@ class _MyAppState extends State<LoginView> {
             topText(context),
             context.emptySizedHeightBoxLow3x,
             CustomTextField(
-              controller: controllerName,
+              controller: controllerEmail,
               height: context.height * 0.07,
               width: context.width * 0.8,
               hinttext: AppText.email,
@@ -62,8 +84,8 @@ class _MyAppState extends State<LoginView> {
             context.emptySizedHeightBoxLow3x,
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
-              child: Text(
-                
+              onPressed: ()=> signIn(),
+              child: Text(                
                 AppText.login.toUpperCase(),
                 style: const TextStyle(color: Colors.white),
               ),
@@ -72,12 +94,30 @@ class _MyAppState extends State<LoginView> {
               height: context.height * 0.07,
               width: context.width * 0.6,
             ),
+            context.emptySizedHeightBoxLow3x,
+            context.emptySizedHeightBoxLow3x,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ForgotPasswordView()),
+                );
+              },
+              child: const Text(
+                AppText.forgotPassword,
+                style: TextStyle(
+                  color: AppColors.loginColor,
+                  fontSize: 15,
+                ),
+              ),
+            ),
             bottomText(context),
           ],
         ),
       ),
     );
-  }
+ 
+}
 
   SizedBox topImage(BuildContext context) {
     return SizedBox(
@@ -130,4 +170,5 @@ class _MyAppState extends State<LoginView> {
         ],
       ),
     );
+  
   }

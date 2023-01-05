@@ -2,6 +2,7 @@ class AppText {
   static const String login = "Login";
   static const String signUp = "Sign Up";
   static const String email = "Email";
+  static const String send = "Send";
   static const String password = "Password";
   static const String uname = "Username";
   static const String contact = "Contact";

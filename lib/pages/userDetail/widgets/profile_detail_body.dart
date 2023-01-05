@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
+import 'package:mad_project/main.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -168,7 +170,14 @@ class ProfileBody extends StatelessWidget {
               height: 20,
             ),
             InkWell(
-              onTap: (){},
+              onTap:  () async{
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context){
+                  return WelcomePage();
+                }), (r){
+                  return false;
+                });
+              },
               child: Row(
                 children: [
                   const Icon(

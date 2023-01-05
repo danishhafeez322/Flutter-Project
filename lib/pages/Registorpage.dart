@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
+import 'package:mad_project/main.dart';
+import 'package:mad_project/pages/verify_email_view.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 
@@ -132,40 +136,32 @@ class RegisterView extends StatelessWidget {
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
               onPressed: (){                
-                final user = User(
-                  id: controllerName.text,
-                  name: controllerName.text,
-                  address: controllerAddress.text,
-                  city: controllerCity.text,
-                  email: controllerEmail.text,
-                  contact_no: int.parse(controllerContact.text),
-                  cnic: int.parse(controllerCnic.text),
-                  password: controllerPassword.text,
+                final user = MyUser(
+                  id: controllerName.text.trim(),
+                  uname: controllerName.text.trim(),
+                  address: controllerAddress.text.trim(),
+                  city: controllerCity.text.trim(),
+                  email: controllerEmail.text.trim(),
+                  contact_no: int.parse(controllerContact.text.trim()),
+                  cnic: int.parse(controllerCnic.text.trim()),
                   isLogin: false,
                   isVerified: false,
                   rating: 5,
                   );
-                // final user = User(
-                //   id: "my id",
-                //   name: "my name",
-                //   address: "my address",
-                //   city: "my city",
-                //   email: "my email",
-                //   contact_no: 789456123,
-                //   cnic: 6789456123,
-                //   password: " my password",
-                //   isLogin: false,
-                //   isVerified: false,
-                //   rating: 5,
-                //   );
                 if(controllerPassword.text == controllerConfirm.text){
-                  createUser(user:user);
-                  Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginView()));
+                  createUser(user:user,context: context,text: controllerPassword.text);                  
                 }
                 else{
-                  print("password not match");
+                  Fluttertoast.showToast(
+                    msg: "password not match",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                  );
+                  // print("password not match");
                 }
                 
               },
@@ -231,7 +227,7 @@ class RegisterView extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const LoginView()),
+                MaterialPageRoute(builder: (context) => LoginView()),
               );
             },
           )
@@ -240,86 +236,138 @@ class RegisterView extends StatelessWidget {
     );
   }
   
-  Future createUser({required User user}) async{
-    final docUser = await FirebaseFirestore.instance.collection('/users').doc("${AppText.count}");
-    AppText.count++;
-    
-    // if(docUser.exists){
-    //   count++;
-    // }
-    final json = user.toMap();
-    await docUser.set(json);
-    // await docUser.set(json);
-
-    
+  Future createUser({required MyUser user, required BuildContext context, required String text}) async{
+    // showDialog(
+    //   context: context,
+    //   barrierDismissible: false,
+    //   builder: (context) => const Center(child: CircularProgressIndicator())
+    // );
+    try {
+      final docUser = await FirebaseFirestore.instance.collection('/users').doc("${AppText.count}");
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: user.email,
+        password: text);
+      user.id = credential.user!.uid;      
+      final json = user.toMap();
+      await docUser.set(json);   
+      AppText.count++;
+      Fluttertoast.showToast(
+        msg: "Account Created Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+      );
+      print("object");
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  VerifyEmailPage()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        Fluttertoast.showToast(
+          msg: "The password provided is too weak./nPassword must be at least 6 characters",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
+        // print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        Fluttertoast.showToast(
+          msg: "The account already exists for that email.",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
+        // print('The account already exists for that email.');
+      }
+    }catch (e) {
+      Fluttertoast.showToast(
+          msg: "This email already has an account" + e.toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+        );
+      print(e);
+    }
+    // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());     
   }
-  Stream<List<User>> getUsers(){
+  Stream<List<MyUser>> getUsers(){
     final ref = FirebaseFirestore.instance.collection('/users');
     final snapshots = ref.snapshots();
-    return snapshots.map((snapshot) => snapshot.docs.map((doc) => User.fromMap(doc.data())).toList());
-  } 
-
-
+    return snapshots.map((snapshot) => 
+    snapshot.docs.map((
+      doc) => MyUser.fromMap(
+        doc.data()
+    )).toList());
+  }
 }
 
-class User{
+class MyUser{
   String id;
-  final String name;
+  final String uname;
   final String email;
   final String address;
   final String city;
   final int contact_no;
   final int cnic;
   final int rating;
-  final String password;
+  // final String password;
   final bool isLogin;
   final bool isVerified;
 
-  User({
+  MyUser({
     required this.id,
-    required this.name,
+    required this.uname,
     required this.email,
     required this.address,
     required this.city,
     required this.contact_no,
     required this.cnic,
     required this.rating,
-    required this.password,
+    // required this.password,
     required this.isLogin,
     required this.isVerified,
   });
 
-  Map<String, dynamic> toMap(){
-    
+  Map<String, dynamic> toMap(){    
     return {
       'id': id,
-      'name': name,
+      'uname': uname,
       'email': email,
       'address': address,
       'city': city,
       'contact_no': contact_no,
       'cnic': cnic,
-      'password': password,
+      // 'password': password,
       'isLogin': isLogin,
       'isVerified': isVerified,
       'rating': rating,
     };
   }
-  static User fromMap(Map<String, dynamic> map) => User(
-    address: map['address'],
-    city: map['city'],
-    cnic: map['cnic'], 
-    contact_no: map['contact_no'], 
+  static MyUser fromMap(Map<String, dynamic> map) => MyUser(
+    id: map['id'],     
+    uname: map['uname'], 
     email: map['email'], 
-    id: map['id'], 
+    contact_no: map['contact_no'], 
+    cnic: map['cnic'], 
+    city: map['city'],
+    address: map['address'],
+    rating: map['rating'],
     isLogin: map['isLogin'], 
     isVerified: map['isVerified'], 
-    name: map['name'], 
-    password: map['password'], 
-    rating: map['rating'],
+    // password: map['password'], 
     );
-
-
 }
 
 

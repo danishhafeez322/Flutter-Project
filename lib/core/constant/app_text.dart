@@ -45,6 +45,12 @@ class AppText {
     'womens',
     'Kids'
   ];
+  
+  
+  static const List<String> electronics_sub_list = <String>[
+    'Home Appliances',
+    'Gadgets',
+  ];
 
   static var cate = "";
 }

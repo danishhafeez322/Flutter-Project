@@ -1,11 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/AppBar.dart';
-import 'package:mad_project/widgets/ImagePicker.dart';
 
 import '../pages/categorybottombar.dart';
 
@@ -28,6 +29,24 @@ class _EditDetailViewState extends State<EditDetailView> {
   final controllerGuaranteePrice = TextEditingController();
   final controllerDays = TextEditingController();
   final controllerQuantity = TextEditingController();
+  final ImagePicker imgpicker = ImagePicker();
+  List<XFile>? imagefiles;
+
+  openImages() async {
+    try {
+        var pickedfiles = await imgpicker.pickMultiImage();
+        //you can use ImageCourse.camera for Camera capture
+        if(pickedfiles != null){
+            imagefiles = pickedfiles;
+            setState(() {
+            });
+        }else{
+            print("No image is selected.");
+        }
+    }catch (e) {
+        print("error while picking file.");
+    }
+  }
   
 
   @override
@@ -39,6 +58,8 @@ class _EditDetailViewState extends State<EditDetailView> {
   }
 
   Stack _body(BuildContext context) {
+    String dropdownValue = "";
+    String dropdownSubValue = "";
     return Stack(
       children: [
         SizedBox(
@@ -48,30 +69,112 @@ class _EditDetailViewState extends State<EditDetailView> {
             child: Column(
               children: [
                 topText(context),
-                // context.emptySizedHeightBoxLow3x,
-                // topImage(context),
-                MyImagePicker(),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                        //open button ----------------
+                        ElevatedButton.icon(
+                          icon: Icon(
+                            Icons.upload,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                          label: Text('Choose Images'),
+                          onPressed: () {
+                            openImages();
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(AppColors.uploadColor),
+                          ),
+                        ),
+                        Divider(),
+                        Text("Picked Files:"),
+                        Divider(),
+
+                        imagefiles != null?Wrap(
+                          children: imagefiles!.map((imageone){
+                              return Container(
+                                child:Card( 
+                                    child: Container(
+                                      height: 100, width:100,
+                                      child: Image.file(File(imageone.path)),
+                                    ),
+                                )
+                              );
+                          }).toList(),
+                        ):Container()
+                    ],
+                  ),
+                ),
                 context.emptySizedHeightBoxLow3x,
                 CustomTextField(
                   controller: controllerTitle,
-                        height: context.height * 0.07,
-                        width: context.width * 0.8,
-                        hinttext: AppText.title,
-                        text:widget.title,
-                        prefixIcon: const Icon(
-                          Icons.title,
-                          color: AppColors.uploadColor,
-                        ),
-                        
-                      ),
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.title,
+                  text:widget.title,
+                  prefixIcon: const Icon(
+                    Icons.title,
+                    color: AppColors.uploadColor,
+                  ),                        
+                ),
                 context.emptySizedHeightBoxLow3x,
                 Padding(
                   padding: const EdgeInsets.only(left:50,right:50),
                   child: Row(
                     children: [            
-                      MyDropdownButton(category: widget.category,),
+                      DropdownButton<String>(
+                        value: widget.category,
+                        icon: const Icon(Icons.arrow_downward),
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: AppColors.uploadColor,
+                        ),
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            dropdownValue = value!;
+                          });
+                          controllerCategory.text = dropdownValue;
+                          dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
+
+                        },
+                        items: AppText.list.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                       Spacer(),
-                      MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
+                      // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
+                      DropdownButton<String>(
+                        value: widget.subCategory,
+                        icon: const Icon(Icons.arrow_downward),
+                        elevation: 16,
+                        style: const TextStyle(color: Colors.black),
+                        underline: Container(
+                          height: 2,
+                          color: AppColors.uploadColor,
+                        ),
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            dropdownSubValue= value!;
+                          });
+                          controllerSubCategory.text = dropdownSubValue;
+                        },
+                        items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
                     ],
                   ),
                 ),
@@ -191,80 +294,80 @@ class _EditDetailViewState extends State<EditDetailView> {
 
 
 
-class MyDropdownButton extends StatefulWidget {
-  final category;
-  const MyDropdownButton({super.key,this.category});
+// class MyDropdownButton extends StatefulWidget {
+//   final category;
+//   const MyDropdownButton({super.key,this.category});
 
-  @override
-  State<MyDropdownButton> createState() => _DropdownButtonState();
-}
+//   @override
+//   State<MyDropdownButton> createState() => _DropdownButtonState();
+// }
 
-class _DropdownButtonState extends State<MyDropdownButton> {
-  String dropdownValue = "";
+// class _DropdownButtonState extends State<MyDropdownButton> {
+//   String dropdownValue = "";
 
-  @override
-  Widget build(BuildContext context) {
-    dropdownValue = widget.category;
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.black),
-      underline: Container(
-        height: 2,
-        color: AppColors.uploadColor,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      items: AppText.list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-}
-class MyDropdownButtonSubCategory extends StatefulWidget {
-  final subCategory;
-  const MyDropdownButtonSubCategory({super.key,this.subCategory});
+//   @override
+//   Widget build(BuildContext context) {
+//     dropdownValue = widget.category;
+//     return DropdownButton<String>(
+//       value: dropdownValue,
+//       icon: const Icon(Icons.arrow_downward),
+//       elevation: 16,
+//       style: const TextStyle(color: Colors.black),
+//       underline: Container(
+//         height: 2,
+//         color: AppColors.uploadColor,
+//       ),
+//       onChanged: (String? value) {
+//         // This is called when the user selects an item.
+//         setState(() {
+//           dropdownValue = value!;
+//         });
+//       },
+//       items: AppText.list.map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
+// class MyDropdownButtonSubCategory extends StatefulWidget {
+//   final subCategory;
+//   const MyDropdownButtonSubCategory({super.key,this.subCategory});
 
-  @override
-  State<MyDropdownButtonSubCategory> createState() => _DropdownButtonSubState();
-}
+//   @override
+//   State<MyDropdownButtonSubCategory> createState() => _DropdownButtonSubState();
+// }
 
-class _DropdownButtonSubState extends State<MyDropdownButtonSubCategory> {
-  String dropdownValue = "";
+// class _DropdownButtonSubState extends State<MyDropdownButtonSubCategory> {
+//   String dropdownValue = "";
 
-  @override
-  Widget build(BuildContext context) {
-    dropdownValue = widget.subCategory;
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.black),
-      underline: Container(
-        height: 2,
-        color: AppColors.uploadColor,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue= value!;
-        });
-      },
-      items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     dropdownValue = widget.subCategory;
+//     return DropdownButton<String>(
+//       value: dropdownValue,
+//       icon: const Icon(Icons.arrow_downward),
+//       elevation: 16,
+//       style: const TextStyle(color: Colors.black),
+//       underline: Container(
+//         height: 2,
+//         color: AppColors.uploadColor,
+//       ),
+//       onChanged: (String? value) {
+//         // This is called when the user selects an item.
+//         setState(() {
+//           dropdownValue= value!;
+//         });
+//       },
+//       items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {
+//         return DropdownMenuItem<String>(
+//           value: value,
+//           child: Text(value),
+//         );
+//       }).toList(),
+//     );
+//   }
+// }
 

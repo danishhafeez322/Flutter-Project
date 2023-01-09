@@ -329,65 +329,64 @@ Future getImagesUrl(List<XFile>? images ) async {
     imagesUrl.add(url);
   }
 }
+Future UploadItemToDatabase({required MyItem item, required BuildContext context, List<XFile>? imagefiles}) async{
+  // showDialog(
+  //   context: context,
+  //   barrierDismissible: false,
+  //   builder: (context) => const Center(child: CircularProgressIndicator())
+  // );
+  try {
+    if(item.images == null) 
+    {
+      Fluttertoast.showToast(
+      msg: "Please Select Images",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
+      );
+      return ;
+    }
+    else{
+      await getImagesUrl(imagefiles);
 
-  Future UploadItemToDatabase({required MyItem item, required BuildContext context, List<XFile>? imagefiles}) async{
-    // showDialog(
-    //   context: context,
-    //   barrierDismissible: false,
-    //   builder: (context) => const Center(child: CircularProgressIndicator())
-    // );
-    try {
-      if(item.images == null) 
-      {
-        Fluttertoast.showToast(
-        msg: "Please Select Images",
+      item.images = imagesUrl;
+      final docitem = await FirebaseFirestore.instance.collection('/Items').doc("${AppText.count}");
+          
+      final json = item.toMap();
+      print("object");
+      await docitem.set(json);   
+      AppText.count++;
+      Fluttertoast.showToast(
+        msg: "Item Added Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0
+      );
+      print("object");
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) =>  WelcomePage()));
+    }    
+  }catch (e) {
+    Fluttertoast.showToast(
+        msg: "" + e.toString(),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,
         textColor: Colors.white,
         fontSize: 16.0
-        );
-        return ;
-      }
-      else{
-        await getImagesUrl(imagefiles);
-
-        item.images = imagesUrl;
-        final docitem = await FirebaseFirestore.instance.collection('/Items').doc("${AppText.count}");
-           
-        final json = item.toMap();
-        print("object");
-        await docitem.set(json);   
-        AppText.count++;
-        Fluttertoast.showToast(
-          msg: "Item Added Successfully",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
-        print("object");
-        Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) =>  WelcomePage()));
-      }    
-    }catch (e) {
-      Fluttertoast.showToast(
-          msg: "" + e.toString(),
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
-      print(e);
-    }
-    // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());     
+      );
+    print(e);
   }
+  // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());     
+}
 
 
 class MyItem{
@@ -430,19 +429,19 @@ class MyItem{
 
     };
   }
-  static MyItem fromMap(Map<String, dynamic> map) => MyItem(
-    id: map['id'],     
-    title: map['title'],
-    category_id: map['category_id'],
-    user_id: map['user_id'],
-    description: map['description'],
-    price: map['price'],
-    guarantee_price: map['guarantee_price'],
-    quantity: map['quantity'],
-    images: map['images'],
-    status: map['status'],
+  // static MyItem fromMap(Map<String, dynamic> map) => MyItem(
+  //   id: map['id'],     
+  //   title: map['title'],
+  //   category_id: map['category_id'],
+  //   user_id: map['user_id'],
+  //   description: map['description'],
+  //   price: map['price'],
+  //   guarantee_price: map['guarantee_price'],
+  //   quantity: map['quantity'],
+  //   images: map['images'],
+  //   status: map['status'],
 
-    );
+  //   );
 }
 
 

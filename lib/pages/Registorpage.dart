@@ -137,7 +137,6 @@ class RegisterView extends StatelessWidget {
             CustomElevatedButton(
               onPressed: (){                
                 final user = MyUser(
-                  id: controllerName.text.trim(),
                   uname: controllerName.text.trim(),
                   address: controllerAddress.text.trim(),
                   city: controllerCity.text.trim(),
@@ -184,7 +183,6 @@ class RegisterView extends StatelessWidget {
 
   SizedBox topImage(BuildContext context) {
     return SizedBox(
-      // height: context.height * 0.2,
       child: Image.asset('assets/images/register.png'),
     );
   }
@@ -200,7 +198,6 @@ class RegisterView extends StatelessWidget {
         color: AppColors.loginColor,
       ),
       alignment: Alignment.center,
-
       child: Text(
         AppText.signUp.toUpperCase(),
         style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
@@ -243,11 +240,11 @@ class RegisterView extends StatelessWidget {
     //   builder: (context) => const Center(child: CircularProgressIndicator())
     // );
     try {
-      final docUser = await FirebaseFirestore.instance.collection('/users').doc("${AppText.count}");
       final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: user.email,
         password: text);
-      user.id = credential.user!.uid;      
+      final docUser = await FirebaseFirestore.instance.collection('/users').doc(credential.user!.uid);
+      
       final json = user.toMap();
       await docUser.set(json);   
       AppText.count++;
@@ -314,20 +311,17 @@ class RegisterView extends StatelessWidget {
 }
 
 class MyUser{
-  String id;
-  final String uname;
-  final String email;
-  final String address;
-  final String city;
-  final int contact_no;
-  final int cnic;
-  final int rating;
-  // final String password;
-  final bool isLogin;
-  final bool isVerified;
+  String uname;
+  String email;
+  String address;
+  String city;
+  int contact_no;
+  int cnic;
+  int rating;
+  bool isLogin;
+  bool isVerified;
 
   MyUser({
-    required this.id,
     required this.uname,
     required this.email,
     required this.address,
@@ -335,28 +329,24 @@ class MyUser{
     required this.contact_no,
     required this.cnic,
     required this.rating,
-    // required this.password,
     required this.isLogin,
     required this.isVerified,
   });
 
   Map<String, dynamic> toMap(){    
     return {
-      'id': id,
       'uname': uname,
       'email': email,
       'address': address,
       'city': city,
       'contact_no': contact_no,
       'cnic': cnic,
-      // 'password': password,
       'isLogin': isLogin,
       'isVerified': isVerified,
       'rating': rating,
     };
   }
   static MyUser fromMap(Map<String, dynamic> map) => MyUser(
-    id: map['id'],     
     uname: map['uname'], 
     email: map['email'], 
     contact_no: map['contact_no'], 
@@ -366,7 +356,6 @@ class MyUser{
     rating: map['rating'],
     isLogin: map['isLogin'], 
     isVerified: map['isVerified'], 
-    // password: map['password'], 
     );
 }
 

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:mad_project/pages/Registorpage.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 
 import '../categorybottombar.dart';
@@ -7,7 +8,8 @@ import 'widgets/profile_detail.dart';
 import 'widgets/profile_detail_body.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
+
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -22,8 +24,8 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Column(
             children: [
-              const ProfileHeader(),
-              const ProfileBody(),
+              ProfileHeader(),
+              ProfileBody(),
             ],
           ),
           Positioned(

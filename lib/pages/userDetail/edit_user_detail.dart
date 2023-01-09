@@ -10,24 +10,34 @@ import 'package:mad_project/widgets/AppBar.dart';
 import '../categorybottombar.dart';
 
 
-class EditUserDetailView extends StatelessWidget {
-  final name, address, city, email, phone; 
-  const EditUserDetailView({Key? key, this.name, this.address, this.city, this.email, this.phone}) : super(key: key);
+class EditUserDetailView extends StatefulWidget {
+  String name, address, city, email, phone; 
+  EditUserDetailView({Key? key, required this.name, required this.address, required this.city, required this.email, required this.phone}) : super(key: key);
 
+  @override
+  State<EditUserDetailView> createState() => _EditUserDetailViewState();
+}
+
+class _EditUserDetailViewState extends State<EditUserDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
-      body: _body(context),
+      body: _body(context, name :widget.name, address:widget.address, city: widget.city, email:widget.email, phone:widget.phone),
     );
   }
 
-  Stack _body(BuildContext context) {
+  Stack _body(BuildContext context, {required String name, required String address, required String city, required String email, required String phone}) {
   final controllerName = TextEditingController();
   final controllerAddress = TextEditingController();
   final controllerCity = TextEditingController();
   final controllerEmail = TextEditingController();
   final controllerContact = TextEditingController();
+  controllerName.text = name;
+  controllerAddress.text = address;
+  controllerCity.text = city;
+  controllerEmail.text = email;
+  controllerContact.text = phone;
     return Stack(
       children: [
         SizedBox(
@@ -172,6 +182,7 @@ class EditUserDetailView extends StatelessWidget {
       ),
     );
   }
+
    Future updateUser({required User user}) async{
     final docUser = await FirebaseFirestore.instance.collection('/users').doc().get();
     final json = user.toMap();

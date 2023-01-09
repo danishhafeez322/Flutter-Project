@@ -21,15 +21,8 @@ class EditDetailView extends StatefulWidget {
 }
 
 class _EditDetailViewState extends State<EditDetailView> {
-  final controllerTitle = TextEditingController();
-  final controllerCategory = TextEditingController();
-  final controllerSubCategory = TextEditingController();
-  final controllerDescription = TextEditingController();
-  final controllerPrice = TextEditingController();
-  final controllerGuaranteePrice = TextEditingController();
-  final controllerDays = TextEditingController();
-  final controllerQuantity = TextEditingController();
   final ImagePicker imgpicker = ImagePicker();
+
   List<XFile>? imagefiles;
 
   openImages() async {
@@ -51,6 +44,7 @@ class _EditDetailViewState extends State<EditDetailView> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: MainAppBar(),
       body: _body(context),
@@ -58,6 +52,26 @@ class _EditDetailViewState extends State<EditDetailView> {
   }
 
   Stack _body(BuildContext context) {
+    
+  final controllerTitle = TextEditingController();
+  final controllerCategory = TextEditingController();
+  final controllerSubCategory = TextEditingController();
+  final controllerDescription = TextEditingController();
+  final controllerPrice = TextEditingController();
+  final controllerGuaranteePrice = TextEditingController();
+  final controllerDays = TextEditingController();
+  final controllerQuantity = TextEditingController();
+  
+  controllerTitle.text = widget.title;
+  controllerCategory.text = widget.category;
+  controllerSubCategory.text = widget.subCategory;
+  controllerDescription.text = widget.description;
+  controllerPrice.text = widget.price;
+  controllerGuaranteePrice.text = widget.guaranteePrice;
+  controllerDays.text = widget.days;
+  controllerQuantity.text = widget.quantity;
+  
+
     String dropdownValue = "";
     String dropdownSubValue = "";
     return Stack(

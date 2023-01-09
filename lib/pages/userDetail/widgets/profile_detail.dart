@@ -1,26 +1,48 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 
+import '../../Registorpage.dart';
 import '../edit_user_detail.dart';
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends StatefulWidget {
   const ProfileHeader({Key? key}) : super(key: key);
 
   @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
+  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: " ", city: " ", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+    Future<void> myCurrentUser() async{  
+      
+      final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
+      final doc = await docUser.get();
+      if(doc.exists)
+      {        
+        currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+      }
+      else
+      {
+       currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+        
+      } 
+    }
+    void initState()  {
+      super.initState();
+       myCurrentUser();
+      setState(() {
+        
+      });
+    }
+  @override
   Widget build(BuildContext context) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    print(currentUser!.email);
-    print(currentUser.uid);
-    print(currentUser.displayName);
-    print(currentUser.photoURL);
-    print(currentUser.phoneNumber);
-    print(currentUser.emailVerified);
-    print(currentUser.metadata);
+    // myCurrentUser();
+    
     return Stack(
       children: [
         Container(
-
           height: 200,
           decoration: const BoxDecoration(
             color: AppColors.chatColor,
@@ -46,7 +68,7 @@ class ProfileHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'User Name',
+                    currentUser.uname,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -57,7 +79,7 @@ class ProfileHeader extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    'Email',
+                    currentUser.email,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -78,12 +100,12 @@ class ProfileHeader extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const EditUserDetailView(
-                        name: "name",
-                        email: "abc@gmail.com",
-                        phone: "0123456789",
-                        address: "ABC address",
-                        city: "ABC city",                        
+                      builder: (context) => EditUserDetailView(
+                        name: currentUser.uname,
+                        email: currentUser.email,
+                        phone: currentUser.contact_no.toString(),
+                        address: currentUser.address,
+                        city: currentUser.city,                        
                       ),
                     ),
                   );

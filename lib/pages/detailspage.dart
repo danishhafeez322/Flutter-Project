@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/main.dart';
 import 'package:mad_project/models/subcategory.dart';
@@ -17,7 +18,13 @@ import 'login_view.dart';
 class DetailsPage extends StatefulWidget {
   int days = 1;
   double cost = 0.0;
+  bool isVisible = false;
   SubCategory subCategory;
+  final controllerStartDate1 = TextEditingController();
+  final controllerEndDate1 = TextEditingController();
+
+  final controllerStartDate2 = TextEditingController();
+  final controllerEndDate2 = TextEditingController();
   DetailsPage({
     Key? key,
     required this.subCategory,
@@ -35,12 +42,12 @@ class DetailsPageState extends State<DetailsPage> {
         child: Stack(children: [
           SingleChildScrollView(
             child: Container(
-              height: 800,
+              height: 900,
               child: Column(children: [
                 Stack(
                   children: [
                     Container(
-                      height: 190,
+                      height: 200,
                       child: DetailsCarousal(),
                     ),
                   ],
@@ -104,7 +111,7 @@ class DetailsPageState extends State<DetailsPage> {
                       top: 0, right: 20, left: 20, bottom: 5),
                   child: Column(children: [
                     Text('Description: ',
-                        textDirection: TextDirection.ltr,
+                        // textDirection: TextDirection.ltr,
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
@@ -117,153 +124,121 @@ class DetailsPageState extends State<DetailsPage> {
                       "To be filled description of the item",
                       maxLines: 4,
                       overflow: TextOverflow.clip,
-                      textDirection: TextDirection.ltr,
+                      // textDirection: TextDirection.ltr,
                       textAlign: TextAlign.justify,
                     ),
                   ]),
                 ),
                 dividerPlus(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Column(
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 5),
+                  child: Container(
+                    height: 35,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 10),
-                          child: Text.rich(TextSpan(children: [
-                            const TextSpan(text: 'Available from '),
-                            const TextSpan(
-                                text: '{this date}',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            TextSpan(
-                                text:
-                                    ' to {this date} ${widget.subCategory.MaxDays} days',
-                                style: const TextStyle(fontSize: 16))
-                          ])),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10, right: 10, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Text('Start Date and end date picker here'),
-                                  // CalendarDatePicker(
-                                  //   initialDate: DateTime.now(),
-                                  //   firstDate: DateTime.now(),
-                                  //   lastDate:
-                                  //       DateTime.now().add(Duration(days: 365)),
-                                  //   onDateChanged: (DateTime date) {
-                                  //     setState(() {
-                                  //       // widget.subCategory.startDate = date;
-                                  //     });
-                                  //   },
-                                  // ),
-                                ],
-                              ),
-                              Column()
-                            ],
-                          ),
-                        ),
                         Container(
-                          height: 50,
-                          padding: const EdgeInsets.all(10),
-                          margin: const EdgeInsets.only(left: 20, right: 20),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 8,
-                                  offset: Offset.zero,
-                                  color: Colors.black87.withOpacity(0.1),
-                                )
-                              ]),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: widget.days > 1
-                                    ? () {
-                                        //To decrement
-                                        setState(() {
-                                          widget.days--;
-                                          widget.cost =
-                                              widget.subCategory.price *
-                                                  widget.days;
-                                        });
-                                      }
-                                    : null,
-                                child: const Icon(
-                                  Icons.remove_circle_outline,
-                                  size: 35,
-                                  color: Colors.red,
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Center(
-                                    child: Text.rich(
-                                      TextSpan(children: [
-                                        TextSpan(
-                                          text: widget.days.toString(),
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        const TextSpan(
-                                          text: ' day(s)',
-                                          style: TextStyle(fontSize: 16),
-                                        )
-                                      ]),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: widget.days < widget.subCategory.MaxDays
-                                    ? () {
-                                        //To Increment
-                                        setState(() {
-                                          widget.days++;
-                                          widget.cost =
-                                              widget.subCategory.price *
-                                                  widget.days;
-                                        });
-                                      }
-                                    : null,
-                                child: const Icon(
-                                  Icons.add_circle_outline,
-                                  size: 35,
-                                  color: Colors.green,
-                                ),
-                              ),
-                            ],
-                          ),
+                          width: 160,
+                          child: TextField(
+                              controller: widget
+                                  .controllerStartDate1, //editing controller of this TextField
+                              decoration: const InputDecoration(
+                                  fillColor: Colors.green,
+                                  icon: Icon(Icons
+                                      .calendar_today), //icon of text field
+                                  hintText: "Start Date"),
+                              readOnly: true,
+                              onTap: () async {
+                                //when click we have to show the datepicker
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime
+                                        .now(), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+                                if (pickedDate != null) {
+                                  String formattedDate =
+                                      DateFormat('dd-MM-yyyy').format(
+                                          pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+
+                                  setState(() {
+                                    widget.controllerStartDate1.text =
+                                        formattedDate; //set foratted date to TextField value.
+                                  });
+                                  // print(controllerStartDate.text);
+                                } else {
+                                  print("Date is not selected");
+                                }
+                              }),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, right: 25, left: 25, bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(text: 'Total rent price: '),
-                                ]),
-                              ),
-                              Text(
-                                widget.cost > 0
-                                    ? '${widget.cost}'
-                                    : '${widget.cost = widget.subCategory.price}',
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              )
-                            ],
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Container(
+                            width: 150,
+                            child: TextField(
+                                controller: widget
+                                    .controllerEndDate1, //editing controller of this TextField
+                                decoration: const InputDecoration(
+                                  fillColor: Colors.green,
+                                  icon: Icon(Icons
+                                      .calendar_today), //icon of text field
+                                  hintText: "End Date",
+                                ),
+                                readOnly:
+                                    true, // when true user cannot edit text
+                                onTap: () async {
+                                  //when click we have to show the datepicker
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate:
+                                          DateTime.now(), //get today's date
+                                      firstDate: DateTime
+                                          .now(), //DateTime.now() - not to allow to choose before today.
+                                      lastDate: DateTime(2101));
+                                  if (pickedDate != null) {
+                                    String formattedDate =
+                                        DateFormat('dd-MM-yyyy')
+                                            .format(pickedDate);
+
+                                    setState(() {
+                                      widget.controllerEndDate1.text =
+                                          formattedDate; //set foratted date to TextField value.
+                                    });
+                                  } else {
+                                    print("Date is not selected");
+                                  }
+                                }),
                           ),
                         )
                       ],
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 10, right: 25, left: 25, bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text.rich(
+                            TextSpan(children: [
+                              TextSpan(text: 'Total rent price: '),
+                            ]),
+                          ),
+                          Text(
+                            widget.cost > 0
+                                ? '${widget.cost}'
+                                : '${widget.cost = widget.subCategory.price}',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )
+                        ],
+                      ),
                     ),
                     Container(
                       child: Padding(
@@ -329,46 +304,173 @@ class DetailsPageState extends State<DetailsPage> {
                 ),
                 dividerPlus(),
                 Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 15, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Your Offer Price:",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.only(top: 10),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: CustomElevatedButton(
+                      child: Text(
+                        "Create Your Offer".toUpperCase(),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 14),
                       ),
-                      Container(
-                        width: 180,
-                        height: 40,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: "Enter Your Price",
-                          ),
-                          maxLines: 1,
-                          keyboardType: TextInputType.number,
-                        ),
-                      ),
-                    ],
+                      borderRadius: 20,
+                      color: Color.fromARGB(255, 7, 67, 71),
+                      height: context.height * 0.07,
+                      width: context.width * 0.7,
+                      onPressed: () {
+                        setState(() {
+                          widget.isVisible = true;
+                        });
+                      },
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Column(children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: CustomElevatedButton(
-                        child: Text(
-                          "Send Offer".toUpperCase(),
-                          style: const TextStyle(color: Colors.white),
+                Visibility(
+                  visible: widget.isVisible,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 15, left: 20, right: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 40,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: "Your Price",
+                            ),
+                            maxLines: 1,
+                            keyboardType: TextInputType.number,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        borderRadius: 20,
-                        color: Color.fromARGB(255, 2, 65, 15),
-                        height: context.height * 0.07,
-                        width: context.width * 0.4,
+                        Container(
+                          width: 150,
+                          height: 40,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: "Gauarnteed Price",
+                            ),
+                            maxLines: 1,
+                            keyboardType: TextInputType.number,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: widget.isVisible,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 5),
+                    child: Container(
+                      height: 35,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 160,
+                            child: TextField(
+                                controller: widget
+                                    .controllerStartDate2, //editing controller of this TextField
+                                decoration: const InputDecoration(
+                                    fillColor: Colors.green,
+                                    icon: Icon(Icons
+                                        .calendar_today), //icon of text field
+                                    hintText: "Start Date"),
+                                readOnly: true,
+                                onTap: () async {
+                                  //when click we have to show the datepicker
+                                  DateTime? pickedDate = await showDatePicker(
+                                      context: context,
+                                      initialDate:
+                                          DateTime.now(), //get today's date
+                                      firstDate: DateTime
+                                          .now(), //DateTime.now() - not to allow to choose before today.
+                                      lastDate: DateTime(2101));
+                                  if (pickedDate != null) {
+                                    String formattedDate =
+                                        DateFormat('dd-MM-yyyy').format(
+                                            pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+
+                                    setState(() {
+                                      widget.controllerStartDate2.text =
+                                          formattedDate; //set foratted date to TextField value.
+                                    });
+                                    // print(controllerStartDate.text);
+                                  } else {
+                                    print("Date is not selected");
+                                  }
+                                }),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Container(
+                              width: 150,
+                              child: TextField(
+                                  controller: widget
+                                      .controllerEndDate2, //editing controller of this TextField
+                                  decoration: const InputDecoration(
+                                    fillColor: Colors.green,
+                                    icon: Icon(Icons
+                                        .calendar_today), //icon of text field
+                                    hintText: "End Date",
+                                  ),
+                                  readOnly:
+                                      true, // when true user cannot edit text
+                                  onTap: () async {
+                                    //when click we have to show the datepicker
+                                    DateTime? pickedDate = await showDatePicker(
+                                        context: context,
+                                        initialDate:
+                                            DateTime.now(), //get today's date
+                                        firstDate: DateTime
+                                            .now(), //DateTime.now() - not to allow to choose before today.
+                                        lastDate: DateTime(2101));
+                                    if (pickedDate != null) {
+                                      String formattedDate =
+                                          DateFormat('dd-MM-yyyy')
+                                              .format(pickedDate);
+
+                                      setState(() {
+                                        widget.controllerEndDate2.text =
+                                            formattedDate; //set foratted date to TextField value.
+                                      });
+                                    } else {
+                                      print("Date is not selected");
+                                    }
+                                  }),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ]),
+                  ),
+                ),
+                Visibility(
+                  visible: widget.isVisible,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Column(children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: CustomElevatedButton(
+                          child: Text(
+                            "Send Offer".toUpperCase(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          borderRadius: 20,
+                          color: Color.fromARGB(255, 2, 65, 15),
+                          height: context.height * 0.07,
+                          width: context.width * 0.4,
+                        ),
+                      ),
+                    ]),
+                  ),
                 ),
               ]),
             ),

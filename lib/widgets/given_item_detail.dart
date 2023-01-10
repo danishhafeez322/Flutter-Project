@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // import 'package:mad_project/widgets/whatsapp_plus_button.dart';
 
 class GivenItemDetail extends StatelessWidget {
-  final String  user, imageUrl, briefChat, date;
+  final String user, imageUrl, briefChat, date;
 
   const GivenItemDetail({
     super.key,
@@ -20,10 +20,10 @@ class GivenItemDetail extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
       child: Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 1, color: Colors.black),
-        borderRadius: BorderRadius.circular(20),
-      ),
+        decoration: BoxDecoration(
+          border: Border.all(width: 1, color: Colors.black),
+          borderRadius: BorderRadius.circular(20),
+        ),
         width: width,
         height: 75.0,
         child: Material(
@@ -47,7 +47,7 @@ class GivenItemDetail extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
+                  padding: const EdgeInsets.only(right: 2.0),
                   child: Row(
                     children: <Widget>[
                       Column(
@@ -61,7 +61,7 @@ class GivenItemDetail extends StatelessWidget {
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.normal,
-                                fontSize: 20.0,
+                                fontSize: 14.0,
                               ),
                             ),
                           ),
@@ -79,7 +79,7 @@ class GivenItemDetail extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
+                  padding: const EdgeInsets.only(right: 10.0),
                   child: Row(
                     children: <Widget>[
                       Text(

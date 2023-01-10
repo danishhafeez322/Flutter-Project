@@ -26,8 +26,12 @@ class _ProfileHeaderState extends State<ProfileHeader> {
       else
       {
        currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+       
         
-      } 
+      }
+      setState(() {
+         
+       }); 
     }
     void initState()  {
       super.initState();
@@ -38,7 +42,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
     }
   @override
   Widget build(BuildContext context) {
-    // myCurrentUser();
+    myCurrentUser();
     
     return Stack(
       children: [

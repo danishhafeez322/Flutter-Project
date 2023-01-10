@@ -59,6 +59,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
             ),
             controller: widget.controller,
+            
+            
           ),
         ),
     );

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
@@ -111,19 +112,9 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                 ),
                 context.emptySizedHeightBoxLow3x,
                 CustomElevatedButton(
-                  onPressed: (){
+                  onPressed: () async{
                     
-                final user = User(
-                  id: controllerName.text,
-                  name: controllerName.text,
-                  address: controllerAddress.text,
-                  city: controllerCity.text,
-                  email: controllerEmail.text,
-                  contact_no: int.parse(controllerContact.text),
-                  // isLogin: false,
-                  // isVerified: false,
-                  // rating: 5,
-                  );
+                
                 // final user = User(
                 //   id: "my id",
                 //   name: "my name",
@@ -137,7 +128,10 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                 //   isVerified: false,
                 //   rating: 5,
                 //   );
-                  updateUser(user:user);
+                  // updateUser(user:user);
+                    final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser?.uid);
+                    docUser.update({'uname': controllerName.text, 'email': controllerEmail.text, 'address': controllerAddress.text, 'city': controllerCity.text, 'contact_no': int.parse(controllerContact.text)}) ;
+  
                   Navigator.pop(context);
                 
                   },
@@ -150,7 +144,9 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                   height: context.height * 0.07,
                   width: context.width * 0.6,
                 ),
-                // context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
               ],
             ),
           ),
@@ -184,9 +180,6 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
   }
 
    Future updateUser({required User user}) async{
-    final docUser = await FirebaseFirestore.instance.collection('/users').doc().get();
-    final json = user.toMap();
-    await docUser.reference.set(json);    
   }
 }
 

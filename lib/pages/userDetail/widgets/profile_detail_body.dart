@@ -5,11 +5,9 @@ import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/main.dart';
 
 import '../../Registorpage.dart';
-import '../user_view.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({Key? key}) : super(key: key);
-
   @override
   State<ProfileBody> createState() => _ProfileBodyState();
 }
@@ -21,19 +19,18 @@ class _ProfileBodyState extends State<ProfileBody> {
       final doc = await docUser.get();
       if(doc.exists)
       {
-        MyUser temp = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-        // currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-        currentUser.uname = temp.uname;  
-        currentUser.email = temp.email;
-        currentUser.contact_no = temp.contact_no;
-        currentUser.address = temp.address;
-        currentUser.city = temp.city;
-        currentUser.cnic = temp.cnic;
-        currentUser.isLogin = temp.isLogin;
-        currentUser.isVerified = temp.isVerified;
-        currentUser.rating = temp.rating;
+        // MyUser temp = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+        currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+        // currentUser.uname = temp.uname;  
+        // currentUser.email = temp.email;
+        // currentUser.contact_no = temp.contact_no;
+        // currentUser.address = temp.address;
+        // currentUser.city = temp.city;
+        // currentUser.cnic = temp.cnic;
+        // currentUser.isLogin = temp.isLogin;
+        // currentUser.isVerified = temp.isVerified;
+        // currentUser.rating = temp.rating;
       print("hello ${currentUser.uname}2 2 2 2 2 2 2 2 2 2 2 2 2 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
-
       }
       else
       {
@@ -41,7 +38,11 @@ class _ProfileBodyState extends State<ProfileBody> {
         currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);        
       } 
       print("hello ${currentUser.uname}1 1 1 1 1 1 1 1 1 1 1 1 1 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
+      setState(() {
+         
+       });
     }
+    
   void initState() {
     super.initState();
     myCurrentUser();
@@ -53,7 +54,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
     
-    // myCurrentUser();
+    myCurrentUser();
 
     return Expanded(
       

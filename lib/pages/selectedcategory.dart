@@ -74,6 +74,7 @@ class SelectedCategory extends StatelessWidget {
                                       category:
                                           selectedCategory.subCategories[index],
                                       onCardClick: () {
+                                        Navigator.pop(context);
                                         Navigator.push(
                                           ctx,
                                           MaterialPageRoute(
@@ -101,6 +102,7 @@ class SelectedCategory extends StatelessWidget {
                               this.selectedCategory.subCategories.length,
                               (index) => GestureDetector(
                                 onTap: () {
+                                  Navigator.pop(context);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -174,15 +176,17 @@ class SelectedCategory extends StatelessWidget {
                                         ),
                                         badgeColor: this.selectedCategory.color,
                                       ),
-                                      const SizedBox(width: 15),
-                                      Text(
-                                        this
-                                            .selectedCategory
-                                            .subCategories[index]
-                                            .name,
-                                        style: const TextStyle(
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.bold),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Text(
+                                          this
+                                              .selectedCategory
+                                              .subCategories[index]
+                                              .name,
+                                          style: const TextStyle(
+                                              color: Colors.black54,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       )
                                     ],
                                   ),

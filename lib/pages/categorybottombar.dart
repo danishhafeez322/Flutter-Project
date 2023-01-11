@@ -16,19 +16,19 @@ class CategoryBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: " ", city: " ", cnic: 0, isLogin: true,isVerified: true,rating: 0);
-    // Future<void> myCurrentUser() async{  
-      
+    // Future<void> myCurrentUser() async{
+
     //   final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
     //   final doc = await docUser.get();
     //   if(doc.exists)
-    //   {        
+    //   {
     //     currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
     //   }
     //   else
     //   {
     //   currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);
-        
-    //   } 
+
+    //   }
     // }
     //                 myCurrentUser();
 
@@ -49,8 +49,9 @@ class CategoryBottomBar extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.home_rounded, color: Colors.black54),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WelcomePage()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => WelcomePage()));
+                  Navigator.popAndPushNamed(context, "/welcome");
                 },
               ),
             ),
@@ -60,8 +61,10 @@ class CategoryBottomBar extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.message_rounded, color: Colors.black54),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ChatsScreen()));
+                  Navigator.popAndPushNamed(context, "/chatScreen");
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => ChatsScreen()));
+                  // Navigator.pushNamed(context, "/chatScreen");
                 },
               ),
             ),
@@ -72,8 +75,9 @@ class CategoryBottomBar extends StatelessWidget {
                 icon: const Icon(Icons.file_upload_outlined,
                     color: Colors.black54),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UploadPage()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => UploadPage()));
+                  Navigator.popAndPushNamed(context, "/uploadPage");
                 },
               ),
             ),
@@ -84,13 +88,9 @@ class CategoryBottomBar extends StatelessWidget {
                 icon: const Icon(Icons.person_outline_outlined,
                     color: Colors.black54),
                 onPressed: () {
-
-                  
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => 
-                      // Profile()
-                      ProfilePage()
-                      ));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => ProfilePage()));
+                  Navigator.popAndPushNamed(context, "/profilePage");
                 },
               ),
             ),

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/login_view.dart';
+import 'package:mad_project/pages/upload_page.dart';
+import 'package:mad_project/pages/userDetail/user_view.dart';
+import 'package:mad_project/screens/chats/chats_screen.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/pages/New%20Arrival.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
@@ -9,7 +12,7 @@ import 'package:mad_project/pages/selectedcategory.dart';
 import 'package:mad_project/widgets/Carousel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'helper/utils.dart';
-
+// import 'dart:js';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
@@ -21,9 +24,15 @@ Future<void> main() async {
     // //debugShowCheckedModeBanner: false,
     // home: SplashPage(duration: 3, gotoPage: WelcomePage()),
     routes: {
-        "login" : (context) => LoginView(),
-      },
-    home: WelcomePage(),
+      "login": (context) => LoginView(),
+      "/": (context) => SplashPage(gotoPage: WelcomePage(), duration: 2),
+      "/welcome": (context) => WelcomePage(),
+      "/chatScreen": (context) => ChatsScreen(),
+      //"/newArrival": (context) => NewArrival(),
+      "/uploadPage": (context) => UploadPage(),
+      "/profilePage": (context) => ProfilePage(),
+    },
+    initialRoute: "/welcome",
   ));
 }
 
@@ -133,6 +142,7 @@ class WelcomePage extends StatelessWidget {
                             return Categorycard(
                                 category: categories[index],
                                 onCardClick: () {
+                                  Navigator.pop(ctx);
                                   Navigator.push(
                                     ctx,
                                     MaterialPageRoute(

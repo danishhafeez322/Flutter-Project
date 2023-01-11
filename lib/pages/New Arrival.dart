@@ -24,6 +24,7 @@ class NewArrival extends StatelessWidget {
               this.selectedCategory.subCategories.length,
               (index) => GestureDetector(
                 onTap: () {
+                  Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -89,11 +90,13 @@ class NewArrival extends StatelessWidget {
                       ),
                       badgeColor: this.selectedCategory.color,
                     ),
-                    const SizedBox(width: 15),
-                    Text(
-                      this.selectedCategory.subCategories[index].name,
-                      style: const TextStyle(
-                          color: Colors.black87, fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        this.selectedCategory.subCategories[index].name,
+                        style: const TextStyle(
+                            color: Colors.black54, fontWeight: FontWeight.bold),
+                      ),
                     )
                   ],
                 ),

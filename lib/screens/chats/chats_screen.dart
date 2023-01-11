@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import '../chats/components/body.dart';

@@ -7,10 +7,10 @@ import 'package:mad_project/pages/forgot_password_view.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import '../helper/utils.dart';
-import '../main.dart';
+// import '../main.dart';
 import '../models/category.dart';
 import 'Registorpage.dart';
-import 'detailspage.dart';
+// import 'detailspage.dart';
 
 class LoginView extends StatefulWidget {
 
@@ -40,9 +40,8 @@ class _MyAppState extends State<LoginView> {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(
                 email: controllerEmail.text.trim(), password: controllerPassword.text.trim())
-            .then((value) => Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => WelcomePage()
-                ))
+            .then((value) => 
+                Navigator.pop(context)
                 )
             .catchError((e) => print(e));
       

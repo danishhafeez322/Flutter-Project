@@ -222,9 +222,8 @@ class RegisterView extends StatelessWidget {
               style: TextStyle(color: AppColors.loginColor),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginView()),
+              Navigator.pop(
+                context
               );
             },
           )

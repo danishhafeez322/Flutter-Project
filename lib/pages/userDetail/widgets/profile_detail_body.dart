@@ -30,14 +30,14 @@ class _ProfileBodyState extends State<ProfileBody> {
         // currentUser.isLogin = temp.isLogin;
         // currentUser.isVerified = temp.isVerified;
         // currentUser.rating = temp.rating;
-      print("hello ${currentUser.uname}2 2 2 2 2 2 2 2 2 2 2 2 2 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
+      // print("hello ${currentUser.uname}2 2 2 2 2 2 2 2 2 2 2 2 2 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
       }
       else
       {
-      print("hello ${currentUser.uname}3 3 3 3 3 3 3 3 3 3 3 3 3 3  ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
+      // print("hello ${currentUser.uname}3 3 3 3 3 3 3 3 3 3 3 3 3 3  ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
         currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);        
       } 
-      print("hello ${currentUser.uname}1 1 1 1 1 1 1 1 1 1 1 1 1 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
+      // print("hello ${currentUser.uname}1 1 1 1 1 1 1 1 1 1 1 1 1 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
       setState(() {
          
        });

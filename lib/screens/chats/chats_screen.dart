@@ -22,22 +22,4 @@ class _ChatsScreenState extends State<ChatsScreen> {
       bottomNavigationBar: CategoryBottomBar(),
     );
   }
-
-  AppBar buildAppBar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: AppColors.chatColor,
-      title: const Text(
-        "Chats",
-        style: TextStyle(color: Colors.black),
-      ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.search),
-          color: Colors.black,
-        )
-      ],
-    );
-  }
 }

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../core/constant/app_color.dart';
 import '../../core/constant/constants.dart';
+import '../../models/Chat.dart';
 import 'components/body.dart';
 
 class MessagesScreen extends StatelessWidget {
-  const MessagesScreen({Key? key}) : super(key: key);
+  const MessagesScreen({Key? key, required this.chat}) : super(key: key);
+  final Chat chat;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: buildAppBar(),
-      body: const Body(),
+      body:  Body(chat: chat),
     );
   }
 
@@ -36,22 +38,18 @@ class MessagesScreen extends StatelessWidget {
                 "Adham Atef",
                 style: TextStyle(fontSize: 16),
               ),
-              // Text(
-              //   "Active 3m ago",
-              //   style: TextStyle(fontSize: 12),
-              // ),
             ],
           ),
         ],
       ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.local_offer,
-          ),
-        ),
-      ],
+      // actions: [
+      //   IconButton(
+      //     onPressed: () {},
+      //     icon: const Icon(
+      //       Icons.local_offer,
+      //     ),
+      //   ),
+      // ],
     );
   }
 }

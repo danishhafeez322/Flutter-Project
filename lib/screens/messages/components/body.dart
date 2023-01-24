@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constant/constants.dart';
+import '../../../models/Chat.dart';
 import '../../../models/ChatMessage.dart';
 import 'chatInput_field.dart';
 import 'message.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({Key? key, required this.chat}) : super(key: key);
+  final Chat chat;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
-        const ChatInputField(),
+        ChatInputField(chat: chat),
       ],
     );
   }

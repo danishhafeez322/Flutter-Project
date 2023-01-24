@@ -11,16 +11,16 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget messageContaint(ChatMessage message) {
-      switch (message.messageType) {
-        case ChatMessageType.text:
-          return TextMessage(
-            message: message,
-          );
-        default:
-          return const SizedBox();
-      }
-    }
+    // Widget messageContaint(ChatMessage message) {
+      // switch (message.messageType) {
+      //   case ChatMessageType.text:
+          // return TextMessage(
+          //   message: message,
+          // );
+      //   default:
+      //     return const SizedBox();
+      // }
+    // }
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -39,7 +39,10 @@ class Message extends StatelessWidget {
           //     width: kDefaultPadding / 2,
           //   ),
           // ],
-          messageContaint(message),
+          // messageContaint(message),
+          TextMessage(
+            message: message,
+          ),
           if (message.isSender)
             MessagesStatusDot(
               status: message.messageStatus,

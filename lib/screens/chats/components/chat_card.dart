@@ -57,11 +57,11 @@ class ChatCard extends StatelessWidget {
             ),
           ),
           Divider(
-                    height: 1,
-                    thickness: 1,
-                    indent: 20,
-                    endIndent: 20,
-                  )
+            height: 1,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
+          )
         ],
       ),
     );

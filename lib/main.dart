@@ -28,7 +28,7 @@ Future<void> main() async {
       "/": (context) => SplashPage(gotoPage: WelcomePage(), duration: 2),
       "/welcome": (context) => WelcomePage(),
       "/chatScreen": (context) => ChatsScreen(),
-      //"/newArrival": (context) => NewArrival(),
+      // "/newArrival": (context) => NewArrival(),
       "/uploadPage": (context) => UploadPage(),
       "/profilePage": (context) => ProfilePage(),
     },

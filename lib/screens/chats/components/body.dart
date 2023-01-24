@@ -8,7 +8,8 @@ import 'chat_card.dart';
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
+    return Column(
+      children: [
         Expanded(
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
@@ -18,15 +19,15 @@ class Body extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MessagesScreen(),
+                      builder: (context) => MessagesScreen(chat: chatsData[index]),
                     ),
                   );
                 },
                 chat: chatsData[index],
               ),                
             ),
-        );
-    //   ],
-    // );
+        ),
+      ],
+    );
   }
 }

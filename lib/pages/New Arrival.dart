@@ -24,7 +24,7 @@ class NewArrival extends StatelessWidget {
               this.selectedCategory.subCategories.length,
               (index) => GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

@@ -37,6 +37,7 @@ class DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
+      bottomNavigationBar: CategoryBottomBar(),
       body: Container(
         alignment: Alignment.center,
         child: Stack(children: [
@@ -76,22 +77,19 @@ class DetailsPageState extends State<DetailsPage> {
                   padding: const EdgeInsets.only(
                       top: 0, right: 20, left: 20, bottom: 5),
                   child: Column(children: [
-                    Text('Description: ',
-                        // textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.left,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        )),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      "To be filled description of the item",
-                      maxLines: 4,
-                      overflow: TextOverflow.clip,
-                      // textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.justify,
+                    ExpansionTile(
+                      title: Text(
+                        "Description",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ), //header title
+                      children: [
+                        Container(
+                          color: Colors.white10,
+                          padding: EdgeInsets.all(20),
+                          width: double.infinity,
+                          child: Text("to be filled with description"),
+                        )
+                      ],
                     ),
                   ]),
                 ),
@@ -477,12 +475,6 @@ class DetailsPageState extends State<DetailsPage> {
               ]),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: CategoryBottomBar(),
-          )
         ]),
       ),
     );

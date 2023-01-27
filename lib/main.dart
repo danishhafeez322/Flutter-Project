@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/upload_page.dart';
@@ -25,10 +28,9 @@ Future<void> main() async {
     // home: SplashPage(duration: 3, gotoPage: WelcomePage()),
     routes: {
       "login": (context) => LoginView(),
-      "/": (context) => SplashPage(gotoPage: WelcomePage(), duration: 2),
+      "/": (context) => SplashPage(gotoPage: WelcomePage(), duration: 1),
       "/welcome": (context) => WelcomePage(),
       "/chatScreen": (context) => ChatsScreen(),
-      // "/newArrival": (context) => NewArrival(),
       "/uploadPage": (context) => UploadPage(),
       "/profilePage": (context) => ProfilePage(),
     },
@@ -44,7 +46,8 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: this.duration), () {
-      Navigator.push(
+      // Navigator.pop(context);
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => this.gotoPage));
     });
 
@@ -64,120 +67,129 @@ class SplashPage extends StatelessWidget {
 
 class WelcomePage extends StatelessWidget {
   List<Category> categories = Utils.getMockedCategories();
+  DateTime timeBackPressed = DateTime.now();
 
   @override
   Widget build(Object context) {
-    return Scaffold(
-      // drawer: Drawer(
-      //   child: SingleChildScrollView(
-      //     child: Container(
-      //       height: 1000,
-      //       child: Column(
-      //         children: [MyDrawerHeader()],
-      //       ),
-      //     ),
-      //   ),
-      //   backgroundColor: Colors.white,
-      // ),
-      appBar: MainAppBar(
-        flag: false,
-      ),
-      body: Container(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      top: 10,
-                      bottom: 15,
-                    ),
-                    child: Container(
-                      height: 50,
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                      child: TextField(
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          hintText: 'Find Cars, Vehicles, and many more',
-                          prefixIcon: Icon(Icons.search),
-                        ),
+    return WillPopScope(
+      onWillPop: () async {
+        DateTime now = DateTime.now();
+        if (now.difference(timeBackPressed) > Duration(seconds: 2)) {
+          timeBackPressed = now;
+          Fluttertoast.showToast(msg: "Press back again to exit", fontSize: 16);
+          return false;
+        }
+        exit(0);
+        //return true;
+      },
+      child: Scaffold(
+        // drawer: Drawer(
+        //   child: SingleChildScrollView(
+        //     child: Container(
+        //       height: 1000,
+        //       child: Column(
+        //         children: [MyDrawerHeader()],
+        //       ),
+        //     ),
+        //   ),
+        //   backgroundColor: Colors.white,
+        // ),
+        appBar: MainAppBar(
+          flag: false,
+        ),
+        bottomNavigationBar: CategoryBottomBar(),
+        body: Container(
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                        top: 10,
+                        bottom: 15,
                       ),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        height: 180,
-                        child: Carousel(),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, bottom: 6, top: 10),
-                    child: Text(
-                      "Main Categories",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Container(
-                    height: 80,
-                    child: Expanded(
                       child: Container(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-
-                          // padding: const EdgeInsets.only(bottom: 100),
-                          itemCount: categories.length,
-                          itemBuilder: (BuildContext ctx, int index) {
-                            return Categorycard(
-                                category: categories[index],
-                                onCardClick: () {
-                                  Navigator.pop(ctx);
-                                  Navigator.push(
-                                    ctx,
-                                    MaterialPageRoute(
-                                      builder: (context) => SelectedCategory(
-                                          selectedCategory: categories[index]),
-                                    ),
-                                  );
-                                });
-                          },
+                        height: 50,
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: TextField(
+                          maxLines: 1,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            hintText: 'Find Cars, Vehicles, and many more',
+                            prefixIcon: Icon(Icons.search),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, bottom: 8, top: 10),
-                    child: Text(
-                      "New Arrival",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                    Column(
+                      children: [
+                        Container(
+                          height: 180,
+                          child: Carousel(),
+                        ),
+                      ],
                     ),
-                  ),
-                  NewArrival(selectedCategory: categories[1]),
-                ],
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, bottom: 6, top: 10),
+                      child: Text(
+                        "Main Categories",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      height: 80,
+                      child: Expanded(
+                        child: Container(
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+
+                            // padding: const EdgeInsets.only(bottom: 100),
+                            itemCount: categories.length,
+                            itemBuilder: (BuildContext ctx, int index) {
+                              return Categorycard(
+                                  category: categories[index],
+                                  onCardClick: () {
+                                    // Navigator.pop(ctx);
+                                    Navigator.push(
+                                      ctx,
+                                      MaterialPageRoute(
+                                        builder: (context) => SelectedCategory(
+                                            selectedCategory:
+                                                categories[index]),
+                                      ),
+                                    );
+                                  });
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, bottom: 8, top: 10),
+                      child: Text(
+                        "New Arrival",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    NewArrival(selectedCategory: categories[1]),
+                  ],
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: CategoryBottomBar(),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

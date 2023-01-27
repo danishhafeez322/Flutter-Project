@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/widgets/AppBar.dart';
@@ -12,13 +11,18 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: MainAppBar(),
-      body:  Body(),
-      bottomNavigationBar: CategoryBottomBar(),
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushNamed(context, "/welcome");
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: MainAppBar(),
+        body: Body(),
+        bottomNavigationBar: CategoryBottomBar(),
+      ),
     );
   }
 }

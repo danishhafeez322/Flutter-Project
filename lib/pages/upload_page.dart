@@ -19,41 +19,50 @@ class UploadPage extends StatefulWidget {
 class _ChatsPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        DefaultTabController(
-          length: 4,
-          child: Scaffold(
-            appBar: const LesseeAppBar(),
-            body: const TabBarView(
-              children: <Widget>[
-                PostedItems(),
-                GivenItem(),
-                RentedItem(),
-                BookedItem(),
-              ],
-            ),
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.only(bottom:60.0),
-              child: FloatingActionButton(
-                onPressed: () async {
-                  Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UploadView()));
-                },
-                child: Icon(Icons.add),
-                backgroundColor: AppColors.uploadColor,
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pushNamed(context, "/welcome");
+        return Future.value(false);
+      },
+      child: Scaffold(
+        body: Stack(
+          children: [
+            DefaultTabController(
+              length: 4,
+              child: Scaffold(
+                appBar: const LesseeAppBar(),
+                body: const TabBarView(
+                  children: <Widget>[
+                    PostedItems(),
+                    GivenItem(),
+                    RentedItem(),
+                    BookedItem(),
+                  ],
+                ),
+                floatingActionButton: Padding(
+                  padding: const EdgeInsets.only(bottom: 60.0),
+                  child: FloatingActionButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UploadView()));
+                    },
+                    child: Icon(Icons.add),
+                    backgroundColor: AppColors.uploadColor,
+                  ),
+                ),
               ),
             ),
-          ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: CategoryBottomBar(),
+            )
+          ],
         ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CategoryBottomBar(),
-        )
-        
-      ],
+      ),
     );
   }
 }

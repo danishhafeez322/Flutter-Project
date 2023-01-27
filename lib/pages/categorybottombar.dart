@@ -41,7 +41,7 @@ class CategoryBottomBar extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.message_rounded, color: Colors.black54),
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, "/chatScreen");
+                  Navigator.pushReplacementNamed(context, "/chatScreen");
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (context) => ChatsScreen()));
                   // Navigator.pushNamed(context, "/chatScreen");

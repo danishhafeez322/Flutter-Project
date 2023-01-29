@@ -35,6 +35,7 @@ class DetailsPage extends StatefulWidget {
 
 class DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
+    List<String> images = ['',''];
     return Scaffold(
       appBar: MainAppBar(),
       bottomNavigationBar: CategoryBottomBar(),
@@ -49,7 +50,7 @@ class DetailsPageState extends State<DetailsPage> {
                   children: [
                     Container(
                       height: 200,
-                      child: DetailsCarousal(),
+                      child: DetailsCarousal(images:images),
                     ),
                   ],
                 ),

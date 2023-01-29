@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
+import 'package:mad_project/pages/upload.dart';
 
 import '../../Registorpage.dart';
 import '../edit_user_detail.dart';
@@ -15,6 +16,7 @@ class ProfileHeader extends StatefulWidget {
 
 class _ProfileHeaderState extends State<ProfileHeader> {
   MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: " ", city: " ", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+  
     Future<void> myCurrentUser() async{  
       
       final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
@@ -39,6 +41,10 @@ class _ProfileHeaderState extends State<ProfileHeader> {
       setState(() {
         
       });
+      
+      if(!(currentUser.uname == 'User name')){
+        
+      }
     }
   @override
   Widget build(BuildContext context) {

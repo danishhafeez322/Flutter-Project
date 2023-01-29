@@ -1,5 +1,7 @@
 import 'package:badges/badges.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mad_project/pages/upload.dart';
 
 import '../models/category.dart';
 import 'detailspage.dart';
@@ -23,13 +25,28 @@ class NewArrival extends StatelessWidget {
             children: List.generate(
               this.selectedCategory.subCategories.length,
               (index) => GestureDetector(
-                onTap: () {
+                onTap: () async{
+                  final doc = await FirebaseFirestore.instance
+                            .collection("Items")
+                            .doc('2')
+                            .get();
+                  var temp = MyItem.fromMap(doc.data() as Map<String, dynamic> );
                   // Navigator.pop(context);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => DetailsPage(
                         subCategory: this.selectedCategory.subCategories[index],
+                        // myItem: temp as MyItem,
+                        // title: temp.title,
+                        // description: temp.description,
+                        // price: temp.price,
+                        // guarantee_price: temp.guarantee_price,
+                        // images: temp.images as List<String>,
+                        // quantity: temp.quantity,
+                        // status: temp.status,
+                        // user_id: temp.user_id!,
+                        
                       ),
                     ),
                   );

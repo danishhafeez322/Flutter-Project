@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class DetailsCarousal extends StatelessWidget {
-  List<String> images = [
-    "https://www.lifeupswing.com/wp-content/uploads/2021/04/32-Easy-Things-To-Rent-Out-For-Profit.jpg",
-    "https://www.learningtomorrow.org/wp-content/uploads/2020/12/bigstock-Home-appliances-Seamless-patte-82338212-650x350.jpg",
-    "https://www.realmenrealstyle.com/wp-content/uploads/2021/09/custom-mens-clothing.jpg",
-    "https://absoluteworks.co.uk/wp-content/uploads/2021/05/sport_3.jpg"
-  ];
+class DetailsCarousal extends StatefulWidget {
+  List<String> images;
+  DetailsCarousal({required this.images});
+  
+  @override
+  State<DetailsCarousal> createState() => _DetailsCarousalState();
+}
+
+class _DetailsCarousalState extends State<DetailsCarousal> {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -17,16 +19,36 @@ class DetailsCarousal extends StatelessWidget {
         CarouselSlider(
           items: [
             //1st Image of Slider
-            Container(
-              margin: EdgeInsets.all(6.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.0),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                      "https://www.lifeupswing.com/wp-content/uploads/2021/04/32-Easy-Things-To-Rent-Out-For-Profit.jpg"),
-                  fit: BoxFit.cover,
+            ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: widget.images.length,
+                itemBuilder: (context, index) => Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image:  DecorationImage(
+                      image: NetworkImage(
+                          widget.images[index]),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
+                ),
+            
+            ListView(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(6.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.0),
+                    image:  DecorationImage(
+                      image: NetworkImage(
+                          widget.images[0]),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
             ),
 
             //2nd Image of Slider

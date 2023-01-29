@@ -249,6 +249,7 @@ Stack _body(BuildContext context) {
                     user_id: "${FirebaseAuth.instance.currentUser?.uid}",
                     images: [''],
                     status: 0,
+                    date: DateTime.now().toString(),
                   );
                   if(item.title != "" && item.category_id != "" && item.description != "" && item.price != 0 && item.guarantee_price != 0 && item.quantity != 0 && item.images != null){
                     UploadItemToDatabase(item:item,context: context,imagefiles: imagefiles);                  
@@ -324,6 +325,7 @@ Future<String> uploadImage(File file) async {
 }
 
 Future getImagesUrl(List<XFile>? images ) async {
+  imagesUrl.clear();
   for (int i = 0; i < images!.length; i++) {
     final url = await uploadImage(File(images[i].path));
     imagesUrl.add(url);
@@ -375,14 +377,14 @@ Future UploadItemToDatabase({required MyItem item, required BuildContext context
     }    
   }catch (e) {
     Fluttertoast.showToast(
-        msg: "" + e.toString(),
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+      msg: "" + e.toString(),
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
+    );
     print(e);
   }
   // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());     
@@ -398,8 +400,9 @@ class MyItem{
   final int price;
   final int guarantee_price;
   final int quantity;
-  List<String>? images;
+  var images;
   final int status;
+  var date;
 
   MyItem({    
     required this.id,
@@ -412,6 +415,7 @@ class MyItem{
     required this.quantity,
     required this.images, 
     required this.status, 
+    required this.date
   });
 
   Map<String, dynamic> toMap(){    
@@ -426,24 +430,21 @@ class MyItem{
       'quantity': quantity,
       'images': images,
       'status': status,
+      'date': date,
 
     };
   }
-  // static MyItem fromMap(Map<String, dynamic> map) => MyItem(
-  //   id: map['id'],     
-  //   title: map['title'],
-  //   category_id: map['category_id'],
-  //   user_id: map['user_id'],
-  //   description: map['description'],
-  //   price: map['price'],
-  //   guarantee_price: map['guarantee_price'],
-  //   quantity: map['quantity'],
-  //   images: map['images'],
-  //   status: map['status'],
-
-  //   );
+  static MyItem fromMap(Map<String, dynamic> map) => MyItem(
+    id: map['id'],     
+    title: map['title'],
+    category_id: map['category_id'],
+    user_id: map['user_id'],
+    description: map['description'],
+    price: map['price'],
+    guarantee_price: map['guarantee_price'],
+    quantity: map['quantity'],
+    images: map['images'],
+    status: map['status'],
+    date: map['date'],
+  );
 }
-
-
-
-

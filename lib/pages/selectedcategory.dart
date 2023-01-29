@@ -103,16 +103,17 @@ class SelectedCategory extends StatelessWidget {
                               (index) => GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailsPage(
-                                        subCategory: this
-                                            .selectedCategory
-                                            .subCategories[index],
-                                      ),
-                                    ),
-                                  );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => DetailsPage(
+                                  //       // subCategory: this
+                                  //       //     .selectedCategory
+                                  //       //     .subCategories[index],
+
+                                  //     ),
+                                  //   ),
+                                  // );
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(bottom: 20),

@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'DetailEdit.dart';
 
 class postedItemDetail extends StatelessWidget {
-  final String user, imageUrl, briefChat, date;
+  final Map<String, dynamic> item;
 
   const postedItemDetail({
     super.key,
-    required this.user,
-    required this.imageUrl,
-    required this.briefChat,
-    required this.date,
+    required this.item,
   });
 
   @override
@@ -37,11 +34,26 @@ class postedItemDetail extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
-                    child: Image.asset(
-                      imageUrl,
+                    child: 
+                    // Image.asset(
+                    //   imageUrl,
+                    //   width: 58.0,
+                    //   height: 58.0,
+                    //   fit: BoxFit.cover,
+                    // ),
+                    
+                    Container(
+                      margin: EdgeInsets.all(6.0),
                       width: 58.0,
-                      height: 58.0,
-                      fit: BoxFit.cover,
+                      height: 58.0,                      
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(8.0),
+                        image:  DecorationImage(
+                          image:
+                           NetworkImage( "" + item['images'][0]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -57,7 +69,7 @@ class postedItemDetail extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(bottom: 10.0, left: 5),
                             child: Text(
-                              user,
+                              item['title'],
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.normal,
@@ -68,7 +80,7 @@ class postedItemDetail extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
-                              briefChat,
+                              item['description'],
                               style: TextStyle(
                                 color: Colors.black.withOpacity(0.6),
                                 fontWeight: FontWeight.normal,
@@ -90,14 +102,14 @@ class postedItemDetail extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditDetailView(
-                                      title: "myTitle",
+                                      title: item['title'],
                                       category: "Sports",
                                       subCategory: "Kids",
-                                      description: "this is my bat",
-                                      price: "100",
-                                      guaranteePrice: "1000",
-                                      days: "7",
-                                      quantity: "1",
+                                      description: item['description'],
+                                      price: item['price'].toString(),
+                                      guaranteePrice: item['guarantee_price'].toString(),
+                                      days: '1',
+                                      quantity: item['quantity'].toString(),
                                     )));
                       },
                     ),

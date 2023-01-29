@@ -54,7 +54,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
     
-    myCurrentUser();
+    // myCurrentUser();
 
     return Expanded(
       

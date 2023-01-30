@@ -15,7 +15,7 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: " ", city: " ", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
   
     Future<void> myCurrentUser() async{  
       
@@ -27,7 +27,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
       }
       else
       {
-       currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+       currentUser = MyUser(uname: "User name", email: "Email", contact_no: "", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);
        
         
       }

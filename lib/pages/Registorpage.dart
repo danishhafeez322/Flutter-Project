@@ -141,8 +141,8 @@ class RegisterView extends StatelessWidget {
                   address: controllerAddress.text.trim(),
                   city: controllerCity.text.trim(),
                   email: controllerEmail.text.trim(),
-                  contact_no: int.parse(controllerContact.text.trim()),
-                  cnic: int.parse(controllerCnic.text.trim()),
+                  contact_no: controllerContact.text.trim(),
+                  cnic: controllerCnic.text.trim(),
                   isLogin: false,
                   isVerified: false,
                   rating: 5,
@@ -314,8 +314,8 @@ class MyUser{
   String email;
   String address;
   String city;
-  int contact_no;
-  int cnic;
+  String contact_no;
+  String cnic;
   int rating;
   bool isLogin;
   bool isVerified;

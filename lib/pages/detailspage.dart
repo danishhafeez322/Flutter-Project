@@ -1,8 +1,11 @@
+// ignore_for_file: unnecessary_cast
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
-import 'package:mad_project/main.dart';
+// import 'package:url_launcher/url_launcher.dart';
 import 'package:mad_project/models/subcategory.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/widgets/DividerPlus.dart';
@@ -14,8 +17,10 @@ import '../widgets/DetailsCarousal.dart';
 import 'Registorpage.dart';
 import 'categorybottombar.dart';
 import 'login_view.dart';
+import 'upload.dart';
 
 class DetailsPage extends StatefulWidget {
+  MyItem? myItem;
   int days = 1;
   double cost = 0.0;
   bool isVisible = false;
@@ -27,6 +32,7 @@ class DetailsPage extends StatefulWidget {
   final controllerEndDate2 = TextEditingController();
   DetailsPage({
     Key? key,
+    this.myItem,
     required this.subCategory,
   }) : super(key: key);
   @override
@@ -34,8 +40,51 @@ class DetailsPage extends StatefulWidget {
 }
 
 class DetailsPageState extends State<DetailsPage> {
+  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
+  
+
+    Future<void> myCurrentUser() async{  
+      
+      final docUser = await FirebaseFirestore.instance.collection('/users').doc(widget.myItem!.user_id);
+      final doc = await docUser.get();
+      if(doc.exists)
+      {        
+        currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+      }
+      else
+      {
+       currentUser = MyUser(uname: "User name", email: "Email", contact_no: "", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);
+      }
+      setState(() {
+         
+       }); 
+    }
+//   _launchWhatsapp() async {
+//     if (currentUser.contact_no == '' || currentUser.contact_no.length < 11 ) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(
+//           content: Text("User has not provided contact number"),
+//         ),
+//       );
+//       return;
+//     }
+//     else if( currentUser.contact_no[0] == '0' && currentUser.contact_no[1] == '3' &&currentUser.contact_no.length == 11)
+//     {
+//       currentUser.contact_no = currentUser.contact_no.substring(1);
+//           var whatsapp = "+92${currentUser.contact_no}";
+//         var whatsappAndroid =Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
+//         if (await canLaunchUrl(whatsappAndroid)) {
+//             await launchUrl(whatsappAndroid);
+//         } else {
+//             ScaffoldMessenger.of(context).showSnackBar(
+//             const SnackBar(
+//               content: Text("WhatsApp is not installed on the device"),
+//             ),
+//           );
+//         }
+//     }
+// }
   Widget build(BuildContext context) {
-    List<String> images = ['',''];
     return Scaffold(
       appBar: MainAppBar(),
       bottomNavigationBar: CategoryBottomBar(),
@@ -50,7 +99,7 @@ class DetailsPageState extends State<DetailsPage> {
                   children: [
                     Container(
                       height: 200,
-                      child: DetailsCarousal(images:images),
+                      child: DetailsCarousal(images: widget.myItem!.images ),
                     ),
                   ],
                 ),
@@ -66,7 +115,7 @@ class DetailsPageState extends State<DetailsPage> {
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18)),
                           TextSpan(
-                            text: widget.subCategory.name,
+                            text: widget.myItem!.title,
                           )
                         ]),
                       ),
@@ -88,7 +137,7 @@ class DetailsPageState extends State<DetailsPage> {
                           color: Colors.white10,
                           padding: EdgeInsets.all(20),
                           width: double.infinity,
-                          child: Text("to be filled with description"),
+                          child: Text(widget.myItem!.description),
                         )
                       ],
                     ),
@@ -109,7 +158,7 @@ class DetailsPageState extends State<DetailsPage> {
                                   const TextStyle(fontWeight: FontWeight.bold)),
                           TextSpan(
                             text: 'Rs ' +
-                                widget.subCategory.price.toString() +
+                                widget.myItem!.price.toString() +
                                 '/day',
                           )
                         ]),
@@ -121,7 +170,7 @@ class DetailsPageState extends State<DetailsPage> {
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold)),
                           TextSpan(
-                            text: 'Rs ' + widget.subCategory.price.toString(),
+                            text: 'Rs ' + widget.myItem!.guarantee_price.toString(),
                           )
                         ]),
                       ),
@@ -232,7 +281,7 @@ class DetailsPageState extends State<DetailsPage> {
                           Text(
                             widget.cost > 0
                                 ? '${widget.cost}'
-                                : '${widget.cost = widget.subCategory.price}',
+                                : '${(widget.myItem!.price)  + (widget.myItem!.guarantee_price)}',
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )
@@ -285,7 +334,7 @@ class DetailsPageState extends State<DetailsPage> {
                               height: 10,
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: _launchWhatsapp,
                               child: CustomElevatedButton(
                                 child: Text(
                                   AppText.ChatNow.toUpperCase(),

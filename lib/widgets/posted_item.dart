@@ -19,7 +19,7 @@ class PostedItems extends StatefulWidget {
 
 class _PostedItemsState extends State<PostedItems> {
     MyItem myItems = MyItem(id: "", title: "Temp2", description: "", category_id: " ", user_id: "", price: 0, guarantee_price: 0, images: [], quantity: 0, status: 0,date: DateTime.now());
-    MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: " ", city: " ", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+    MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
   
 
     Future<void> myCurrentUser() async{  
@@ -32,7 +32,7 @@ class _PostedItemsState extends State<PostedItems> {
       }
       else
       {
-       currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);
+       currentUser = MyUser(uname: "User name", email: "Email", contact_no: "", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);
       }
       setState(() {
          
@@ -56,8 +56,8 @@ class _PostedItemsState extends State<PostedItems> {
       //   myItems = MyItem(id: "", title: "Temp", description: "", category_id: " ", user_id: "", price: 0, guarantee_price: 0, images: [], quantity: 0, status: 0,date: DateTime.now());        
       // }
       
-      // setState(() {         
-      //  }); 
+      setState(() {         
+       }); 
        return docItm;
     }
     void initState()  {
@@ -68,6 +68,7 @@ class _PostedItemsState extends State<PostedItems> {
         
       });
     }
+
   
 
   @override
@@ -108,23 +109,17 @@ class _PostedItemsState extends State<PostedItems> {
                   itemCount: docs.length,
                   itemBuilder: (_, i) {
                     final data = docs[i].data();
-                    return 
-                    // ListTile(
-                    //   title: Text(data['title']),
-                    //   subtitle: Text(data['description']),
-                    // );
-                    (FirebaseAuth.instance.currentUser!.uid == data['user_id'])?
-
-                    postedItemDetail(
-                      item: data,
-                    ) : Container();
+                    return (FirebaseAuth.instance.currentUser!.uid == data['user_id'])? postedItemDetail( item:data, ) : Container();
                   },
                 );
               }
+              setState(() {
+                
+              });
 
               return Center(child: CircularProgressIndicator());
             },
-            )
+            ),
         
         // ListView(
         //   primary: false,

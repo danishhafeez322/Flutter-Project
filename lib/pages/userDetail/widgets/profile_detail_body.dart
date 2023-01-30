@@ -13,7 +13,7 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
-  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: "address", city: "city", cnic: 0, isLogin: true, isVerified: true, rating: 0);
+  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: "address", city: "city", cnic: "", isLogin: true, isVerified: true, rating: 0);
     Future<void> myCurrentUser() async{        
       final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
       final doc = await docUser.get();
@@ -35,7 +35,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       else
       {
       // print("hello ${currentUser.uname}3 3 3 3 3 3 3 3 3 3 3 3 3 3  ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
-        currentUser = MyUser(uname: "User name", email: "Email", contact_no: 0, address: "MyAddress", city: "city", cnic: 0, isLogin: true,isVerified: true,rating: 0);        
+        currentUser = MyUser(uname: "User name", email: "Email", contact_no: "", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);        
       } 
       // print("hello ${currentUser.uname}1 1 1 1 1 1 1 1 1 1 1 1 1 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
       setState(() {

@@ -14,7 +14,7 @@ class GivenItem extends StatelessWidget {
       height: double.infinity,
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(left: 8,right: 8),
+        padding: const EdgeInsets.only(left: 8, right: 8),
         child: ListView(
           primary: false,
           children: const <Widget>[

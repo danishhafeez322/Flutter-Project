@@ -25,6 +25,7 @@ class _ChatsPageState extends State<UploadPage> {
         return Future.value(false);
       },
       child: Scaffold(
+        bottomNavigationBar: CategoryBottomBar(),
         body: Stack(
           children: [
             DefaultTabController(
@@ -54,12 +55,12 @@ class _ChatsPageState extends State<UploadPage> {
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: CategoryBottomBar(),
-            )
+            // Positioned(
+            //   bottom: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: CategoryBottomBar(),
+            // )
           ],
         ),
       ),

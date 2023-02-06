@@ -11,8 +11,8 @@ class MessagesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildAppBar(),
-      body:  Body(chat: chat),
+      appBar: buildAppBar(),
+      body: Body(chat: chat),
     );
   }
 
@@ -35,7 +35,7 @@ class MessagesScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text(
-                "Adham Atef",
+                "Adham Atof",
                 style: TextStyle(fontSize: 16),
               ),
             ],

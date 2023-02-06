@@ -36,9 +36,18 @@ class AppText {
   static const String days = "Days";
   static const String description = "Description";
   static const String quantity = "Quantity";
-  // static MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: "address", city: "city", cnic: 0, isLogin: true, isVerified: true, rating: 0);
-  static int count = 1;
-  static const List<String> list = <String>[    
+  static MyUser currentUser = MyUser(
+      uname: "User Name",
+      email: "abc@xyz",
+      contact_no: 0,
+      address: "address",
+      city: "city",
+      cnic: 0,
+      isLogin: true,
+      isVerified: true,
+      rating: 0);
+  static int count = 4;
+  static const List<String> list = <String>[
     'Fashion',
     'Electronics',
     'Automobiles',
@@ -50,21 +59,21 @@ class AppText {
     'womens',
     'Kids'
   ];
-  
-  
+
   static const List<String> electronics_sub_list = <String>[
     'Home Appliances',
     'Gadgets',
   ];
 
   static var cate = "";
-  
-  // void myCurrentUser() async{        
-  //   final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
-  //   final doc = await docUser.get();    
-  //   currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-  // }
-    // myCurrentUser();
-  
-      
+
+  void myCurrentUser() async {
+    final docUser = await FirebaseFirestore.instance
+        .collection('/users')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+    final doc = await docUser.get();
+    currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+  }
+  // myCurrentUser();
+
 }

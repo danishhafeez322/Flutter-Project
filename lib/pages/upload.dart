@@ -20,8 +20,7 @@ import '../core/constant/app_color.dart';
 import '../pages/categorybottombar.dart';
 import 'categorybottombar.dart';
 
-
-class UploadView extends StatefulWidget {  
+class UploadView extends StatefulWidget {
   const UploadView({Key? key}) : super(key: key);
   @override
   State<UploadView> createState() => _UploadViewState();
@@ -40,99 +39,102 @@ class _UploadViewState extends State<UploadView> {
 
   openImages() async {
     try {
-        var pickedfiles = await imgpicker.pickMultiImage();
-        //you can use ImageCourse.camera for Camera capture
-        // ignore: unnecessary_null_comparison
-        if(pickedfiles != null){
-            imagefiles = pickedfiles;
-            setState(() {
-            });
-        }else{
-            print("No image is selected.");
-        }
-    }catch (e) {
-        print("error while picking file.");
+      var pickedfiles = await imgpicker.pickMultiImage();
+      //you can use ImageCourse.camera for Camera capture
+      // ignore: unnecessary_null_comparison
+      if (pickedfiles != null) {
+        imagefiles = pickedfiles;
+        setState(() {});
+      } else {
+        print("No image is selected.");
+      }
+    } catch (e) {
+      print("error while picking file.");
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
+      bottomNavigationBar: CategoryBottomBar(),
       body: _body(context),
     );
   }
 
-Stack _body(BuildContext context) {   
+  Stack _body(BuildContext context) {
     String dropdownValue = AppText.list.first;
-    String dropdownSubValue = AppText.fashion_sub_list.first;  
-  
-  return Stack(
-    children:[
-      SizedBox(
-        height: context.height * 1,
-        width: context.width * 1,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              topText(context),
-              Container(
+    String dropdownSubValue = AppText.fashion_sub_list.first;
+
+    return Stack(
+      children: [
+        SizedBox(
+          height: context.height * 1,
+          width: context.width * 1,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                topText(context),
+                Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                        //open button ----------------
-                        ElevatedButton.icon(
-                          icon: Icon(
-                            Icons.upload,
-                            color: Colors.white,
-                            size: 30.0,
-                          ),
-                          label: Text('Choose Images'),
-                          onPressed: () {
-                            openImages();
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(AppColors.uploadColor),
-                          ),
+                      //open button ----------------
+                      ElevatedButton.icon(
+                        icon: Icon(
+                          Icons.upload,
+                          color: Colors.white,
+                          size: 30.0,
                         ),
-                        Divider(),
-                        Text("Picked Files:"),
-                        Divider(),
+                        label: Text('Choose Images'),
+                        onPressed: () {
+                          openImages();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.uploadColor),
+                        ),
+                      ),
+                      Divider(),
+                      Text("Picked Files:"),
+                      Divider(),
 
-                        (imagefiles != null)? Wrap(
-                          children: imagefiles!.map((imageone){
-                              return Container(
-                                child:Card( 
-                                    child: Container(
-                                      height: 100, width:100,
-                                      child: Image.file(File(imageone.path)),
-                                    ),
-                                )
-                              );
-                          }).toList(),
-                        ):Container(),
+                      (imagefiles != null)
+                          ? Wrap(
+                              children: imagefiles!.map((imageone) {
+                                return Container(
+                                    child: Card(
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: Image.file(File(imageone.path)),
+                                  ),
+                                ));
+                              }).toList(),
+                            )
+                          : Container(),
                     ],
                   ),
                 ),
-              context.emptySizedHeightBoxLow3x,
-              CustomTextField(
-                controller: controllerTitle,
-                      height: context.height * 0.07,
-                      width: context.width * 0.8,
-                      hinttext: AppText.title,
-                      text: controllerTitle.text,
-                      prefixIcon: const Icon(
-                        Icons.title,
-                        color: AppColors.uploadColor,
-                      ),
-                    ),
-              context.emptySizedHeightBoxLow3x,
-              Padding(
-                padding: const EdgeInsets.only(left:50,right:50),
-                child: Row(
-                  children: [            
-                    // MyDropdownButton(controller: controllerMainCategory ),
+                context.emptySizedHeightBoxLow3x,
+                CustomTextField(
+                  controller: controllerTitle,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.title,
+                  text: controllerTitle.text,
+                  prefixIcon: const Icon(
+                    Icons.title,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow3x,
+                Padding(
+                  padding: const EdgeInsets.only(left: 50, right: 50),
+                  child: Row(
+                    children: [
+                      // MyDropdownButton(controller: controllerMainCategory ),
                       DropdownButton<String>(
                         value: dropdownValue,
                         icon: const Icon(Icons.arrow_downward),
@@ -150,7 +152,8 @@ Stack _body(BuildContext context) {
                           // controllerMainCategory.text = dropdownValue;
                           // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
                         },
-                        items: AppText.list.map<DropdownMenuItem<String>>((String value) {
+                        items: AppText.list
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -171,129 +174,135 @@ Stack _body(BuildContext context) {
                         onChanged: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
-                            dropdownSubValue= value!;
+                            dropdownSubValue = value!;
                           });
                           controllerSubCategory.text = dropdownSubValue;
                         },
-                        items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {
+                        items: AppText.fashion_sub_list
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
                           );
                         }).toList(),
                       ),
-                    // Spacer(),
-                    // MyDropdownButtonSubCategory(controller: controllerSubCategory),
-                  ],
+                      // Spacer(),
+                      // MyDropdownButtonSubCategory(controller: controllerSubCategory),
+                    ],
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerDescription,
-                height: context.height * 0.1,
-                width: context.width * 0.8,
-                hinttext: AppText.description,
-                text: controllerDescription.text,
-                prefixIcon: const Icon(
-                  Icons.description,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerDescription,
+                  height: context.height * 0.1,
+                  width: context.width * 0.8,
+                  hinttext: AppText.description,
+                  text: controllerDescription.text,
+                  prefixIcon: const Icon(
+                    Icons.description,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerPrice,
-                height: context.height * 0.07,
-                width: context.width * 0.8,
-                hinttext: AppText.price,
-                text: controllerPrice.text,
-                prefixIcon: const Icon(
-                  Icons.price_change,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerPrice,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.price,
+                  text: controllerPrice.text,
+                  prefixIcon: const Icon(
+                    Icons.price_change,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerGuaranteePrice,
-                height: context.height * 0.07,
-                width: context.width * 0.8,
-                hinttext: AppText.guaranteeprice,
-                text: controllerGuaranteePrice.text,
-                prefixIcon: const Icon(
-                  Icons.price_check,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerGuaranteePrice,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.guaranteeprice,
+                  text: controllerGuaranteePrice.text,
+                  prefixIcon: const Icon(
+                    Icons.price_check,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerQuantity,
-                height: context.height * 0.07,
-                width: context.width * 0.8,
-                hinttext: AppText.quantity,
-                text: controllerQuantity.text,
-                prefixIcon: const Icon(
-                  Icons.production_quantity_limits,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerQuantity,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.quantity,
+                  text: controllerQuantity.text,
+                  prefixIcon: const Icon(
+                    Icons.production_quantity_limits,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow3x,
-              CustomElevatedButton(
-                onPressed: () {
-                  final item = MyItem(
-                    id: controllerQuantity.text.trim(),
-                    title: controllerTitle.text.trim(),
-                    category_id: controllerSubCategory.text.trim(),
-                    description: controllerDescription.text.trim(),
-                    price: int.parse(controllerPrice.text.trim()),
-                    guarantee_price: int.parse(controllerGuaranteePrice.text.trim()),
-                    quantity: int.parse(controllerQuantity.text.trim()),
-                    user_id: "${FirebaseAuth.instance.currentUser?.uid}",
-                    images: [''],
-                    status: 0,
-                    date: DateTime.now().toString(),
-                  );
-                  if(item.title != "" && item.category_id != "" && item.description != "" && item.price != 0 && item.guarantee_price != 0 && item.quantity != 0 && item.images != null){
-                    UploadItemToDatabase(item:item,context: context,imagefiles: imagefiles);                  
-                  }
-                  else{
-                    Fluttertoast.showToast(
-                      msg: "Fill the form correctly",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0
+                context.emptySizedHeightBoxLow3x,
+                CustomElevatedButton(
+                  onPressed: () {
+                    final item = MyItem(
+                      id: controllerQuantity.text.trim(),
+                      title: controllerTitle.text.trim(),
+                      category_id: controllerSubCategory.text.trim(),
+                      description: controllerDescription.text.trim(),
+                      price: int.parse(controllerPrice.text.trim()),
+                      guarantee_price:
+                          int.parse(controllerGuaranteePrice.text.trim()),
+                      quantity: int.parse(controllerQuantity.text.trim()),
+                      user_id: "${FirebaseAuth.instance.currentUser?.uid}",
+                      images: [''],
+                      status: 0,
+                      date: DateTime.now().toString(),
                     );
-                    // print("password not match");
-                  }
-
-                },
-                child: Text(
-                  AppText.upload.toUpperCase(),
-                  style: const TextStyle(color: Colors.white),
+                    if (item.title != "" &&
+                        item.category_id != "" &&
+                        item.description != "" &&
+                        item.price != 0 &&
+                        item.guarantee_price != 0 &&
+                        item.quantity != 0 &&
+                        item.images != null) {
+                      UploadItemToDatabase(
+                          item: item, context: context, imagefiles: imagefiles);
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: "Fill the form correctly",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      // print("password not match");
+                    }
+                  },
+                  child: Text(
+                    AppText.upload.toUpperCase(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  borderRadius: 20,
+                  color: AppColors.uploadColor,
+                  height: context.height * 0.07,
+                  width: context.width * 0.6,
                 ),
-                borderRadius: 20,
-                color: AppColors.uploadColor,
-                height: context.height * 0.07,
-                width: context.width * 0.6,
-              ),
-              context.emptySizedHeightBoxLow,
-              context.emptySizedHeightBoxLow3x,
-              context.emptySizedHeightBoxLow3x,
-              context.emptySizedHeightBoxLow3x,
-            ],
+                context.emptySizedHeightBoxLow,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+              ],
+            ),
           ),
         ),
-      ),
-      Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CategoryBottomBar(),
-        )
-    ],
-  );
-}
+        // Positioned(
+        //     bottom: 0,
+        //     left: 0,
+        //     right: 0,
+        //     child: CategoryBottomBar(),
+        //   )
+      ],
+    );
+  }
 
   Container topText(BuildContext context) {
     return Container(
@@ -305,14 +314,15 @@ Stack _body(BuildContext context) {
         color: AppColors.uploadColor,
       ),
       alignment: Alignment.center,
-
       child: Text(
         AppText.upload.toUpperCase(),
-        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+        style: context.textTheme.headline5!
+            .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
 }
+
 List<String> imagesUrl = [];
 Future<String> uploadImage(File file) async {
   final fileName = "${DateTime.now()}.jpeg";
@@ -324,74 +334,73 @@ Future<String> uploadImage(File file) async {
   return urlDownload;
 }
 
-Future getImagesUrl(List<XFile>? images ) async {
+Future getImagesUrl(List<XFile>? images) async {
   imagesUrl.clear();
   for (int i = 0; i < images!.length; i++) {
     final url = await uploadImage(File(images[i].path));
     imagesUrl.add(url);
   }
 }
-Future UploadItemToDatabase({required MyItem item, required BuildContext context, List<XFile>? imagefiles}) async{
+
+Future UploadItemToDatabase(
+    {required MyItem item,
+    required BuildContext context,
+    List<XFile>? imagefiles}) async {
   // showDialog(
   //   context: context,
   //   barrierDismissible: false,
   //   builder: (context) => const Center(child: CircularProgressIndicator())
   // );
   try {
-    if(item.images == null) 
-    {
+    if (item.images == null) {
       Fluttertoast.showToast(
-      msg: "Please Select Images",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0
-      );
-      return ;
-    }
-    else{
+          msg: "Please Select Images",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    } else {
       await getImagesUrl(imagefiles);
 
       item.images = imagesUrl;
-      final docitem = await FirebaseFirestore.instance.collection('/Items').doc("${AppText.count}");
-          
+      final docitem = await FirebaseFirestore.instance
+          .collection('/Items')
+          .doc("${AppText.count}");
+
       final json = item.toMap();
       print("object");
-      await docitem.set(json);   
+      await docitem.set(json);
       AppText.count++;
       Fluttertoast.showToast(
-        msg: "Item Added Successfully",
+          msg: "Item Added Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      print("object");
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WelcomePage()));
+    }
+  } catch (e) {
+    Fluttertoast.showToast(
+        msg: "" + e.toString(),
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
-      );
-      print("object");
-      Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  WelcomePage()));
-    }    
-  }catch (e) {
-    Fluttertoast.showToast(
-      msg: "" + e.toString(),
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-      fontSize: 16.0
-    );
+        fontSize: 16.0);
     print(e);
   }
-  // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());     
+  // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());
 }
 
-
-class MyItem{
+class MyItem {
   String id;
   final String title;
   final String category_id;
@@ -404,21 +413,20 @@ class MyItem{
   final int status;
   var date;
 
-  MyItem({    
-    required this.id,
-    required this.title, 
-    required this.category_id, 
-    required this.user_id, 
-    required this.description, 
-    required this.price, 
-    required this.guarantee_price, 
-    required this.quantity,
-    required this.images, 
-    required this.status, 
-    required this.date
-  });
+  MyItem(
+      {required this.id,
+      required this.title,
+      required this.category_id,
+      required this.user_id,
+      required this.description,
+      required this.price,
+      required this.guarantee_price,
+      required this.quantity,
+      required this.images,
+      required this.status,
+      required this.date});
 
-  Map<String, dynamic> toMap(){    
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
@@ -431,20 +439,20 @@ class MyItem{
       'images': images,
       'status': status,
       'date': date,
-
     };
   }
+
   static MyItem fromMap(Map<String, dynamic> map) => MyItem(
-    id: map['id'],     
-    title: map['title'],
-    category_id: map['category_id'],
-    user_id: map['user_id'],
-    description: map['description'],
-    price: map['price'],
-    guarantee_price: map['guarantee_price'],
-    quantity: map['quantity'],
-    images: map['images'],
-    status: map['status'],
-    date: map['date'],
-  );
+        id: map['id'],
+        title: map['title'],
+        category_id: map['category_id'],
+        user_id: map['user_id'],
+        description: map['description'],
+        price: map['price'],
+        guarantee_price: map['guarantee_price'],
+        quantity: map['quantity'],
+        images: map['images'],
+        status: map['status'],
+        date: map['date'],
+      );
 }

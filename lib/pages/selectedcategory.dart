@@ -2,19 +2,29 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/detailspage.dart';
-import 'package:mad_project/pages/subCategoryCard.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 
 import '../helper/utils.dart';
 import 'categorybottombar.dart';
 
 // ignore: must_be_immutable
-class SelectedCategory extends StatelessWidget {
+class SelectedCategory extends StatefulWidget {
   Category selectedCategory;
-  List<Category> categories = Utils.getMockedCategories();
 
   SelectedCategory({Key? key, required this.selectedCategory})
       : super(key: key);
+
+  @override
+  State<SelectedCategory> createState() => _SelectedCategoryState();
+}
+
+class _SelectedCategoryState extends State<SelectedCategory> {
+  List<Category> categories = Utils.getMockedCategories();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,49 +58,49 @@ class SelectedCategory extends StatelessWidget {
                             //   width: 10,
                             // ),
                             Text(
-                              this.selectedCategory.name,
+                              this.widget.selectedCategory.name,
                               style: TextStyle(
-                                  color: this.selectedCategory.color,
+                                  color: this.widget.selectedCategory.color,
                                   fontSize: 26,
                                   fontWeight: FontWeight.bold),
                             )
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 0.0),
-                        child: Container(
-                          height: 80,
-                          child: Expanded(
-                            child: Container(
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemCount:
-                                    this.selectedCategory.subCategories.length,
-                                itemBuilder: (BuildContext ctx, int index) {
-                                  return subCategorycard(
-                                      index1: index,
-                                      category:
-                                          selectedCategory.subCategories[index],
-                                      onCardClick: () {
-                                        Navigator.pop(context);
-                                        Navigator.push(
-                                          ctx,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                SelectedCategory(
-                                                    selectedCategory:
-                                                        categories[index]),
-                                          ),
-                                        );
-                                      });
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(bottom: 0.0),
+                      //   child: Container(
+                      //     height: 80,
+                      //     child: Expanded(
+                      //       child: Container(
+                      //         child: ListView.builder(
+                      //           scrollDirection: Axis.horizontal,
+                      //           shrinkWrap: true,
+                      //           itemCount:
+                      //               this.selectedCategory.subCategories.length,
+                      //           itemBuilder: (BuildContext ctx, int index) {
+                      //             return subCategorycard(
+                      //                 index1: index,
+                      //                 category:
+                      //                     selectedCategory.subCategories[index],
+                      //                 onCardClick: () {
+                      //                   Navigator.pop(context);
+                      //                   Navigator.push(
+                      //                     ctx,
+                      //                     MaterialPageRoute(
+                      //                       builder: (context) =>
+                      //                           SelectedCategory(
+                      //                               selectedCategory:
+                      //                                   categories[index]),
+                      //                     ),
+                      //                   );
+                      //                 });
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       const SizedBox(height: 25),
                       Container(
                         height: 530,
@@ -99,18 +109,18 @@ class SelectedCategory extends StatelessWidget {
                             physics: NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
                             children: List.generate(
-                              this.selectedCategory.subCategories.length,
+                              this.widget.selectedCategory.subCategories.length,
                               (index) => GestureDetector(
                                 onTap: () {
-                                  Navigator.pop(context);
+                                  //Navigator.pop(context);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailsPage(
                                         subCategory: this
+                                            .widget
                                             .selectedCategory
                                             .subCategories[index],
-
                                       ),
                                     ),
                                   );
@@ -152,6 +162,7 @@ class SelectedCategory extends StatelessWidget {
                                             child: Image.asset(
                                               "assets/images/" +
                                                   this
+                                                      .widget
                                                       .selectedCategory
                                                       .subCategories[index]
                                                       .imgName +
@@ -175,12 +186,14 @@ class SelectedCategory extends StatelessWidget {
                                                     )),
                                           ),
                                         ),
-                                        badgeColor: this.selectedCategory.color,
+                                        badgeColor:
+                                            this.widget.selectedCategory.color,
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 8),
                                         child: Text(
                                           this
+                                              .widget
                                               .selectedCategory
                                               .subCategories[index]
                                               .name,

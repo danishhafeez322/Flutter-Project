@@ -1,11 +1,16 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/upload_page.dart';
 import 'package:mad_project/pages/userDetail/user_view.dart';
+import 'package:mad_project/screens/ChatRoom.dart';
 import 'package:mad_project/screens/chats/chats_screen.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/pages/New%20Arrival.dart';
@@ -14,8 +19,8 @@ import 'package:mad_project/pages/categorycard.dart';
 import 'package:mad_project/pages/selectedcategory.dart';
 import 'package:mad_project/widgets/Carousel.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mad_project/widgets/Search.dart';
 import 'helper/utils.dart';
-// import 'dart:js';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
@@ -33,8 +38,9 @@ Future<void> main() async {
       "/chatScreen": (context) => ChatsScreen(),
       "/uploadPage": (context) => UploadPage(),
       "/profilePage": (context) => ProfilePage(),
+      "/searchPage": (context) => SearchPage(),
     },
-    initialRoute: "/welcome",
+    initialRoute: "/",
   ));
 }
 
@@ -47,13 +53,14 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: this.duration), () {
       // Navigator.pop(context);
+
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => this.gotoPage));
     });
 
     return Scaffold(
       body: Container(
-        color: const Color.fromARGB(255, 15, 12, 12),
+        color: Colors.white,
         alignment: Alignment.center,
         child: Image.asset(
           "assets/images/rentit_logo.png",
@@ -65,10 +72,71 @@ class SplashPage extends StatelessWidget {
   }
 }
 
-class WelcomePage extends StatelessWidget {
-  List<Category> categories = Utils.getMockedCategories();
-  DateTime timeBackPressed = DateTime.now();
+class WelcomePage extends StatefulWidget {
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
 
+class _WelcomePageState extends State<WelcomePage> {
+  List<Category> categories = Utils.getMockedCategories();
+
+  DateTime timeBackPressed = DateTime.now();
+  late StreamSubscription subscription;
+  var isDeviceConnected = false;
+  bool isAlertSet = false;
+
+  @override
+  void initState() {
+    getConnectivity();
+    super.initState();
+  }
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+        (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() {
+              isAlertSet = true;
+            });
+          }
+        },
+      );
+
+  showDialogBox() => showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: const Text('No Connection'),
+          content: const Text('Please check your internet connectivity'),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () async {
+                  Navigator.pop(context, 'cancel');
+                  setState(() {
+                    isAlertSet = false;
+                  });
+                  isDeviceConnected =
+                      await InternetConnectionChecker().hasConnection;
+                  if (!isDeviceConnected) {
+                    showDialogBox();
+                    setState(() {
+                      isAlertSet = true;
+                    });
+                  }
+                },
+                child: const Text('OK'))
+          ],
+        ),
+      );
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
+  // initState() {
   @override
   Widget build(Object context) {
     return WillPopScope(
@@ -83,17 +151,6 @@ class WelcomePage extends StatelessWidget {
         //return true;
       },
       child: Scaffold(
-        // drawer: Drawer(
-        //   child: SingleChildScrollView(
-        //     child: Container(
-        //       height: 1000,
-        //       child: Column(
-        //         children: [MyDrawerHeader()],
-        //       ),
-        //     ),
-        //   ),
-        //   backgroundColor: Colors.white,
-        // ),
         appBar: MainAppBar(
           flag: false,
         ),
@@ -114,7 +171,11 @@ class WelcomePage extends StatelessWidget {
                         height: 50,
                         padding: EdgeInsets.only(left: 15, right: 15),
                         child: TextField(
+                          onTap: () {
+                            getSearch(context);
+                          },
                           maxLines: 1,
+                          readOnly: true,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
@@ -194,4 +255,8 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+void getSearch(context) {
+  Navigator.pushNamed(context, "/searchPage");
 }

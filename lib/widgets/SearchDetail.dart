@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:mad_project/pages/detailspage.dart';
 import 'package:mad_project/pages/upload.dart';
 
-class RentedItemDetail extends StatefulWidget {
+class SearchDetails extends StatefulWidget {
   final Map<String, dynamic> item;
-  const RentedItemDetail({
+  const SearchDetails({
     super.key,
     required this.item,
   });
 
   @override
-  State<RentedItemDetail> createState() => _RentedItemDetailState();
+  State<SearchDetails> createState() => _RentedItemDetailState();
 }
 
-class _RentedItemDetailState extends State<RentedItemDetail> {
+class _RentedItemDetailState extends State<SearchDetails> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

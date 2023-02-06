@@ -21,17 +21,16 @@ class RegisterView extends StatelessWidget {
       body: _body(context),
     );
   }
-  SizedBox _body(BuildContext context) {    
-  final controllerName = TextEditingController();
-  final controllerAddress = TextEditingController();
-  final controllerCity = TextEditingController();
-  final controllerEmail = TextEditingController();
-  final controllerContact = TextEditingController();
-  final controllerCnic = TextEditingController();
-  final controllerPassword = TextEditingController();
-  final controllerConfirm = TextEditingController();
 
-  
+  SizedBox _body(BuildContext context) {
+    final controllerName = TextEditingController();
+    final controllerAddress = TextEditingController();
+    final controllerCity = TextEditingController();
+    final controllerEmail = TextEditingController();
+    final controllerContact = TextEditingController();
+    final controllerCnic = TextEditingController();
+    final controllerPassword = TextEditingController();
+    final controllerConfirm = TextEditingController();
 
     return SizedBox(
       height: context.height * 1,
@@ -87,7 +86,7 @@ class RegisterView extends StatelessWidget {
                 color: AppColors.loginColor,
               ),
             ),
-            context.emptySizedHeightBoxLow,            
+            context.emptySizedHeightBoxLow,
             CustomTextField(
               controller: controllerContact,
               height: context.height * 0.07,
@@ -135,7 +134,7 @@ class RegisterView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
-              onPressed: (){                
+              onPressed: () {
                 final user = MyUser(
                   uname: controllerName.text.trim(),
                   address: controllerAddress.text.trim(),
@@ -146,23 +145,23 @@ class RegisterView extends StatelessWidget {
                   isLogin: false,
                   isVerified: false,
                   rating: 5,
-                  );
-                if(controllerPassword.text == controllerConfirm.text){
-                  createUser(user:user,context: context,text: controllerPassword.text);                  
-                }
-                else{
+                );
+                if (controllerPassword.text == controllerConfirm.text) {
+                  createUser(
+                      user: user,
+                      context: context,
+                      text: controllerPassword.text);
+                } else {
                   Fluttertoast.showToast(
-                    msg: "password not match",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0
-                  );
+                      msg: "password not match",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0);
                   // print("password not match");
                 }
-                
               },
               child: Text(
                 AppText.signUp.toUpperCase(),
@@ -183,11 +182,10 @@ class RegisterView extends StatelessWidget {
 
   SizedBox topImage(BuildContext context) {
     return SizedBox(
-      child: Image.asset('assets/images/register.png'),
+      child: Image.asset('assets/images/loginill.png'),
     );
   }
 
-  
   Container topText(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 5, right: 5),
@@ -200,7 +198,8 @@ class RegisterView extends StatelessWidget {
       alignment: Alignment.center,
       child: Text(
         AppText.signUp.toUpperCase(),
-        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+        style: context.textTheme.headline5!
+            .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
@@ -222,69 +221,68 @@ class RegisterView extends StatelessWidget {
               style: TextStyle(color: AppColors.loginColor),
             ),
             onPressed: () {
-              Navigator.pop(
-                context
-              );
+              Navigator.pop(context);
             },
           )
         ],
       ),
     );
   }
-  
-  Future createUser({required MyUser user, required BuildContext context, required String text}) async{
+
+  Future createUser(
+      {required MyUser user,
+      required BuildContext context,
+      required String text}) async {
     // showDialog(
     //   context: context,
     //   barrierDismissible: false,
     //   builder: (context) => const Center(child: CircularProgressIndicator())
     // );
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: user.email,
-        password: text);
-      final docUser = await FirebaseFirestore.instance.collection('/users').doc(credential.user!.uid);
-      
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: user.email, password: text);
+      final docUser = await FirebaseFirestore.instance
+          .collection('/users')
+          .doc(credential.user!.uid);
+
       final json = user.toMap();
-      await docUser.set(json);   
+      await docUser.set(json);
       AppText.count++;
       Fluttertoast.showToast(
-        msg: "Account Created Successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+          msg: "Account Created Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
       print("object");
       Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) =>  VerifyEmailPage()));
+          context, MaterialPageRoute(builder: (context) => VerifyEmailPage()));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(
-          msg: "The password provided is too weak./nPassword must be at least 6 characters",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
+            msg:
+                "The password provided is too weak./nPassword must be at least 6 characters",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
         // print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         Fluttertoast.showToast(
-          msg: "The account already exists for that email.",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
+            msg: "The account already exists for that email.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
         // print('The account already exists for that email.');
       }
-    }catch (e) {
+    } catch (e) {
       Fluttertoast.showToast(
           msg: "This email already has an account" + e.toString(),
           toastLength: Toast.LENGTH_SHORT,
@@ -292,24 +290,21 @@ class RegisterView extends StatelessWidget {
           timeInSecForIosWeb: 1,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0
-        );
+          fontSize: 16.0);
       print(e);
     }
-    // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());     
+    // navigatorKey.currentState!.popUntil((!'login')=>route.isFirst());
   }
-  Stream<List<MyUser>> getUsers(){
+
+  Stream<List<MyUser>> getUsers() {
     final ref = FirebaseFirestore.instance.collection('/users');
     final snapshots = ref.snapshots();
-    return snapshots.map((snapshot) => 
-    snapshot.docs.map((
-      doc) => MyUser.fromMap(
-        doc.data()
-    )).toList());
+    return snapshots.map((snapshot) =>
+        snapshot.docs.map((doc) => MyUser.fromMap(doc.data())).toList());
   }
 }
 
-class MyUser{
+class MyUser {
   String uname;
   String email;
   String address;
@@ -332,7 +327,7 @@ class MyUser{
     required this.isVerified,
   });
 
-  Map<String, dynamic> toMap(){    
+  Map<String, dynamic> toMap() {
     return {
       'uname': uname,
       'email': email,
@@ -345,17 +340,16 @@ class MyUser{
       'rating': rating,
     };
   }
+
   static MyUser fromMap(Map<String, dynamic> map) => MyUser(
-    uname: map['uname'], 
-    email: map['email'], 
-    contact_no: map['contact_no'], 
-    cnic: map['cnic'], 
-    city: map['city'],
-    address: map['address'],
-    rating: map['rating'],
-    isLogin: map['isLogin'], 
-    isVerified: map['isVerified'], 
-    );
+        uname: map['uname'],
+        email: map['email'],
+        contact_no: map['contact_no'],
+        cnic: map['cnic'],
+        city: map['city'],
+        address: map['address'],
+        rating: map['rating'],
+        isLogin: map['isLogin'],
+        isVerified: map['isVerified'],
+      );
 }
-
-

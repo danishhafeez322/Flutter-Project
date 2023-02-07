@@ -33,7 +33,7 @@ class _RentedItemDetailState extends State<RentedItemDetail> {
             onTap: () {
               MaterialPageRoute(
                 builder: (context) =>
-                    DetailsPage(myItem: widget.item as MyItem),
+                    DetailsPage(myItem_id: widget.item['user_id']),
               );
             },
             child: Row(

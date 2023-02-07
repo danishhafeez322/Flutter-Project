@@ -37,7 +37,7 @@ dependencies:
   fluttertoast: ^8.1.2
   connectivity_plus: ^2.3.5
   internet_connection_checker: ^0.0.1+4
-  
+  badges: ^2.0.3
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,9 +49,8 @@ dependencies:
   cloud_firestore: ^4.3.1
   firebase_auth: ^4.2.4
   firebase_storage: ^11.0.10
-  badges: ^2.0.3
   firebase_database: ^10.0.9
-
+  firebase_core: ^2.4.1
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.3"

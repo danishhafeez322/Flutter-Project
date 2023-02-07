@@ -20,13 +20,12 @@ import 'upload.dart';
 
 // ignore: must_be_immutable
 class DetailsPage extends StatefulWidget {
-  MyItem? myItem;
-  // MyItem? myItem;
+  var myItem_id;
+  var myItem;
   int days = 1;
   double cost = 0.0;
   bool isVisible = false;
-  SubCategory? subCategory;
-
+  // SubCategory? subCategory;
   final controllerStartDate1 = TextEditingController();
   final controllerEndDate1 = TextEditingController();
 
@@ -34,8 +33,8 @@ class DetailsPage extends StatefulWidget {
   final controllerEndDate2 = TextEditingController();
   DetailsPage({
     Key? key,
-    this.myItem,
-    this.subCategory,
+    this.myItem_id,
+    // this.subCategory,
   }) : super(key: key);
   @override
   DetailsPageState createState() => DetailsPageState();
@@ -48,8 +47,13 @@ class DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     // TODO: implement initState
-    createOffer();
     super.initState();
+    
+    createOffer();
+    myItems();
+    setState(() {
+      
+    });
   }
 
   Future<void> createOffer() async {
@@ -80,6 +84,19 @@ class DetailsPageState extends State<DetailsPage> {
       'senderName': FirebaseAuth.instance.currentUser!.uid,
     });
   }
+  
+    Future<void> myItems() async{  
+      
+      final docUser = await FirebaseFirestore.instance.collection('/Items').doc(widget.myItem_id);
+      final doc = await docUser.get();
+      if(doc.exists)
+      {        
+        widget.myItem = MyItem.fromMap(doc.data() as Map<String, dynamic>);
+      }
+      setState(() {
+        
+      });
+    }
 
   String chatRoomId(String user1, String user2) {
     if (user1[0].toLowerCase().codeUnits[0] >
@@ -89,13 +106,37 @@ class DetailsPageState extends State<DetailsPage> {
       return "$user2$user1";
     }
   }
-
+//   _launchWhatsapp() async {
+//     if (currentUser.contact_no == '' || currentUser.contact_no.length < 11 ) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         const SnackBar(
+//           content: Text("User has not provided contact number"),
+//         ),
+//       );
+//       return;
+//     }
+//     else if( currentUser.contact_no[0] == '0' && currentUser.contact_no[1] == '3' &&currentUser.contact_no.length == 11)
+//     {
+//       currentUser.contact_no = currentUser.contact_no.substring(1);
+//           var whatsapp = "+92${currentUser.contact_no}";
+//         var whatsappAndroid =Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
+//         if (await canLaunchUrl(whatsappAndroid)) {
+//             await launchUrl(whatsappAndroid);
+//         } else {
+//             ScaffoldMessenger.of(context).showSnackBar(
+//             const SnackBar(
+//               content: Text("WhatsApp is not installed on the device"),
+//             ),
+//           );
+//         }
+//     }
+// }
   Widget build(BuildContext context) {
-    // List<String> images = ['', ''];
+    myItems();
     return Scaffold(
       appBar: MainAppBar(),
       bottomNavigationBar: CategoryBottomBar(),
-      body: Container(
+      body: (widget.myItem != null)? (Container(
         alignment: Alignment.center,
         child: Stack(children: [
           SingleChildScrollView(
@@ -545,7 +586,7 @@ class DetailsPageState extends State<DetailsPage> {
             ),
           ),
         ]),
-      ),
+      )): Container()
     );
   }
 }

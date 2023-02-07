@@ -54,5 +54,25 @@
       });
     });
   </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-app.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.16.0/firebase-firestore.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC6NfsibyVq_SdJo4Ik92blqHnIp4AkPzE",
+      authDomain: "rent-it-project-b4509.firebaseapp.com",
+      projectId: "rent-it-project-b4509",
+      storageBucket: "rent-it-project-b4509.appspot.com",
+      messagingSenderId: "333982864118",
+      appId: "1:333982864118:web:a85470cc69feffda05d2d7"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mad_project/pages/Registorpage.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 
 import '../categorybottombar.dart';

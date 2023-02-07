@@ -1,3 +1,4 @@
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
@@ -117,10 +118,11 @@ class _SelectedCategoryState extends State<SelectedCategory> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => DetailsPage(
-                                        subCategory: this
-                                            .widget
-                                            .selectedCategory
-                                            .subCategories[index],
+                                        // subCategory: this
+                                        //     .selectedCategory
+                                        //     .subCategories[index],
+                                        // myItem: 
+
                                       ),
                                     ),
                                   );
@@ -129,9 +131,10 @@ class _SelectedCategoryState extends State<SelectedCategory> {
                                   padding: EdgeInsets.only(bottom: 20),
                                   child: Column(
                                     children: [
-                                      Badge(
-                                        position: BadgePosition.topStart(),
-                                        child: Container(
+                                      // Badge(
+                                      //   position: BadgePosition.topStart(),
+                                      //   child: 
+                                        Container(
                                           decoration: BoxDecoration(
                                             shape: BoxShape.rectangle,
                                             border: Border.all(
@@ -173,22 +176,21 @@ class _SelectedCategoryState extends State<SelectedCategory> {
                                             ),
                                           ),
                                         ),
-                                        badgeContent: SizedBox(
-                                          width: 50, height: 30, //badge size
-                                          child: Center(
-                                            //align badge content to center
-                                            child: Text("New",
-                                                style: TextStyle(
-                                                    color: Colors
-                                                        .white, //badge font color
-                                                    fontSize:
-                                                        16 //badge font size
-                                                    )),
-                                          ),
-                                        ),
-                                        badgeColor:
-                                            this.widget.selectedCategory.color,
-                                      ),
+                                      //   badgeContent: SizedBox(
+                                      //     width: 50, height: 30, //badge size
+                                      //     child: Center(
+                                      //       //align badge content to center
+                                      //       child: Text("New",
+                                      //           style: TextStyle(
+                                      //               color: Colors
+                                      //                   .white, //badge font color
+                                      //               fontSize:
+                                      //                   16 //badge font size
+                                      //               )),
+                                      //     ),
+                                      //   ),
+                                      //   badgeColor: this.selectedCategory.color,
+                                      // ),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 8),
                                         child: Text(

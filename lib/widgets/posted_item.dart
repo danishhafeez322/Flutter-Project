@@ -109,7 +109,7 @@ class _PostedItemsState extends State<PostedItems> {
                   itemCount: docs.length,
                   itemBuilder: (_, i) {
                     final data = docs[i].data();
-                    return (FirebaseAuth.instance.currentUser!.uid == data['user_id'])? postedItemDetail( item:data, ) : Container();
+                    return (FirebaseAuth.instance.currentUser != null)? ((FirebaseAuth.instance.currentUser!.uid == data['user_id'])? postedItemDetail( item:data, ) : Container()):Container();
                   },
                 );
               }

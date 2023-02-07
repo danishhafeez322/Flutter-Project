@@ -61,36 +61,40 @@ class postedItemDetail extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10.0),
                   child: Row(
                     children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 10.0, left: 5),
-                            child: Text(
-                              item['title'],
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 18.0,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10.0, left: 5),
+                              child: Text(
+                                item['title'],
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18.0,
+                                ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5),
-                            child: Text(
-                              item['description'],
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.6),
-                                
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12.0,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                item['description'],
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12.0,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -104,15 +108,17 @@ class postedItemDetail extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditDetailView(
-                                      title: item['title'],
-                                      category: "Sports",
-                                      subCategory: "Kids",
-                                      description: item['description'],
-                                      price: item['price'].toString(),
-                                      guaranteePrice: item['guarantee_price'].toString(),
-                                      days: '1',
-                                      quantity: item['quantity'].toString(),
-                                    )));
+                                    title: item['title'],
+                                    category: "Sports",
+                                    subCategory: "Kids",
+                                    description: item['description'],
+                                    price: item['price'].toString(),
+                                    guaranteePrice: item['guarantee_price'].toString(),
+                                    days: '1',
+                                    quantity: item['quantity'].toString(),
+                                )
+                            )
+                        );
                       },
                     ),
                   ),

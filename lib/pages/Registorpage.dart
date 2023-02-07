@@ -342,14 +342,14 @@ class MyUser {
   }
 
   static MyUser fromMap(Map<String, dynamic> map) => MyUser(
-        uname: map['uname'],
-        email: map['email'],
-        contact_no: map['contact_no'],
-        cnic: map['cnic'],
-        city: map['city'],
-        address: map['address'],
-        rating: map['rating'],
-        isLogin: map['isLogin'],
-        isVerified: map['isVerified'],
-      );
+    uname: map['uname'], 
+    email: map['email'], 
+    contact_no: map['contact_no'].toString(), 
+    cnic: map['cnic'].toString(), 
+    city: map['city'],
+    address: map['address'],
+    rating: map['rating'],
+    isLogin: map['isLogin'], 
+    isVerified: map['isVerified'], 
+    );
 }

@@ -21,12 +21,27 @@ import 'package:mad_project/widgets/Carousel.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mad_project/widgets/Search.dart';
 import 'helper/utils.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+// import 'dart:js';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
+  if(kIsWeb){
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyC6NfsibyVq_SdJo4Ik92blqHnIp4AkPzE",
+        authDomain: "rent-it-project-b4509.firebaseapp.com",
+        projectId: "rent-it-project-b4509",
+        storageBucket: "rent-it-project-b4509.appspot.com",
+        messagingSenderId: "333982864118",
+        appId: "1:333982864118:web:a85470cc69feffda05d2d7")
+    );
+  }
+  else{
+    await Firebase.initializeApp();
+  }
   runApp(MaterialApp(
     navigatorKey: navigatorKey,
     // //debugShowCheckedModeBanner: false,

@@ -15,8 +15,8 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
-  
+  // MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
+  var currentUser;
     Future<void> myCurrentUser() async{  
       
       final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
@@ -27,9 +27,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
       }
       else
       {
-       currentUser = MyUser(uname: "User name", email: "Email", contact_no: "", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);
-       
-        
+       currentUser = MyUser(uname: "User name", email: "Email", contact_no: "1234", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);   
       }
       setState(() {
          
@@ -42,15 +40,15 @@ class _ProfileHeaderState extends State<ProfileHeader> {
         
       });
       
-      if(!(currentUser.uname == 'User name')){
+      // if(!(currentUser.uname == 'User name')){
         
-      }
+      // }
     }
   @override
   Widget build(BuildContext context) {
     myCurrentUser();
     
-    return Stack(
+    return (currentUser != null)? Stack(
       children: [
         Container(
           height: 200,
@@ -113,7 +111,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                       builder: (context) => EditUserDetailView(
                         name: currentUser.uname,
                         email: currentUser.email,
-                        phone: currentUser.contact_no.toString(),
+                        phone: currentUser.contact_no,
                         address: currentUser.address,
                         city: currentUser.city,                        
                       ),
@@ -129,7 +127,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           ),
         ),
       ],
-    );
+    ) : Container();
   }
 }
 

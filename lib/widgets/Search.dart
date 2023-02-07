@@ -90,8 +90,10 @@ class _MyWidgetState extends State<SearchPage> {
                 var data =
                     snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
-                if (data["title"].toString().startsWith(name.toLowerCase()) ||
-                    data["title"].toString().startsWith(name.toUpperCase())) {
+                if (data["title"].toLowerCase().toString().contains(name.toLowerCase()) ||
+                    data["price"].toString().startsWith(name.toLowerCase())||
+                    data["description"].toString().contains(name.toLowerCase())||
+                    data["guarantee_price"].toString().startsWith(name.toLowerCase())) {
                   // return Card(
                   //   child: ListTile(
                   //     title: Text(

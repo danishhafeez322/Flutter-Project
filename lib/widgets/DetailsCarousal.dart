@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailsCarousal extends StatefulWidget {
-  List<String> images;
+  var images;
   DetailsCarousal({required this.images});
 
   @override

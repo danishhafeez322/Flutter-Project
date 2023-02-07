@@ -23,7 +23,7 @@ class DetailsPage extends StatefulWidget {
   var myItem_id;
   var myItem;
   int days = 1;
-  double cost = 0.0;
+  int cost = 0;
   bool isVisible = false;
   // SubCategory? subCategory;
   final controllerStartDate1 = TextEditingController();
@@ -44,17 +44,6 @@ class DetailsPageState extends State<DetailsPage> {
   Map<String, dynamic>? UserMap;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    
-    createOffer();
-    myItems();
-    setState(() {
-      
-    });
-  }
 
   Future<void> createOffer() async {
     print("running");
@@ -131,6 +120,17 @@ class DetailsPageState extends State<DetailsPage> {
 //         }
 //     }
 // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();    
+    createOffer();
+    myItems();
+    setState(() {
+      
+    });
+  }
   Widget build(BuildContext context) {
     myItems();
     return Scaffold(
@@ -145,10 +145,10 @@ class DetailsPageState extends State<DetailsPage> {
               child: Column(children: [
                 Stack(
                   children: [
-                    // Container(
-                    //   height: 200,
-                    //   child: DetailsCarousal(images: images),
-                    // ),
+                    Container(
+                      height: 200,
+                      child: DetailsCarousal(images: widget.myItem!.images),
+                    ),
                   ],
                 ),
                 Padding(
@@ -162,9 +162,9 @@ class DetailsPageState extends State<DetailsPage> {
                               text: 'Title: ',
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18)),
-                          // TextSpan(
-                          //   text: widget.myItem!.title,
-                          // )
+                          TextSpan(
+                            text: widget.myItem!.title,
+                          )
                         ]),
                       ),
                     ],
@@ -206,7 +206,7 @@ class DetailsPageState extends State<DetailsPage> {
                                   const TextStyle(fontWeight: FontWeight.bold)),
                           TextSpan(
                             text: 'Rs ' +
-                                // widget.myItem!.price.toString() +
+                                widget.myItem!.price.toString() +
                                 '/day',
                           )
                         ]),
@@ -218,8 +218,8 @@ class DetailsPageState extends State<DetailsPage> {
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold)),
                           TextSpan(
-                            text: 'Rs ',
-                            // widget.myItem!.guarantee_price.toString(),
+                            text: 'Rs '+
+                            widget.myItem!.guarantee_price.toString(),
                           )
                         ]),
                       ),
@@ -330,8 +330,8 @@ class DetailsPageState extends State<DetailsPage> {
                           Text(
                             widget.cost > 0
                                 ? '${widget.cost}'
-                                : '${widget.cost = 0.0}',
-                            // : '${widget.cost = (widget.myItem!.price + widget.myItem!.guarantee_price) as double}',
+                                // : '${widget.cost = 0.0}',
+                            : '${widget.cost = (widget.myItem!.price + widget.myItem!.guarantee_price)}',
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           )

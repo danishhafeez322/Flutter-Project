@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
+import '../core/constant/app_color.dart';
+
 class ChatRoom extends StatelessWidget {
   final TextEditingController _message = TextEditingController();
   final Map<String, dynamic>? userMap;
@@ -36,7 +38,7 @@ class ChatRoom extends StatelessWidget {
         .collection('chats')
         .doc(fileName)
         .set({
-      "sendby": _auth.currentUser!.displayName,
+      "sendby": _auth.currentUser!.uid,
       "message": "",
       "type": "img",
       "time": FieldValue.serverTimestamp(),
@@ -97,7 +99,31 @@ class ChatRoom extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(userMap!['uname']),
+        automaticallyImplyLeading: false,
+        backgroundColor: AppColors.chatColor,
+        // title: Text(userMap!['uname']),
+        title: Row(
+          children: [
+            BackButton(),
+            const CircleAvatar(
+              backgroundImage: AssetImage(
+                "assets/images/profile.png",
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userMap!['uname'],
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -128,43 +154,104 @@ class ChatRoom extends StatelessWidget {
                     }
                   }),
             ),
-            Container(
-                height: size.height / 10,
-                width: size.width,
-                child: Container(
-                  height: size.height / 12,
-                  width: size.width / 1.1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 28.0),
-                    child: SafeArea(
-                      child: Row(children: [
-                        Container(
-                          height: size.height / 12,
-                          width: size.width / 1.5,
-                          child: TextField(
-                            controller: _message,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: (() {
-                                  getImage();
-                                }),
-                                icon: Icon(Icons.photo),
+            // Container(
+            //   height: size.height / 10,
+            //   width: size.width,
+            //   child: Container(
+            //     height: size.height / 12,
+            //     width: size.width / 1.1,
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(left: 28.0),
+            //       child: SafeArea(
+            //         child: Row(children: [
+            //           Container(
+            //             height: size.height / 12,
+            //             width: size.width / 1.5,
+            //             child: TextField(
+            //               controller: _message,
+            //               decoration: InputDecoration(
+            //                 suffixIcon: IconButton(
+            //                   onPressed: (() {
+            //                     getImage();
+            //                   }),
+            //                   icon: Icon(Icons.photo),
+            //                 ),
+            //                 // border: InputBorder.none,
+            //                 border: OutlineInputBorder(
+            //                     borderRadius: BorderRadius.circular(8)),
+            //               ),
+            //             ),
+            //           ),
+            //           GestureDetector(
+            //             onTap: onSendMessage,
+            //             child: Icon(
+            //               Icons.send,
+            //               color: AppColors.chatColor.withOpacity(0.64),
+            //             ),
+            //           ),
+            //         ]),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      // const EdgeInsets.symmetric(horizontal: kDefaultPadding * 0.75),
+                      height: 50,
+                      width: size.width / 1.35,
+                      decoration: BoxDecoration(
+                        color: AppColors.chatTextColor.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 5.0, left: 5),
+                              child: TextField(
+                                controller: _message,
+                                style:
+                                    TextStyle(color: AppColors.chatTextColor),
+                                decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.color
+                                        ?.withOpacity(0.64),
+                                    onPressed: (() {
+                                      getImage();
+                                    }),
+                                    icon: Icon(Icons.camera_alt_outlined),
+                                  ),
+                                  hintText: "Type Message",
+                                  border: InputBorder.none,
+                                ),
                               ),
-                              // border: InputBorder.none,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8)),
                             ),
                           ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              onSendMessage();
-                            },
-                            icon: Icon(Icons.send))
-                      ]),
+                        ],
+                      ),
                     ),
                   ),
-                )),
+                  Material(
+                    child: GestureDetector(
+                      onTap: onSendMessage,
+                      child: Icon(
+                        Icons.send,
+                        color: AppColors.chatColor.withOpacity(0.64),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -182,9 +269,8 @@ class ChatRoom extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.blue,
-              ),
+                  borderRadius: BorderRadius.circular(15),
+                  color: AppColors.chatColor.withOpacity(0.64)),
               child: Text(
                 map['message'],
                 style: TextStyle(

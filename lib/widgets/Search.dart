@@ -74,7 +74,8 @@ class _MyWidgetState extends State<SearchPage> {
           }
 
           return Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding:
+                const EdgeInsets.only(top: 10, bottom: 20, right: 5, left: 5),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),

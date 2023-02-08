@@ -31,26 +31,25 @@ class postedItemDetail extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
+                  padding: const EdgeInsets.only(left: 5.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
-                    child: 
-                    // Image.asset(
-                    //   imageUrl,
-                    //   width: 58.0,
-                    //   height: 58.0,
-                    //   fit: BoxFit.cover,
-                    // ),
-                    
-                    Container(
+                    child:
+                        // Image.asset(
+                        //   imageUrl,
+                        //   width: 58.0,
+                        //   height: 58.0,
+                        //   fit: BoxFit.cover,
+                        // ),
+
+                        Container(
                       margin: EdgeInsets.all(6.0),
                       width: 58.0,
-                      height: 58.0,                      
+                      height: 58.0,
                       decoration: BoxDecoration(
                         // borderRadius: BorderRadius.circular(8.0),
-                        image:  DecorationImage(
-                          image:
-                           NetworkImage( "" + item['images'][0]),
+                        image: DecorationImage(
+                          image: NetworkImage("" + item['images'][0]),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -76,7 +75,7 @@ class postedItemDetail extends StatelessWidget {
                                 style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 18.0,
+                                  fontSize: 16.0,
                                 ),
                               ),
                             ),
@@ -87,7 +86,6 @@ class postedItemDetail extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.black.withOpacity(0.6),
-                                  
                                   fontWeight: FontWeight.normal,
                                   fontSize: 12.0,
                                 ),
@@ -108,17 +106,16 @@ class postedItemDetail extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditDetailView(
-                                    title: item['title'],
-                                    category: "Sports",
-                                    subCategory: "Kids",
-                                    description: item['description'],
-                                    price: item['price'].toString(),
-                                    guaranteePrice: item['guarantee_price'].toString(),
-                                    days: '1',
-                                    quantity: item['quantity'].toString(),
-                                )
-                            )
-                        );
+                                      title: item['title'],
+                                      category: "Sports",
+                                      subCategory: "Kids",
+                                      description: item['description'],
+                                      price: item['price'].toString(),
+                                      guaranteePrice:
+                                          item['guarantee_price'].toString(),
+                                      days: '1',
+                                      quantity: item['quantity'].toString(),
+                                    )));
                       },
                     ),
                   ),

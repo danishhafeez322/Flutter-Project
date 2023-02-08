@@ -53,18 +53,17 @@ class _NewArrivalState extends State<NewArrival> {
       padding: const EdgeInsets.only(top: 8.0, bottom: 20),
       child: (temp != null)
           ? Container(
-              height: 650,
               child: Expanded(
                 child: GridView.count(
-                  physics: BouncingScrollPhysics(),
                   crossAxisCount: 2,
+                  shrinkWrap: true,
                   padding: EdgeInsets.only(bottom: 2, top: 10),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: List.generate(
                     temp.length,
                     (index) => Container(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

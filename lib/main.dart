@@ -28,18 +28,16 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(kIsWeb){
+  if (kIsWeb) {
     await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: "AIzaSyC6NfsibyVq_SdJo4Ik92blqHnIp4AkPzE",
-        authDomain: "rent-it-project-b4509.firebaseapp.com",
-        projectId: "rent-it-project-b4509",
-        storageBucket: "rent-it-project-b4509.appspot.com",
-        messagingSenderId: "333982864118",
-        appId: "1:333982864118:web:a85470cc69feffda05d2d7")
-    );
-  }
-  else{
+        options: FirebaseOptions(
+            apiKey: "AIzaSyC6NfsibyVq_SdJo4Ik92blqHnIp4AkPzE",
+            authDomain: "rent-it-project-b4509.firebaseapp.com",
+            projectId: "rent-it-project-b4509",
+            storageBucket: "rent-it-project-b4509.appspot.com",
+            messagingSenderId: "333982864118",
+            appId: "1:333982864118:web:a85470cc69feffda05d2d7"));
+  } else {
     await Firebase.initializeApp();
   }
   runApp(MaterialApp(
@@ -171,100 +169,93 @@ class _WelcomePageState extends State<WelcomePage> {
         ),
         bottomNavigationBar: CategoryBottomBar(),
         body: Container(
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                    bottom: 15,
+                  ),
+                  child: Container(
+                    height: 50,
+                    padding: EdgeInsets.only(left: 15, right: 15),
+                    child: TextField(
+                      onTap: () {
+                        getSearch(context);
+                      },
+                      maxLines: 1,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        hintText: 'Find Cars, Vehicles, and many more',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                  ),
+                ),
+                Column(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: 10,
-                        bottom: 15,
-                      ),
-                      child: Container(
-                        height: 50,
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        child: TextField(
-                          onTap: () {
-                            getSearch(context);
-                          },
-                          maxLines: 1,
-                          readOnly: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            hintText: 'Find Cars, Vehicles, and many more',
-                            prefixIcon: Icon(Icons.search),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          height: 180,
-                          child: Carousel(),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, bottom: 6, top: 10),
-                      child: Text(
-                        "Main Categories",
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
                     Container(
-                      height: 80,
-                      child: Expanded(
-                        child: Container(
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-
-                            // padding: const EdgeInsets.only(bottom: 100),
-                            itemCount: categories.length,
-                            itemBuilder: (BuildContext ctx, int index) {
-                              return Categorycard(
-                                  category: categories[index],
-                                  onCardClick: () {
-                                    // Navigator.pop(ctx);
-                                    Navigator.push(
-                                      ctx,
-                                      MaterialPageRoute(
-                                        builder: (context) => SelectedCategory(
-                                            selectedCategory:
-                                                categories[index]),
-                                      ),
-                                    );
-                                  });
-                            },
-                          ),
-                        ),
-                      ),
+                      height: 180,
+                      child: Carousel(),
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 16, bottom: 8, top: 10),
-                      child: Text(
-                        "New Arrival",
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    NewArrival(selectedCategory: categories[1]),
                   ],
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, bottom: 6, top: 10),
+                  child: Text(
+                    "Main Categories",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Container(
+                  height: 80,
+                  child: Expanded(
+                    child: Container(
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+
+                        // padding: const EdgeInsets.only(bottom: 100),
+                        itemCount: categories.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          return Categorycard(
+                              category: categories[index],
+                              onCardClick: () {
+                                // Navigator.pop(ctx);
+                                Navigator.push(
+                                  ctx,
+                                  MaterialPageRoute(
+                                    builder: (context) => SelectedCategory(
+                                        selectedCategory: categories[index]),
+                                  ),
+                                );
+                              });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, bottom: 8, top: 10),
+                  child: Text(
+                    "New Arrival",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                NewArrival(selectedCategory: categories[1]),
+              ],
+            ),
           ),
         ),
       ),

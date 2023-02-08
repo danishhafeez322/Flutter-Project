@@ -23,9 +23,11 @@ import 'upload.dart';
 class DetailsPage extends StatefulWidget {
   var myItem_id;
   var myItem;
+  var DocId;
   int days = 1;
   int cost = 0;
   bool isVisible = false;
+
   // SubCategory? subCategory;
   final controllerStartDate1 = TextEditingController();
   final controllerEndDate1 = TextEditingController();
@@ -45,7 +47,7 @@ class DetailsPage extends StatefulWidget {
 
 class DetailsPageState extends State<DetailsPage> {
   Map<String, dynamic>? UserMap;
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<void> createOffer(var st_date, var end_date, var itemUser,var price,var gaurantee_price) async {
     print("running");
     print("================================" + st_date);
@@ -64,6 +66,7 @@ class DetailsPageState extends State<DetailsPage> {
     //     .collection('order')
     //     .doc(itemUser)
     //     .set({});
+  Map<String, dynamic>? CurrentUserMap;
 
     await FirebaseFirestore.instance
         .collection('order')
@@ -114,8 +117,7 @@ class DetailsPageState extends State<DetailsPage> {
   }
 
   String chatRoomId(String user1, String user2) {
-    if (user1[0].toLowerCase().codeUnits[0] >
-        user2.toLowerCase().codeUnits[0]) {
+    if (user1.toLowerCase().codeUnits[0] > user2.toLowerCase().codeUnits[0]) {
       return "$user1$user2";
     } else {
       return "$user2$user1";
@@ -151,14 +153,145 @@ class DetailsPageState extends State<DetailsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();    
-    // createOffer();
     myItems();
+
+    // createOffer();
     setState(() {});
   }
 
   Widget build(BuildContext context) {
     myItems();
     return Scaffold(
+        appBar: MainAppBar(),
+        bottomNavigationBar: CategoryBottomBar(),
+        body: (widget.myItem != null)
+            ? (Container(
+                alignment: Alignment.center,
+                child: Stack(children: [
+                  SingleChildScrollView(
+                    child: Container(
+                      height: 900,
+                      child: Column(children: [
+                        Stack(
+                          children: [
+                            Container(
+                              height: 200,
+                              child: DetailsCarousal(
+                                  images: widget.myItem!.images),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 5, right: 20, left: 20, bottom: 5),
+                          child: Row(
+                            children: [
+                              Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                      text: 'Title: ',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18)),
+                                  TextSpan(
+                                    text: widget.myItem!.title,
+                                  )
+                                ]),
+                              ),
+                            ],
+                          ),
+                        ),
+                        dividerPlus(),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 0, right: 20, left: 20, bottom: 5),
+                          child: Column(children: [
+                            ExpansionTile(
+                              title: Text(
+                                "Description",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ), //header title
+                              children: [
+                                Container(
+                                  color: Colors.white10,
+                                  padding: EdgeInsets.all(20),
+                                  width: double.infinity,
+                                  child: Text(widget.myItem!.description),
+                                )
+                              ],
+                            ),
+                          ]),
+                        ),
+                        dividerPlus(),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 5, right: 20, left: 20, bottom: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                      text: 'Price: ',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                    text: 'Rs ' +
+                                        widget.myItem!.price.toString() +
+                                        '/day',
+                                  )
+                                ]),
+                              ),
+                              Text.rich(
+                                TextSpan(children: [
+                                  TextSpan(
+                                      text: 'Guaranteed Price: ',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                    text: 'Rs ' +
+                                        widget.myItem!.guarantee_price
+                                            .toString(),
+                                  )
+                                ]),
+                              ),
+                            ],
+                          ),
+                        ),
+                        dividerPlus(),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 15, right: 15, top: 10, bottom: 5),
+                          child: Container(
+                            height: 35,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 160,
+                                  child: TextField(
+                                      controller: widget
+                                          .controllerStartDate1, //editing controller of this TextField
+                                      decoration: const InputDecoration(
+                                          fillColor: Colors.green,
+                                          icon: Icon(Icons
+                                              .calendar_today), //icon of text field
+                                          hintText: "Start Date"),
+                                      readOnly: true,
+                                      onTap: () async {
+                                        //when click we have to show the datepicker
+                                        DateTime? pickedDate =
+                                            await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime
+                                                    .now(), //get today's date
+                                                firstDate: DateTime
+                                                    .now(), //DateTime.now() - not to allow to choose before today.
+                                                lastDate: DateTime(2101));
+                                        if (pickedDate != null) {
+                                          String formattedDate =
+                                              DateFormat('dd-MM-yyyy').format(
+                                                  pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
       appBar: MainAppBar(),
       bottomNavigationBar: CategoryBottomBar(),
       body: (widget.myItem != null)? (Container(
@@ -422,7 +555,8 @@ class DetailsPageState extends State<DetailsPage> {
                                     GestureDetector(
                                       onTap: () {
                                         String roomId = chatRoomId(
-                                            "shery", UserMap!['uname']);
+                                            CurrentUserMap!['uname'],
+                                            UserMap!['uname']);
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(

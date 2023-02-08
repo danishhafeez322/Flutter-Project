@@ -31,9 +31,13 @@ class _RentedItemDetailState extends State<SearchDetails> {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              MaterialPageRoute(
-                builder: (context) =>
-                    DetailsPage(myItem_id: widget.item['user_id']),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(
+                    myItem_id: widget.item['id'],
+                  ),
+                ),
               );
             },
             child: Row(

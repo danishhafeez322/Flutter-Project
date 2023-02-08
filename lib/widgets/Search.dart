@@ -23,13 +23,6 @@ class _MyWidgetState extends State<SearchPage> {
   TextEditingController cont = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    // final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
-    //     .collection('Items')
-    //     .where(
-    //       'title',
-    //       isEqualTo: cont.text,
-    //     )
-    //     .snapshots();
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.white,
@@ -80,31 +73,41 @@ class _MyWidgetState extends State<SearchPage> {
             );
           }
 
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListView.builder(
-              itemCount: snapshot.data!.docs.length,
-              itemBuilder: (_, index) {
-                var data =
-                    snapshot.data!.docs[index].data() as Map<String, dynamic>;
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ListView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (_, index) {
+                  var data =
+                      snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
-                if (data["title"].toLowerCase().toString().contains(name.toLowerCase()) ||
-                    data["price"].toString().startsWith(name.toLowerCase())||
-                    data["description"].toString().contains(name.toLowerCase())||
-                    data["guarantee_price"].toString().startsWith(name.toLowerCase())) {
-                  // return Card(
-                  //   child: ListTile(
-                  //     title: Text(
-                  //       snapshot.data!.docChanges[index].doc['title'],
-                  //     ),
-                  //   ),
-                  // );
-                  return SearchDetails(item: data);
-                }
-                return Container();
-              },
+                  if (data["title"]
+                          .toLowerCase()
+                          .toString()
+                          .contains(name.toLowerCase()) ||
+                      data["price"].toString().startsWith(name.toLowerCase()) ||
+                      data["description"]
+                          .toString()
+                          .contains(name.toLowerCase()) ||
+                      data["guarantee_price"]
+                          .toString()
+                          .startsWith(name.toLowerCase())) {
+                    // return Card(
+                    //   child: ListTile(
+                    //     title: Text(
+                    //       snapshot.data!.docChanges[index].doc['title'],
+                    //     ),
+                    //   ),
+                    // );
+                    return SearchDetails(item: data);
+                  }
+                  return Container();
+                },
+              ),
             ),
           );
         },

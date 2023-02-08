@@ -50,7 +50,7 @@ class AppText {
   // static const List<String> list = <String>[
   // static MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: 0, address: "address", city: "city", cnic: 0, isLogin: true, isVerified: true, rating: 0);
   static int count = 7;
-  static const List<String> list = <String>[    
+  static const List<String> list = <String>[
     'Fashion',
     'Electronics',
     'Automobiles',

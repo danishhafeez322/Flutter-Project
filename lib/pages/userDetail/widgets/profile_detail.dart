@@ -15,8 +15,8 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  // MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
-  var currentUser;
+  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
+  // var currentUser;
     Future<void> myCurrentUser() async{  
       
       final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
@@ -48,7 +48,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
   Widget build(BuildContext context) {
     myCurrentUser();
     
-    return (currentUser != null)? Stack(
+    return  Stack(
       children: [
         Container(
           height: 200,
@@ -127,7 +127,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           ),
         ),
       ],
-    ) : Container();
+    ) ;
   }
 }
 

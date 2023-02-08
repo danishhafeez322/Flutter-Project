@@ -13,7 +13,9 @@ class ProfileBody extends StatefulWidget {
 }
 
 class _ProfileBodyState extends State<ProfileBody> {
-  var currentUser;
+  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
+
+  // var currentUser;
     Future<void> myCurrentUser() async{        
       final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
       final doc = await docUser.get();
@@ -21,20 +23,9 @@ class _ProfileBodyState extends State<ProfileBody> {
       {
         // MyUser temp = MyUser.fromMap(doc.data() as Map<String, dynamic>);
         currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-        // currentUser.uname = temp.uname;  
-        // currentUser.email = temp.email;
-        // currentUser.contact_no = temp.contact_no;
-        // currentUser.address = temp.address;
-        // currentUser.city = temp.city;
-        // currentUser.cnic = temp.cnic;
-        // currentUser.isLogin = temp.isLogin;
-        // currentUser.isVerified = temp.isVerified;
-        // currentUser.rating = temp.rating;
-      // print("hello ${currentUser.uname}2 2 2 2 2 2 2 2 2 2 2 2 2 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
       }
       else
       {
-      // print("hello ${currentUser.uname}3 3 3 3 3 3 3 3 3 3 3 3 3 3  ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
         currentUser = MyUser(uname: "User name", email: "Email", contact_no: "", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);        
       } 
       // print("hello ${currentUser.uname}1 1 1 1 1 1 1 1 1 1 1 1 1 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");     
@@ -53,7 +44,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   Widget build(BuildContext context) {
     // myCurrentUser();
 
-    return (currentUser != null)? Expanded(
+    return Expanded(
       
       child: Container(
         padding: const EdgeInsets.all(20),
@@ -240,6 +231,6 @@ class _ProfileBodyState extends State<ProfileBody> {
             ),
           ] 
       ))
-    ) : Container();
+    );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/models/subcategory.dart';
@@ -28,6 +29,8 @@ class DetailsPage extends StatefulWidget {
   // SubCategory? subCategory;
   final controllerStartDate1 = TextEditingController();
   final controllerEndDate1 = TextEditingController();
+  final OfferPriceController = TextEditingController();
+  final OfferGauranteecontroller = TextEditingController();
 
   final controllerStartDate2 = TextEditingController();
   final controllerEndDate2 = TextEditingController();
@@ -43,33 +46,60 @@ class DetailsPage extends StatefulWidget {
 class DetailsPageState extends State<DetailsPage> {
   Map<String, dynamic>? UserMap;
   // final FirebaseAuth _auth = FirebaseAuth.instance;
+  Future<void> createOffer(var st_date, var end_date, var itemUser,var price,var gaurantee_price) async {
+    print("running");
+    print("================================" + st_date);
+    // await FirebaseFirestore.instance
+    //     .collection('/users') 
+    //     .where("email", isEqualTo: "danish.bcss19@iba-suk.edu.pk")
+    //     .get()
+    //     .then((value) {
+    //   setState(() {
+    //     UserMap = value.docs[0].data();
+    //   });
+    //   print(UserMap);
+    // });
+    try{
+    // await FirebaseFirestore.instance
+    //     .collection('order')
+    //     .doc(itemUser)
+    //     .set({});
 
-  Future<void> createOffer() async {
-    await FirebaseFirestore.instance
-        .collection('/users')
-        .where("email", isEqualTo: "danish.bcss19@iba-suk.edu.pk")
-        .get()
-        .then((value) {
-      setState(() {
-        UserMap = value.docs[0].data();
-      });
-      print(UserMap);
-    });
     await FirebaseFirestore.instance
         .collection('order')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({});
-    await FirebaseFirestore.instance
-        .collection('order')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(itemUser)
         .collection('offer')
         .doc()
         .set({
-      'startData': DateTime.now(),
-      'endData': DateTime.now(),
-      // 'item': widget.myItem,
-      'senderName': FirebaseAuth.instance.currentUser!.uid,
+      'startDate': st_date.toString(),
+      'endDate': end_date.toString(),
+      'itemId': widget.myItem!.id,
+      'itemTitle': widget.myItem!.title,
+      'itemImage': widget.myItem!.images,
+      'senderId': FirebaseAuth.instance.currentUser!.uid,
+      'price': price,
+      'gaurantee_price': gaurantee_price,
     });
+      
+      Fluttertoast.showToast(
+        msg: "Offer Send Successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    }catch(e){
+    Fluttertoast.showToast(
+        msg: "" + e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    }
+    
   }
 
   Future<void> myItems() async {
@@ -120,8 +150,8 @@ class DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    createOffer();
+    super.initState();    
+    // createOffer();
     myItems();
     setState(() {});
   }
@@ -129,185 +159,181 @@ class DetailsPageState extends State<DetailsPage> {
   Widget build(BuildContext context) {
     myItems();
     return Scaffold(
-        appBar: MainAppBar(),
-        bottomNavigationBar: CategoryBottomBar(),
-        body: (widget.myItem != null)
-            ? (Container(
-                alignment: Alignment.center,
-                child: Stack(children: [
-                  SingleChildScrollView(
-                    child: Container(
-                      height: 900,
-                      child: Column(children: [
-                        Stack(
-                          children: [
-                            Container(
-                              height: 200,
-                              child: DetailsCarousal(
-                                  images: widget.myItem!.images),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 5, right: 20, left: 20, bottom: 5),
-                          child: Row(
-                            children: [
-                              Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                      text: 'Title: ',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18)),
-                                  TextSpan(
-                                    text: widget.myItem!.title,
-                                  )
-                                ]),
-                              ),
-                            ],
-                          ),
-                        ),
-                        dividerPlus(),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 0, right: 20, left: 20, bottom: 5),
-                          child: Column(children: [
-                            ExpansionTile(
-                              title: Text(
-                                "Description",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ), //header title
-                              children: [
-                                // Container(
-                                //   color: Colors.white10,
-                                //   padding: EdgeInsets.all(20),
-                                //   width: double.infinity,
-                                //   child: Text(widget.myItem!.description),
-                                // )
-                              ],
-                            ),
-                          ]),
-                        ),
-                        dividerPlus(),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 5, right: 20, left: 20, bottom: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                      text: 'Price: ',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                    text: 'Rs ' +
-                                        widget.myItem!.price.toString() +
-                                        '/day',
-                                  )
-                                ]),
-                              ),
-                              Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                      text: 'Guaranteed Price: ',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  TextSpan(
-                                    text: 'Rs ' +
-                                        widget.myItem!.guarantee_price
-                                            .toString(),
-                                  )
-                                ]),
-                              ),
-                            ],
-                          ),
-                        ),
-                        dividerPlus(),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 15, right: 15, top: 10, bottom: 5),
-                          child: Container(
-                            height: 35,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 160,
-                                  child: TextField(
-                                      controller: widget
-                                          .controllerStartDate1, //editing controller of this TextField
-                                      decoration: const InputDecoration(
-                                          fillColor: Colors.green,
-                                          icon: Icon(Icons
-                                              .calendar_today), //icon of text field
-                                          hintText: "Start Date"),
-                                      readOnly: true,
-                                      onTap: () async {
-                                        //when click we have to show the datepicker
-                                        DateTime? pickedDate =
-                                            await showDatePicker(
-                                                context: context,
-                                                initialDate: DateTime
-                                                    .now(), //get today's date
-                                                firstDate: DateTime
-                                                    .now(), //DateTime.now() - not to allow to choose before today.
-                                                lastDate: DateTime(2101));
-                                        if (pickedDate != null) {
-                                          String formattedDate =
-                                              DateFormat('dd-MM-yyyy').format(
-                                                  pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+      appBar: MainAppBar(),
+      bottomNavigationBar: CategoryBottomBar(),
+      body: (widget.myItem != null)? (Container(
+        alignment: Alignment.center,
+        child: Stack(children: [
+          SingleChildScrollView(
+            child: Container(
+              height: 900,
+              child: Column(children: [
+                Stack(
+                  children: [
+                    Container(
+                      height: 200,
+                      child: DetailsCarousal(images: widget.myItem!.images),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 5, right: 20, left: 20, bottom: 5),
+                  child: Row(
+                    children: [
+                      Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                              text: 'Title: ',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                          TextSpan(
+                            text: widget.myItem!.title,
+                          )
+                        ]),
+                      ),
+                    ],
+                  ),
+                ),
+                dividerPlus(),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 0, right: 20, left: 20, bottom: 5),
+                  child: Column(children: [
+                    ExpansionTile(
+                      title: Text(
+                        "Description",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ), //header title
+                      children: [
+                        Container(
+                          color: Colors.white10,
+                          padding: EdgeInsets.all(20),
+                          width: double.infinity,
+                          child: Text(widget.myItem!.description),
+                        )
+                      ],
+                    ),
+                  ]),
+                ),
+                dividerPlus(),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 5, right: 20, left: 20, bottom: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                              text: 'Price: ',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(
+                            text: 'Rs ' +
+                                widget.myItem!.price.toString() +
+                                '/day',
+                          )
+                        ]),
+                      ),
+                      Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                              text: 'Guaranteed Price: ',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(
+                            text: 'Rs '+
+                            widget.myItem!.guarantee_price.toString(),
+                          )
+                        ]),
+                      ),
+                    ],
+                  ),
+                ),
+                dividerPlus(),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 5),
+                  child: Container(
+                    height: 35,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 160,
+                          child: TextField(
+                              controller: widget
+                                  .controllerStartDate1, //editing controller of this TextField
+                              decoration: const InputDecoration(
+                                  fillColor: Colors.green,
+                                  icon: Icon(Icons
+                                      .calendar_today), //icon of text field
+                                  hintText: "Start Date"),
+                              readOnly: true,
+                              onTap: () async {
+                                //when click we have to show the datepicker
+                                DateTime? pickedDate = await showDatePicker(
+                                    context: context,
+                                    initialDate:
+                                        DateTime.now(), //get today's date
+                                    firstDate: DateTime
+                                        .now(), //DateTime.now() - not to allow to choose before today.
+                                    lastDate: DateTime(2101));
+                                if (pickedDate != null) {
+                                  String formattedDate = 
+                                      DateFormat('dd-MM-yyyy').format(
+                                          pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
 
-                                          setState(() {
-                                            widget.controllerStartDate1.text =
-                                                formattedDate; //set foratted date to TextField value.
-                                          });
-                                          // print(controllerStartDate.text);
-                                        } else {
-                                          print("Date is not selected");
-                                        }
-                                      }),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: Container(
-                                    width: 150,
-                                    child: TextField(
-                                        controller: widget
-                                            .controllerEndDate1, //editing controller of this TextField
-                                        decoration: const InputDecoration(
-                                          fillColor: Colors.green,
-                                          icon: Icon(Icons
-                                              .calendar_today), //icon of text field
-                                          hintText: "End Date",
-                                        ),
-                                        readOnly:
-                                            true, // when true user cannot edit text
-                                        onTap: () async {
-                                          //when click we have to show the datepicker
-                                          DateTime? pickedDate =
-                                              await showDatePicker(
-                                                  context: context,
-                                                  initialDate: DateTime
-                                                      .now(), //get today's date
-                                                  firstDate: DateTime
-                                                      .now(), //DateTime.now() - not to allow to choose before today.
-                                                  lastDate: DateTime(2101));
-                                          if (pickedDate != null) {
-                                            String formattedDate =
-                                                DateFormat('dd-MM-yyyy')
-                                                    .format(pickedDate);
+                                  setState(() {
+                                    widget.controllerStartDate1.text =
+                                        formattedDate; //set foratted date to TextField value.
+                                  });
+                                  
+                                } else {
+                                  print("Date is not selected");
+                                }
+                              }),
+                        ),
+                        
+                        Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Container(
+                              width: 150,
+                              child: TextField(
+                                  controller: widget
+                                      .controllerEndDate1, //editing controller of this TextField
+                                  decoration: const InputDecoration(
+                                    fillColor: Colors.green,
+                                    icon: Icon(Icons
+                                        .calendar_today), //icon of text field
+                                    hintText: "End Date",
+                                  ),
+                                  readOnly:
+                                      true, // when true user cannot edit text
+                                  onTap: () async {
+                                    //when click we have to show the datepicker
+                                    DateTime? pickedDate =
+                                        await showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime
+                                                .now(), //get today's date
+                                            firstDate: DateTime
+                                                .now(), //DateTime.now() - not to allow to choose before today.
+                                            lastDate: DateTime(2101));
+                                    if (pickedDate != null) {
+                                      String formattedDate =
+                                          DateFormat('dd-MM-yyyy')
+                                              .format(pickedDate);
 
-                                            setState(() {
-                                              widget.controllerEndDate1.text =
-                                                  formattedDate; //set foratted date to TextField value.
-                                            });
-                                          } else {
-                                            print("Date is not selected");
-                                          }
-                                        }),
+                                      setState(() {
+                                        widget.controllerEndDate1.text =
+                                            formattedDate; //set foratted date to TextField value.
+                                      });
+                                    } else {
+                                      print("Date is not selected");
+                                    }
+                                  }),
                                   ),
                                 )
                               ],
@@ -457,6 +483,7 @@ class DetailsPageState extends State<DetailsPage> {
                                   width: 150,
                                   height: 40,
                                   child: TextField(
+                                    controller: widget.OfferPriceController,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
                                       hintText: "Your Price",
@@ -470,6 +497,7 @@ class DetailsPageState extends State<DetailsPage> {
                                   width: 150,
                                   height: 40,
                                   child: TextField(
+                                    controller: widget.OfferGauranteecontroller,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
                                       hintText: "Gauarnteed Price",
@@ -572,34 +600,34 @@ class DetailsPageState extends State<DetailsPage> {
                                 ],
                               ),
                             ),
+                          ))
+,                Visibility(
+                  visible: widget.isVisible,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Column(children: [
+                      // GestureDetector(
+                      //   onTap: () {
+                      //   },
+                        // child: 
+                        CustomElevatedButton(
+                          onPressed: () {
+                          createOffer(widget.controllerStartDate2.text, widget.controllerEndDate2.text, widget.myItem.user_id, widget.OfferPriceController.text, widget.OfferGauranteecontroller.text);
+                            
+                          },
+                          child: Text(
+                            "Send Offer".toUpperCase(),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ),
-                        Visibility(
-                          visible: widget.isVisible,
-                          child: Padding(
-                            padding: EdgeInsets.only(top: 10),
-                            child: Column(children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: CustomElevatedButton(
-                                  child: Text(
-                                    "Send Offer".toUpperCase(),
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                  borderRadius: 20,
-                                  color: Color.fromARGB(255, 2, 65, 15),
-                                  height: context.height * 0.07,
-                                  width: context.width * 0.4,
-                                ),
-                              ),
-                            ]),
-                          ),
-                        ),
-                      ]),
-                    ),
+                      // ),
+                    ]),
                   ),
-                ]),
-              ))
-            : Container());
+                ),
+        ])))
+           ]))
+          
+      ) : Container()
+    );
   }
 }

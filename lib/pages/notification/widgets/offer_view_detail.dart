@@ -1,10 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class OfferViewDetail extends StatelessWidget {
+class OfferViewDetail extends StatefulWidget {
   final String user, imageUrl, briefChat, date;
+  var data;
 
-  const OfferViewDetail({
+   OfferViewDetail({
     super.key,
+    this.data,
     required this.user,
     required this.imageUrl,
     required this.briefChat,
@@ -12,8 +17,47 @@ class OfferViewDetail extends StatelessWidget {
   });
 
   @override
+  State<OfferViewDetail> createState() => _OfferViewDetailState();
+}
+
+class _OfferViewDetailState extends State<OfferViewDetail> {
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    Future<void> generateNotification( var desc) async{
+      try{
+        await FirebaseFirestore.instance
+          .collection('order')
+          .doc(widget.data['senderId'])
+          .collection('notification')
+          .doc()
+          .set({
+            'itemId': widget.data['itemId'],
+            'itemTitle': widget.user,
+            'itemImage': widget.imageUrl,
+            'senderId': FirebaseAuth.instance.currentUser!.uid,
+            'description': desc,
+            'date': DateTime.now().toString(),
+          });
+          Fluttertoast.showToast(
+            msg: "Successfully Done",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }catch(e){
+        Fluttertoast.showToast(
+          msg: "" + e.toString(),
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      }
+    }
 
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
@@ -39,11 +83,25 @@ class OfferViewDetail extends StatelessWidget {
                     height: 40.0,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        imageUrl,
-                        width: 45.0,
-                        height: 50.0,
-                        fit: BoxFit.cover,
+                      child: 
+                      // Image.asset(
+                      //   imageUrl,
+                      //   width: 45.0,
+                      //   height: 50.0,
+                      //   fit: BoxFit.cover,
+                      // ),
+                      Container(
+                      margin: EdgeInsets.all(6.0),
+                      width: 58.0,
+                      height: 58.0,                      
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(8.0),
+                        image:  DecorationImage(
+                          image:
+                           NetworkImage( widget.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      )
                       ),
                     ),
                   ),
@@ -59,7 +117,7 @@ class OfferViewDetail extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: Text(
-                              user,
+                              widget.user,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.normal,
@@ -72,28 +130,28 @@ class OfferViewDetail extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                    "From: " + date,
+                                     widget.date,
                                     style: TextStyle(
                                       color: Colors.black.withOpacity(0.5),
                                       fontWeight: FontWeight.normal,
                                       fontSize: 12.0,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 5.0,
-                                  ),
-                                  Text(
-                                    "Till: " + date,
-                                    style: TextStyle(
-                                      color: Colors.black.withOpacity(0.5),
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 12.0,
-                                    ),
-                                  ),
+                                  // SizedBox(
+                                  //   width: 5.0,
+                                  // ),
+                                  // Text(
+                                  //   "Till: " + date,
+                                  //   style: TextStyle(
+                                  //     color: Colors.black.withOpacity(0.5),
+                                  //     fontWeight: FontWeight.normal,
+                                  //     fontSize: 12.0,
+                                  //   ),
+                                  // ),
                                 ],
                               )),
                           Text(
-                            briefChat,
+                            widget.briefChat,
                             style: TextStyle(
                               color: Colors.black.withOpacity(0.5),
                               fontWeight: FontWeight.normal,
@@ -123,7 +181,8 @@ class OfferViewDetail extends StatelessWidget {
                                 child: const Text('Cancel'),
                               ),
                               TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
+                                onPressed: () { Navigator.pop(context, 'OK');
+                                generateNotification("your Offer has been Accepted");},
                                 child: const Text('OK'),
                               ),
                             ],
@@ -147,12 +206,16 @@ class OfferViewDetail extends StatelessWidget {
                                 'Do you realy want to Decline Offer'),
                             actions: <Widget>[
                               TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
+                                onPressed: () {
+                                    Navigator.pop(context, 'Cancel');
+                                    },
                                 child: const Text('Cancel'),
                               ),
                               TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
+                                onPressed: () {
+                                  Navigator.pop(context, 'OK');
+                                  generateNotification("your Offer has been Declined");
+                                },
                                 child: const Text('OK'),
                               ),
                             ],

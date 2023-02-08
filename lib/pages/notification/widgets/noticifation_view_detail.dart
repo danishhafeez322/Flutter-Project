@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
+import 'package:mad_project/pages/detailspage.dart';
 
 class NotificationViewDetail extends StatelessWidget {
-  final String user, briefChat, date;
+  final String user, briefChat, date, itemId;
 
   const NotificationViewDetail({
     super.key,
+    required this.itemId,
     required this.user,
     required this.briefChat,
     required this.date,
@@ -27,7 +29,16 @@ class NotificationViewDetail extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () async {},
+            onTap: () async {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(
+                    myItem_id: itemId,
+                  ),
+                ),
+              );
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,6 +60,7 @@ class NotificationViewDetail extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Row(
                     children: <Widget>[
+                      
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,

@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,6 +34,7 @@ class _UploadViewState extends State<UploadView> {
   final controllerPrice = TextEditingController();
   final controllerGuaranteePrice = TextEditingController();
   final controllerQuantity = TextEditingController();
+  int documents = 0;
 
   final ImagePicker imgpicker = ImagePicker();
   List<XFile>? imagefiles;
@@ -51,6 +53,24 @@ class _UploadViewState extends State<UploadView> {
     } catch (e) {
       print("error while picking file.");
     }
+  }
+
+  Future<void> getCount() async {
+    int count = await FirebaseFirestore.instance
+        .collection('/Items')
+        .get()
+        .then((value) => value.size);
+    setState(() {
+      documents = count;
+      print(documents);
+      // AppText.count = documents + 1;
+    });
+  }
+
+  @override
+  void initState() {
+    getCount();
+    super.initState();
   }
 
   @override
@@ -186,129 +206,126 @@ class _UploadViewState extends State<UploadView> {
                           );
                         }).toList(),
                       ),
-                    // Spacer(),
-                    // MyDropdownButtonSubCategory(controller: controllerSubCategory),
-                  ],
+                      // Spacer(),
+                      // MyDropdownButtonSubCategory(controller: controllerSubCategory),
+                    ],
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerDescription,
-                height: context.height * 0.1,
-                width: context.width * 0.8,
-                hinttext: AppText.description,
-                text: controllerDescription.text,
-                prefixIcon: const Icon(
-                  Icons.description,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerDescription,
+                  height: context.height * 0.1,
+                  width: context.width * 0.8,
+                  hinttext: AppText.description,
+                  text: controllerDescription.text,
+                  prefixIcon: const Icon(
+                    Icons.description,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerPrice,
-                height: context.height * 0.07,
-                width: context.width * 0.8,
-                hinttext: AppText.price,
-                text: controllerPrice.text,
-                prefixIcon: const Icon(
-                  Icons.price_change,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerPrice,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.price,
+                  text: controllerPrice.text,
+                  prefixIcon: const Icon(
+                    Icons.price_change,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerGuaranteePrice,
-                height: context.height * 0.07,
-                width: context.width * 0.8,
-                hinttext: AppText.guaranteeprice,
-                text: controllerGuaranteePrice.text,
-                prefixIcon: const Icon(
-                  Icons.price_check,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerGuaranteePrice,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.guaranteeprice,
+                  text: controllerGuaranteePrice.text,
+                  prefixIcon: const Icon(
+                    Icons.price_check,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow,
-              CustomTextField(
-                controller: controllerQuantity,
-                height: context.height * 0.07,
-                width: context.width * 0.8,
-                hinttext: AppText.quantity,
-                text: controllerQuantity.text,
-                prefixIcon: const Icon(
-                  Icons.production_quantity_limits,
-                  color: AppColors.uploadColor,
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
+                  controller: controllerQuantity,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.quantity,
+                  text: controllerQuantity.text,
+                  prefixIcon: const Icon(
+                    Icons.production_quantity_limits,
+                    color: AppColors.uploadColor,
+                  ),
                 ),
-              ),
-              context.emptySizedHeightBoxLow3x,
-              CustomElevatedButton(
-                onPressed: () {
-                  final item = MyItem(
-                    id: AppText.count.toString(),
-                    title: controllerTitle.text.trim(),
-                    category_id: controllerSubCategory.text.trim(),
-                    description: controllerDescription.text.trim(),
-                    price: int.parse(controllerPrice.text.trim()),
-                    guarantee_price: int.parse(controllerGuaranteePrice.text.trim()),
-                    quantity: int.parse(controllerQuantity.text.trim()),
-                    user_id: "${FirebaseAuth.instance.currentUser?.uid}",
-                    images: [''],
-                    status: 0,
-                    date: DateTime.now().toString(),
-                  );
-                  if(item.title != "" && item.category_id != "" && item.description != "" && item.price != 0 && item.guarantee_price != 0 && item.quantity != 0 && item.images != null){
-                    Navigator.pop(context);
-                    Fluttertoast.showToast(
-                    msg: "Adding Items...",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.yellow,
-                    textColor: Colors.white,
-                    fontSize: 16.0
+                context.emptySizedHeightBoxLow3x,
+                CustomElevatedButton(
+                  onPressed: () {
+                    final item = MyItem(
+                      id: (documents + 1).toString(),
+                      title: controllerTitle.text.trim(),
+                      category_id: controllerSubCategory.text.trim(),
+                      description: controllerDescription.text.trim(),
+                      price: int.parse(controllerPrice.text.trim()),
+                      guarantee_price:
+                          int.parse(controllerGuaranteePrice.text.trim()),
+                      quantity: int.parse(controllerQuantity.text.trim()),
+                      user_id: "${FirebaseAuth.instance.currentUser?.uid}",
+                      images: [''],
+                      status: 0,
+                      date: DateTime.now().toString(),
                     );
-                    UploadItemToDatabase(item:item,context: context,imagefiles: imagefiles);   
-                    
-                  }
-                  else{
-                    Fluttertoast.showToast(
-                      msg: "Fill the form correctly",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0
-                    );
-                    // print("password not match");
-                  }
-
-                },
-                child: Text(
-                  AppText.upload.toUpperCase(),
-                  style: const TextStyle(color: Colors.white),
+                    if (item.title != "" &&
+                        item.category_id != "" &&
+                        item.description != "" &&
+                        item.price != 0 &&
+                        item.guarantee_price != 0 &&
+                        item.quantity != 0 &&
+                        item.images != null) {
+                      Navigator.pop(context);
+                      Fluttertoast.showToast(
+                          msg: "Adding Items...",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.yellow,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      UploadItemToDatabase(
+                          item: item, context: context, imagefiles: imagefiles);
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: "Fill the form correctly",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.red,
+                          textColor: Colors.white,
+                          fontSize: 16.0);
+                      // print("password not match");
+                    }
+                  },
+                  child: Text(
+                    AppText.upload.toUpperCase(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  borderRadius: 20,
+                  color: AppColors.uploadColor,
+                  height: context.height * 0.07,
+                  width: context.width * 0.6,
                 ),
-                borderRadius: 20,
-                color: AppColors.uploadColor,
-                height: context.height * 0.07,
-                width: context.width * 0.6,
-              ),
-              context.emptySizedHeightBoxLow,
-              context.emptySizedHeightBoxLow3x,
-              context.emptySizedHeightBoxLow3x,
-              context.emptySizedHeightBoxLow3x,
-            ],
+                context.emptySizedHeightBoxLow,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+                context.emptySizedHeightBoxLow3x,
+              ],
+            ),
           ),
         ),
-      ),
-      Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CategoryBottomBar(),
-        )
-    ],
-  );
-}
+      ],
+    );
+  }
 
   Container topText(BuildContext context) {
     return Container(
@@ -358,6 +375,10 @@ Future UploadItemToDatabase(
   //   builder: (context) => const Center(child: CircularProgressIndicator())
   // );
   try {
+    int count = await FirebaseFirestore.instance
+        .collection('/Items')
+        .get()
+        .then((value) => value.size);
     if (item.images == null) {
       Fluttertoast.showToast(
           msg: "Please Select Images",
@@ -374,10 +395,10 @@ Future UploadItemToDatabase(
       item.images = imagesUrl;
       final docitem = await FirebaseFirestore.instance
           .collection('/Items')
-          .doc("${AppText.count}");
+          .doc((count + 1).toString());
 
       final json = item.toMap();
-      await docitem.set(json);   
+      await docitem.set(json);
       AppText.count++;
       Fluttertoast.showToast(
           msg: "Item Added Successfully",

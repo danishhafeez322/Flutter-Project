@@ -31,7 +31,7 @@ class AppText {
   static const String ChatNow = "Chat Now";
   static const String title = "Title";
   static const String categories = "Categories";
-  static const String price = "Price";
+  static const String price = "Rent Price";
   static const String guaranteeprice = "Gaurantee Price";
   static const String days = "Days";
   static const String description = "Description";

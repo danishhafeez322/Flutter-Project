@@ -697,11 +697,14 @@ class DetailsPageState extends State<DetailsPage> {
                                       var data = snapshot.data!.docs[index]
                                           .data() as Map<String, dynamic>;
 
-                                      if (data["title"]
-                                              .toLowerCase()
-                                              .toString()
-                                              .contains(widget.myItem!.title
+                                      if (data["title"].toLowerCase().toString().contains(
+                                              widget.myItem!.title
                                                   .toLowerCase()) ||
+                                          widget.myItem!.title
+                                              .toLowerCase()
+                                              .contains(data["title"]
+                                                  .toLowerCase()
+                                                  .toString()) ||
                                           data["description"]
                                               .toString()
                                               .contains(widget.myItem!.title

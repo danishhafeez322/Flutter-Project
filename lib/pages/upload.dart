@@ -323,9 +323,16 @@ class _UploadViewState extends State<UploadView> {
             ),
           ),
         ),
-      ],
-    );
-  }
+      // ),
+      // Positioned(
+      //     bottom: 0,
+      //     left: 0,
+      //     right: 0,
+      //     child: CategoryBottomBar(),
+      //   )
+    ],
+  );
+}
 
   Container topText(BuildContext context) {
     return Container(
@@ -396,6 +403,7 @@ Future UploadItemToDatabase(
       final docitem = await FirebaseFirestore.instance
           .collection('/Items')
           .doc((count + 1).toString());
+      // item.id = (count + 1).toString();
 
       final json = item.toMap();
       await docitem.set(json);

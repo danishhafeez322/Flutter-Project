@@ -27,7 +27,6 @@ class DetailsPage extends StatefulWidget {
   var myItem_id;
   var myItem;
   var DocId;
-  var data1;
   int days = 1;
   int cost = 0;
   bool isVisible = false;
@@ -40,10 +39,11 @@ class DetailsPage extends StatefulWidget {
 
   final controllerStartDate2 = TextEditingController();
   final controllerEndDate2 = TextEditingController();
-  DetailsPage({Key? key, this.myItem_id, this.data1
-      // this.subCategory,
-      })
-      : super(key: key);
+  DetailsPage({
+    Key? key,
+    this.myItem_id,
+    // this.subCategory,
+  }) : super(key: key);
   @override
   DetailsPageState createState() => DetailsPageState();
 }

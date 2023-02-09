@@ -173,7 +173,7 @@ class _OfferViewDetailState extends State<OfferViewDetail> {
                           builder: (BuildContext context) => AlertDialog(
                             title: const Text('Comfirmation!'),
                             content:
-                                const Text('Do you realy want to Accept Offer'),
+                                const Text('Do you really want to Accept Offer'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () =>
@@ -203,7 +203,7 @@ class _OfferViewDetailState extends State<OfferViewDetail> {
                           builder: (BuildContext context) => AlertDialog(
                             title: const Text('Comfirmation!'),
                             content: const Text(
-                                'Do you realy want to Decline Offer'),
+                                'Do you really want to Decline Offer'),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {

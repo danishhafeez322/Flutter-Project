@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
+import 'package:mad_project/main.dart';
 import 'package:mad_project/models/subcategory.dart';
 import 'package:mad_project/pages/upload.dart';
 import 'package:mad_project/screens/ChatRoom.dart';
@@ -428,11 +429,13 @@ class DetailsPageState extends State<DetailsPage> {
                                                     builder:
                                                         (context, snapshot) {
                                                       if (snapshot.hasData) {
-                                                        return RegisterView(
-                                                            // category: widget.subCategory.name,
-                                                            // days: widget.days,
-                                                            // cost: widget.cost,
-                                                            );
+                                                        return 
+                                                        WelcomePage();
+                                                        // RegisterView(
+                                                        //     // category: widget.subCategory.name,
+                                                        //     // days: widget.days,
+                                                        //     // cost: widget.cost,
+                                                        //     );
                                                       }
                                                       return LoginView(
                                                           // category: widget.subCategory.name,
@@ -444,6 +447,10 @@ class DetailsPageState extends State<DetailsPage> {
                                         );
                                       },
                                       child: CustomElevatedButton(
+                                        onPressed:(){
+                                          createOffer(widget.controllerStartDate1.text, widget.controllerEndDate1.text, widget.myItem.user_id, widget.OfferPriceController.text, widget.OfferGauranteecontroller.text);
+
+                                        },
                                         child: Text(
                                           AppText.rentit.toUpperCase(),
                                           style: const TextStyle(

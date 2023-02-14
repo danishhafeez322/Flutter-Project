@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
+import 'package:mad_project/main.dart';
 import 'package:mad_project/pages/forgot_password_view.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
@@ -41,9 +43,24 @@ class _MyAppState extends State<LoginView> {
             .signInWithEmailAndPassword(
                 email: controllerEmail.text.trim(), password: controllerPassword.text.trim())
             .then((value) => 
-                Navigator.pop(context)
+                Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context) => WelcomePage()))
                 )
-            .catchError((e) => print(e));
+            .catchError(
+              // (e) => print(e)
+              (e){
+                Fluttertoast.showToast(
+                  msg: "Invalid Credentials",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.red,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+
+              }
+              );
       
       }
     return SizedBox(

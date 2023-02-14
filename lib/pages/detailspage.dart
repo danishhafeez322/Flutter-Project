@@ -62,7 +62,7 @@ class DetailsPageState extends State<DetailsPage> {
     try {
       await FirebaseFirestore.instance
           .collection('/users')
-          .doc(_auth.currentUser!.uid!)
+          .doc(_auth.currentUser!.uid)
           // .where("email", isEqualTo: "danish.bcss19@iba-suk.edu.pk")
           .get()
           .then((value) {

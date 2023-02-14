@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/login_view.dart';
+import 'package:mad_project/pages/myTemp.dart';
 import 'package:mad_project/pages/upload_page.dart';
 import 'package:mad_project/pages/userDetail/user_view.dart';
 import 'package:mad_project/screens/ChatRoom.dart';
@@ -233,8 +234,11 @@ class _WelcomePageState extends State<WelcomePage> {
                                 Navigator.push(
                                   ctx,
                                   MaterialPageRoute(
-                                    builder: (context) => SelectedCategory(
+                                    builder: (context) => 
+                                    SelectedCategory(
                                         selectedCategory: categories[index]),
+                                  
+                                  // MyCategory()
                                   ),
                                 );
                               });

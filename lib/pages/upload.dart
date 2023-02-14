@@ -29,6 +29,7 @@ class UploadView extends StatefulWidget {
 
 class _UploadViewState extends State<UploadView> {
   final controllerTitle = TextEditingController();
+  final controllerMainCategory = TextEditingController();
   final controllerSubCategory = TextEditingController();
   final controllerDescription = TextEditingController();
   final controllerPrice = TextEditingController();
@@ -150,18 +151,18 @@ class _UploadViewState extends State<UploadView> {
                   ),
                 ),
                 context.emptySizedHeightBoxLow3x,
-                Padding(
-                  padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: Row(
-                    children: [
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 50, right: 50),
+                //   child: Row(
+                //     children: [
                       // MyDropdownButton(controller: controllerMainCategory ),
                       DropdownButton<String>(
                         value: dropdownValue,
                         icon: const Icon(Icons.arrow_downward),
-                        elevation: 16,
+                        elevation: 20,
                         style: const TextStyle(color: Colors.black),
                         underline: Container(
-                          height: 2,
+                          height: 4,
                           color: AppColors.uploadColor,
                         ),
                         onChanged: (String? value) {
@@ -169,7 +170,7 @@ class _UploadViewState extends State<UploadView> {
                           setState(() {
                             dropdownValue = value!;
                           });
-                          // controllerMainCategory.text = dropdownValue;
+                          controllerMainCategory.text = dropdownValue;
                           // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
                         },
                         items: AppText.list
@@ -180,37 +181,37 @@ class _UploadViewState extends State<UploadView> {
                           );
                         }).toList(),
                       ),
-                      Spacer(),
-                      // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
-                      DropdownButton<String>(
-                        value: dropdownSubValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 2,
-                          color: AppColors.uploadColor,
-                        ),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            dropdownSubValue = value!;
-                          });
-                          controllerSubCategory.text = dropdownSubValue;
-                        },
-                        items: AppText.fashion_sub_list
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
+                      // Spacer(),
+                      // // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
+                      // DropdownButton<String>(
+                      //   value: dropdownSubValue,
+                      //   icon: const Icon(Icons.arrow_downward),
+                      //   elevation: 16,
+                      //   style: const TextStyle(color: Colors.black),
+                      //   underline: Container(
+                      //     height: 2,
+                      //     color: AppColors.uploadColor,
+                      //   ),
+                      //   onChanged: (String? value) {
+                      //     // This is called when the user selects an item.
+                      //     setState(() {
+                      //       dropdownSubValue = value!;
+                      //     });
+                      //     controllerSubCategory.text = dropdownSubValue;
+                      //   },
+                      //   items: AppText.fashion_sub_list
+                      //       .map<DropdownMenuItem<String>>((String value) {
+                      //     return DropdownMenuItem<String>(
+                      //       value: value,
+                      //       child: Text(value),
+                      //     );
+                      //   }).toList(),
+                      // ),
                       // Spacer(),
                       // MyDropdownButtonSubCategory(controller: controllerSubCategory),
-                    ],
-                  ),
-                ),
+                //     ],
+                //   ),
+                // ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
                   controller: controllerDescription,
@@ -265,7 +266,7 @@ class _UploadViewState extends State<UploadView> {
                     final item = MyItem(
                       id: (documents + 1).toString(),
                       title: controllerTitle.text.trim(),
-                      category_id: controllerSubCategory.text.trim(),
+                      category_id: controllerMainCategory.text.trim(),
                       description: controllerDescription.text.trim(),
                       price: int.parse(controllerPrice.text.trim()),
                       guarantee_price:

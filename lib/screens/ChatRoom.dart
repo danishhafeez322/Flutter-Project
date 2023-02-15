@@ -12,7 +12,8 @@ import '../core/constant/app_color.dart';
 class ChatRoom extends StatefulWidget {
   final Map<String, dynamic>? userMap;
   final String chatRoomId;
-  ChatRoom({required this.chatRoomId, required this.userMap});
+  var user2;
+  ChatRoom({required this.chatRoomId, required this.userMap, this.user2});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -64,6 +65,7 @@ class _ChatRoomState extends State<ChatRoom> {
         .doc(fileName)
         .set({
       "sendby": CurrentUserMap!['uname'],
+      "receivedby": widget.userMap!['uname'],
       "message": "",
       "type": "img",
       "time": FieldValue.serverTimestamp(),
@@ -101,10 +103,22 @@ class _ChatRoomState extends State<ChatRoom> {
     if (_message.text.isNotEmpty) {
       Map<String, dynamic> messages = {
         "sendby": CurrentUserMap!['uname'],
+        "receivedby": widget.userMap!['uname'],
         "message": _message.text,
         "type": "text",
         "time": FieldValue.serverTimestamp(),
       };
+      Map<String, dynamic> users = {
+        "user1": _auth.currentUser?.uid,
+        "user2": widget.user2,
+      };
+      await _firestore
+          .collection('chatroom')
+          .doc(widget.chatRoomId)
+          .set(users)
+          .catchError((e) {
+        print(e);
+      });
 
       _message.clear();
       await _firestore

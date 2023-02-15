@@ -10,6 +10,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import '../chats/components/body.dart';
+import 'components/chat_card.dart';
 
 class ChatsScreen extends StatefulWidget {
   const ChatsScreen({Key? key}) : super(key: key);
@@ -25,7 +26,13 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   Map<String, dynamic>? allDocMap;
+
+  Map<String, dynamic>? CurrentUserMap;
+
+  int count = 1;
   @override
   void initState() {
     getConnectivity();
@@ -35,18 +42,33 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   Future<void> getAllDoc() async {
     WidgetsFlutterBinding.ensureInitialized();
-    // await Firebase.initializeApp();
-    await FirebaseFirestore.instance
+    count = await FirebaseFirestore.instance
         .collection('chatroom')
-        .where(FieldPath.documentId, arrayContains: "dani")
         .get()
-        .then((event) {
-      if (event.docs.isNotEmpty) {
-        Map<String, dynamic> documentData =
-            event.docs.single.data as Map<String, dynamic>;
-        print(documentData);
-      }
-    }).catchError((e) => print("error fetching data: $e"));
+        .then((value) => value.size);
+    // await Firebase.initializeApp();
+    // await FirebaseFirestore.instance
+    //     .collection('chatroom')
+    //     .where(document.toString().contains(CurrentUserMap!['uname']))
+    //     .get()
+    //     .then((value) {
+    //   setState(() {
+    //     CurrentUserMap = value.docs.data();
+    //   });
+    // });
+    // .doc()
+    // .id
+    // .toString()
+    // .contains(CurrentUserMap!['uname']);
+
+    //     .get()
+    //     .then((event) {
+    //   if (event.docs.isNotEmpty) {
+    //     Map<String, dynamic> documentData =
+    //         event.docs.single.data as Map<String, dynamic>;
+    //     print(documentData);
+    //   }
+    // }).catchError((e) => print("error fetching data: $e"));
 
     // var alldocs =
     //     await FirebaseFirestore.instance.collection('/chatroom').snapshots();
@@ -61,7 +83,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
     // });
 
     // await FirebaseFirestore.instance
-    //     .collection('/chatRoom')
+    //     .collection('chatRoom')
     //     .doc(_auth.currentUser!.uid)
     //     .get()
     //     .then((value) {
@@ -140,6 +162,8 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return WillPopScope(
       onWillPop: () {
         Navigator.pushNamed(context, "/welcome");
@@ -147,61 +171,91 @@ class _ChatsScreenState extends State<ChatsScreen> {
       },
       child: Scaffold(
         appBar: MainAppBar(),
-        body: Container(),
+        body: Container(
+          height: size.height / 1.25,
+          width: size.width,
+          child: StreamBuilder<QuerySnapshot>(
+              stream: _firestore
+                  .collection('chatroom')
+                  // .doc('kamrandani')
+                  // .collection('chats')
+                  // .orderBy("time", descending: false)
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.data != null) {
+                  return ListView.builder(
+                      itemCount: count,
+                      itemBuilder: ((context, index) {
+                        // var data = snapshot.data!.docs[index].data()
+                        //     as Map<String, dynamic>;
+                        QueryDocumentSnapshot<Object?> map =
+                            snapshot.data!.docs[index];
+                        print(map.data());
+                        Map<String, dynamic> map1 =
+                            map.data() as Map<String, dynamic>;
+
+                        // return ChatCard(
+                        //     item: map.data() as Map<String, dynamic>);
+                        if (map1['user1'].contains(_auth.currentUser!.uid) ||
+                            map1['user2'].contains(_auth.currentUser!.uid)) {
+                          return ChatCard(
+                              item: map.data() as Map<String, dynamic>);
+                        } else {
+                          return Container();
+                        }
+                      }));
+                } else {
+                  return Container(child: Text("Nothing found"));
+                }
+              }),
+        ),
+        // body: Container(),
         // body: Body(),
-        // body:
-        //                 StreamBuilder(
-        //                   stream: FirebaseFirestore.instance
-        //                       .collection("Items")
-        //                       .snapshots(),
-        //                   builder: (BuildContext context,
-        //                       AsyncSnapshot<QuerySnapshot> snapshot) {
-        //                     if (snapshot.hasError) {
-        //                       return Text("something is wrong");
-        //                     }
+        // body: StreamBuilder(
+        //   stream: _firestore
+        //       .collection('chatroom')
+        //       .doc()
+        //       .collection('chats')
+        //       .orderBy("time", descending: false)
+        //       .snapshots(),
+        //   builder:
+        //       (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        //     if (snapshot.hasError) {
+        //       return Text("something is wrong");
+        //     }
 
-        //                     return Padding(
-        //                       padding: const EdgeInsets.only(
-        //                           top: 10, bottom: 20, right: 5, left: 5),
-        //                       child: Container(
-        //                         // height: 200,
-        //                         decoration: BoxDecoration(
-        //                           borderRadius: BorderRadius.circular(12),
-        //                         ),
-        //                         child: Expanded(
-        //                           child: ListView.builder(
-        //                             shrinkWrap: true,
-        //                             itemCount: snapshot.data!.docs.length,
-        //                             itemBuilder: (_, index) {
-        //                               var data = snapshot.data!.docs[index]
-        //                                   .data() as Map<String, dynamic>;
+        //     return Padding(
+        //       padding:
+        //           const EdgeInsets.only(top: 10, bottom: 20, right: 5, left: 5),
+        //       child: Container(
+        //         // height: 200,
+        //         decoration: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(12),
+        //         ),
+        //         child: Expanded(
+        //           child: ListView.builder(
+        //             shrinkWrap: true,
+        //             itemCount: snapshot.data!.docs.length,
+        //             itemBuilder: (_, index) {
+        //               var data = snapshot.data!.docs[index].data()
+        //                   as Map<String, dynamic>;
+        //               if (_auth.currentUser != null) {
+        //                 return Row(
+        //                   children: [
+        //                     Text(data['sendby']),
+        //                   ],
+        //                 );
+        //               }
 
-        //                               if (data["title"].toLowerCase().toString().contains(
-        //                                       widget.myItem!.title
-        //                                           .toLowerCase()) ||
-        //                                   widget.myItem!.title
-        //                                       .toLowerCase()
-        //                                       .contains(data["title"]
-        //                                           .toLowerCase()
-        //                                           .toString()) ||
-        //                                   data["description"]
-        //                                       .toString()
-        //                                       .contains(widget.myItem!.title
-        //                                           .toLowerCase())) {
-        //                                 if (!data["id"]
-        //                                     .contains(widget.myItem_id)) {
-        //                                   return SearchDetails(item: data);
-        //                                 }
-        //                                 // return SearchDetails(item: data);
-        //                               }
-        //                               return Container();
-        //                             },
-        //                           ),
-        //                         ),
-        //                       ),
-        //                     );
-        //                   },
-        //                 ),
+        //               return Container();
+        //             },
+        //           ),
+        //         ),
+        //       ),
+        //     );
+        //   },
+        // ),
         bottomNavigationBar: CategoryBottomBar(),
       ),
     );

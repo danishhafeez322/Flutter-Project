@@ -26,7 +26,6 @@ import 'upload.dart';
 class DetailsPage extends StatefulWidget {
   var myItem_id;
   var myItem;
-  var DocId;
   int days = 1;
   int cost = 0;
   bool isVisible = false;
@@ -51,7 +50,6 @@ class DetailsPage extends StatefulWidget {
 class DetailsPageState extends State<DetailsPage> {
   Map<String, dynamic>? UserMap;
   Map<String, dynamic>? CurrentUserMap;
-  late Map<String, dynamic> doc1;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   Future<void> createOffer(var st_date, var end_date, var itemUser, var price,
@@ -71,10 +69,6 @@ class DetailsPageState extends State<DetailsPage> {
         });
         print(CurrentUserMap);
       });
-      // await FirebaseFirestore.instance
-      //     .collection('order')
-      //     .doc(itemUser)
-      //     .set({});
 
       await FirebaseFirestore.instance
           .collection('order')
@@ -131,10 +125,11 @@ class DetailsPageState extends State<DetailsPage> {
         .doc(widget.myItem_id);
 
     final doc = await docUser.get();
-    doc1 = doc.data() as Map<String, dynamic>;
 
     if (doc.exists) {
       widget.myItem = MyItem.fromMap(doc.data() as Map<String, dynamic>);
+    } else {
+      print("myitem not found");
     }
     await FirebaseFirestore.instance
         .collection('/users')
@@ -156,35 +151,9 @@ class DetailsPageState extends State<DetailsPage> {
       return "$user2$user1";
     }
   }
-//   _launchWhatsapp() async {
-//     if (currentUser.contact_no == '' || currentUser.contact_no.length < 11 ) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(
-//           content: Text("User has not provided contact number"),
-//         ),
-//       );
-//       return;
-//     }
-//     else if( currentUser.contact_no[0] == '0' && currentUser.contact_no[1] == '3' &&currentUser.contact_no.length == 11)
-//     {
-//       currentUser.contact_no = currentUser.contact_no.substring(1);
-//           var whatsapp = "+92${currentUser.contact_no}";
-//         var whatsappAndroid =Uri.parse("whatsapp://send?phone=$whatsapp&text=hello");
-//         if (await canLaunchUrl(whatsappAndroid)) {
-//             await launchUrl(whatsappAndroid);
-//         } else {
-//             ScaffoldMessenger.of(context).showSnackBar(
-//             const SnackBar(
-//               content: Text("WhatsApp is not installed on the device"),
-//             ),
-//           );
-//         }
-//     }
-// }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     myItems();
 
@@ -429,8 +398,7 @@ class DetailsPageState extends State<DetailsPage> {
                                                     builder:
                                                         (context, snapshot) {
                                                       if (snapshot.hasData) {
-                                                        return 
-                                                        WelcomePage();
+                                                        return WelcomePage();
                                                         // RegisterView(
                                                         //     // category: widget.subCategory.name,
                                                         //     // days: widget.days,
@@ -447,9 +415,14 @@ class DetailsPageState extends State<DetailsPage> {
                                         );
                                       },
                                       child: CustomElevatedButton(
-                                        onPressed:(){
-                                          createOffer(widget.controllerStartDate1.text, widget.controllerEndDate1.text, widget.myItem.user_id, widget.OfferPriceController.text, widget.OfferGauranteecontroller.text);
-
+                                        onPressed: () {
+                                          createOffer(
+                                              widget.controllerStartDate1.text,
+                                              widget.controllerEndDate1.text,
+                                              widget.myItem.user_id,
+                                              widget.OfferPriceController.text,
+                                              widget.OfferGauranteecontroller
+                                                  .text);
                                         },
                                         child: Text(
                                           AppText.rentit.toUpperCase(),
@@ -474,8 +447,11 @@ class DetailsPageState extends State<DetailsPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) => ChatRoom(
-                                                    chatRoomId: roomId,
-                                                    userMap: UserMap!)));
+                                                      chatRoomId: roomId,
+                                                      userMap: UserMap!,
+                                                      user2: widget
+                                                          .myItem!.user_id,
+                                                    )));
                                       },
                                       child: CustomElevatedButton(
                                         child: Text(

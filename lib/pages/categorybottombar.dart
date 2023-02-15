@@ -29,8 +29,6 @@ class CategoryBottomBar extends StatelessWidget {
               child: IconButton(
                 icon: const Icon(Icons.home_rounded, color: Colors.black54),
                 onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => WelcomePage()));
                   Navigator.popAndPushNamed(context, "/welcome");
                 },
               ),

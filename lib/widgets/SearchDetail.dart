@@ -79,6 +79,7 @@ class _RentedItemDetailState extends State<SearchDetails> {
                                 child: Text(
                                   widget.item['title'],
                                   style: const TextStyle(
+                                    overflow: TextOverflow.ellipsis,
                                     color: Colors.black,
                                     fontWeight: FontWeight.normal,
                                     fontSize: 16.0,
@@ -88,6 +89,7 @@ class _RentedItemDetailState extends State<SearchDetails> {
                               Text(
                                 widget.item['description'],
                                 style: TextStyle(
+                                  overflow: TextOverflow.ellipsis,
                                   color: Colors.black.withOpacity(0.5),
                                   fontWeight: FontWeight.normal,
                                   fontSize: 12.0,
@@ -111,7 +113,9 @@ class _RentedItemDetailState extends State<SearchDetails> {
                                 .toString() +
                             " days ago",
                         style: TextStyle(
-                            color: Colors.black.withOpacity(0.5), fontSize: 13),
+                            overflow: TextOverflow.ellipsis,
+                            color: Colors.black.withOpacity(0.5),
+                            fontSize: 11),
                       ),
                     ],
                   ),

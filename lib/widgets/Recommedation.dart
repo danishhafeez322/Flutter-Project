@@ -36,7 +36,7 @@ class _RentedItemDetailState extends State<SearchDetails> {
                 MaterialPageRoute(
                   builder: (context) => DetailsPage(
                     myItem_id: widget.item['id'],
-                    data1: widget.item,
+                    // data1: widget.item,
                   ),
                 ),
               );

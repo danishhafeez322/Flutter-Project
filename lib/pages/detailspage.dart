@@ -174,7 +174,7 @@ class DetailsPageState extends State<DetailsPage> {
                         Stack(
                           children: [
                             Container(
-                              height: 200,
+                              height: 300,
                               child: DetailsCarousal(
                                   images: widget.myItem!.images),
                             ),

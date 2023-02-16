@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -35,7 +36,7 @@ class _DetailsCarousalState extends State<DetailsCarousal> {
 
           //Slider Container properties
           options: CarouselOptions(
-            height: 180.0,
+            height: (kIsWeb)? (300):(180.0),
             // enlargeCenterPage: true,
             // autoPlay: true,
             aspectRatio: 16 / 9,

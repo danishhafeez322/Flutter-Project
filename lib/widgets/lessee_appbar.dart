@@ -46,7 +46,6 @@ class LesseeAppBar extends StatelessWidget implements PreferredSizeWidget {
         unselectedLabelColor: Colors.black,
         tabs: const <Widget>[
           MyTabs(text: 'Posted'),
-          MyTabs(text: 'Given'),
           MyTabs(text: 'Rented'),
           MyTabs(text: 'Booked'),
         ],

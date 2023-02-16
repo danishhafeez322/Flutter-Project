@@ -29,13 +29,13 @@ class _ChatsPageState extends State<UploadPage> {
         body: Stack(
           children: [
             DefaultTabController(
-              length: 4,
+              length: 3,
               child: Scaffold(
                 appBar: const LesseeAppBar(),
                 body: const TabBarView(
                   children: <Widget>[
                     PostedItems(),
-                    GivenItem(),
+                    // GivenItem(),
                     RentedItem(),
                     BookedItem(),
                   ],

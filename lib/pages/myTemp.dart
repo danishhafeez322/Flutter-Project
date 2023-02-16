@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:mad_project/pages/upload.dart';
@@ -69,10 +70,10 @@ class _NewArrivalState extends State<MyCategory> {
           ? Container(
               child: Expanded(
                 child: GridView.count(
-                  crossAxisCount: 2,
+                  crossAxisCount: (kIsWeb)? (3): (2),
                   shrinkWrap: true,
-                  padding: EdgeInsets.only(bottom: 2, top: 10),
-                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: (kIsWeb)? (EdgeInsets.only(bottom: 2)): (EdgeInsets.only(bottom: 2, top: 10)),
+                  physics: NeverScrollableScrollPhysics(),
                   children: List.generate(
                     temp.length,
                     // typeCount,

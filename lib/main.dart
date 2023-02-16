@@ -204,7 +204,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Column(
                   children: [
                     Container(
-                      height: 180,
+                      height: (kIsWeb)? (300):(180),
                       child: Carousel(),
                     ),
                   ],
@@ -215,12 +215,12 @@ class _WelcomePageState extends State<WelcomePage> {
                     "Main Categories",
                     style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: (kIsWeb)? (30):(20),
                         fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
-                  height: 80,
+                  height: (kIsWeb)? (110):(80),
                   child: Expanded(
                     child: Container(
                       child: ListView.builder(
@@ -255,7 +255,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     "New Arrival",
                     style: const TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: (kIsWeb)? (30):(20),
                         fontWeight: FontWeight.bold),
                   ),
                 ),

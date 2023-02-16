@@ -34,7 +34,6 @@ class _ChatRoomState extends State<ChatRoom> {
     await _firestore
         .collection('/users')
         .doc(_auth.currentUser!.uid)
-        // .where("email", isEqualTo: "danish.bcss19@iba-suk.edu.pk")
         .get()
         .then((value) {
       setState(() {
@@ -112,13 +111,15 @@ class _ChatRoomState extends State<ChatRoom> {
         "user1": _auth.currentUser?.uid,
         "user2": widget.user2,
       };
-      await _firestore
-          .collection('chatroom')
-          .doc(widget.chatRoomId)
-          .set(users)
-          .catchError((e) {
-        print(e);
-      });
+      if (widget.user2 != null) {
+        await _firestore
+            .collection('chatroom')
+            .doc(widget.chatRoomId)
+            .set(users)
+            .catchError((e) {
+          print(e);
+        });
+      }
 
       _message.clear();
       await _firestore
@@ -264,7 +265,7 @@ class _ChatRoomState extends State<ChatRoom> {
     return map['type'] == "text"
         ? Container(
             width: size.width,
-            alignment: map['sendby'] == CurrentUserMap!['uname']
+            alignment: map['sendby'] == CurrentUserMap?['uname']
                 ? Alignment.centerRight
                 : Alignment.centerLeft,
             child: Container(
@@ -287,7 +288,7 @@ class _ChatRoomState extends State<ChatRoom> {
             height: size.height / 2.5,
             width: size.width,
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            alignment: map['sendby'] == CurrentUserMap!['uname']
+            alignment: map['sendby'] == CurrentUserMap?['uname']
                 ? Alignment.centerRight
                 : Alignment.centerLeft,
             child: InkWell(

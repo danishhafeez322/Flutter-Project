@@ -26,16 +26,27 @@ class _ChatCardState extends State<ChatCard> {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
 
-    await FirebaseFirestore.instance
-        .collection('/users')
-        .doc(widget.item['user2'])
-        .get()
-        .then((value) {
-      setState(() {
-        UserMap = value.data();
+    if (widget.item['user2'] != FirebaseAuth.instance.currentUser!.uid) {
+      await FirebaseFirestore.instance
+          .collection('/users')
+          .doc(widget.item['user2'])
+          .get()
+          .then((value) {
+        setState(() {
+          UserMap = value.data();
+        });
       });
-      print(UserMap);
-    });
+    } else {
+      await FirebaseFirestore.instance
+          .collection('/users')
+          .doc(widget.item['user1'])
+          .get()
+          .then((value) {
+        setState(() {
+          UserMap = value.data();
+        });
+      });
+    }
 
     await FirebaseFirestore.instance
         .collection('/users')
@@ -45,7 +56,6 @@ class _ChatCardState extends State<ChatCard> {
       setState(() {
         currentUserMap = value.data();
       });
-      print(currentUserMap);
     });
 
     setState(() {});
@@ -81,7 +91,7 @@ class _ChatCardState extends State<ChatCard> {
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () async {
+            onTap: () {
               String roomId =
                   chatRoomId(currentUserMap!['uname'], UserMap!['uname']);
               Navigator.push(
@@ -104,8 +114,9 @@ class _ChatCardState extends State<ChatCard> {
                       margin: EdgeInsets.all(6.0),
                       // width: 58.0,
                       // height: 58.0,
-                      child:
-                          Icon(Icons.person, size: 40.0, color: Colors.black45),
+                      child: CircleAvatar(
+                          child: Icon(Icons.person,
+                              size: 40.0, color: Colors.black45)),
                     ),
                   ),
                 ),
@@ -123,7 +134,7 @@ class _ChatCardState extends State<ChatCard> {
                               padding:
                                   const EdgeInsets.only(bottom: 10.0, left: 5),
                               child: Text(
-                                UserMap!['uname'],
+                                UserMap?['uname'] ?? '',
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: Colors.black,
@@ -132,18 +143,18 @@ class _ChatCardState extends State<ChatCard> {
                                 ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 5),
-                            //   child: Text(
-                            //     'user2',
-                            //     overflow: TextOverflow.ellipsis,
-                            //     style: TextStyle(
-                            //       color: Colors.black.withOpacity(0.6),
-                            //       fontWeight: FontWeight.normal,
-                            //       fontSize: 12.0,
-                            //     ),
-                            //   ),
-                            // ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: Text(
+                                'Your messages here',
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.black.withOpacity(0.6),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

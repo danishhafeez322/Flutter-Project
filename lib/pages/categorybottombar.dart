@@ -11,7 +11,6 @@ class CategoryBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
@@ -54,24 +53,18 @@ class CategoryBottomBar extends StatelessWidget {
                     color: Colors.black54),
                 onPressed: () {
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UploadPage())
-                  );
+                      MaterialPageRoute(builder: (context) => UploadPage()));
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                        StreamBuilder<User?>(
-                          stream: FirebaseAuth.instance
-                              .authStateChanges(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return UploadPage();
-                            }
-                            return LoginView();
-                          }
-                        )
-                    )
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => StreamBuilder<User?>(
+                              stream: FirebaseAuth.instance.authStateChanges(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return UploadPage();
+                                }
+                                return LoginView();
+                              })));
                 },
               ),
             ),

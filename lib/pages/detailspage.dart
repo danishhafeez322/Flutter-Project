@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/main.dart';
-import 'package:mad_project/models/subcategory.dart';
 import 'package:mad_project/pages/upload.dart';
 import 'package:mad_project/screens/ChatRoom.dart';
 import 'package:mad_project/widgets/AppBar.dart';
@@ -17,17 +16,15 @@ import '../core/constant/app_text.dart';
 import '../product/widget/custom_elevated_button.dart';
 import '../widgets/DetailsCarousal.dart';
 import '../widgets/SearchDetail.dart';
-import 'Registorpage.dart';
 import 'categorybottombar.dart';
 import 'login_view.dart';
-import 'upload.dart';
 
 // ignore: must_be_immutable
 class DetailsPage extends StatefulWidget {
   var myItem_id;
   var myItem;
-  int days = 1;
-  int cost = 0;
+  // int days = 1;
+  // int cost = 0;
   bool isVisible = false;
 
   // SubCategory? subCategory;

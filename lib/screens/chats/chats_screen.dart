@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/widgets/AppBar.dart';
-import '../chats/components/body.dart';
+// import '../chats/components/body.dart';
 import 'components/chat_card.dart';
 
 class ChatsScreen extends StatefulWidget {
@@ -28,24 +28,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Map<String, dynamic>? allDocMap;
-
-  Map<String, dynamic>? CurrentUserMap;
-
-  int count = 1;
   @override
   void initState() {
     getConnectivity();
-    getAllDoc();
     super.initState();
-  }
-
-  Future<void> getAllDoc() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    count = await FirebaseFirestore.instance
-        .collection('chatroom')
-        .get()
-        .then((value) => value.size);
   }
 
   getConnectivity() =>
@@ -113,13 +99,12 @@ class _ChatsScreenState extends State<ChatsScreen> {
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.data != null) {
                   return ListView.builder(
-                      itemCount: count,
+                      itemCount: snapshot.data!.docs.length,
                       itemBuilder: ((context, index) {
                         // var data = snapshot.data!.docs[index].data()
                         //     as Map<String, dynamic>;
                         QueryDocumentSnapshot<Object?> map =
                             snapshot.data!.docs[index];
-                        print(map.data());
                         Map<String, dynamic> map1 =
                             map.data() as Map<String, dynamic>;
 

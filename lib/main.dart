@@ -4,14 +4,13 @@ import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/login_view.dart';
-import 'package:mad_project/pages/myTemp.dart';
 import 'package:mad_project/pages/upload_page.dart';
 import 'package:mad_project/pages/userDetail/user_view.dart';
-import 'package:mad_project/screens/ChatRoom.dart';
 import 'package:mad_project/screens/chats/chats_screen.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 import 'package:mad_project/pages/New%20Arrival.dart';
@@ -28,6 +27,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
@@ -234,11 +236,10 @@ class _WelcomePageState extends State<WelcomePage> {
                                 Navigator.push(
                                   ctx,
                                   MaterialPageRoute(
-                                    builder: (context) => 
-                                    SelectedCategory(
+                                    builder: (context) => SelectedCategory(
                                         selectedCategory: categories[index]),
-                                  
-                                  // MyCategory()
+
+                                    // MyCategory()
                                   ),
                                 );
                               });

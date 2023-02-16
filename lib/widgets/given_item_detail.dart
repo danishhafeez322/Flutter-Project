@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 // import 'package:mad_project/widgets/whatsapp_plus_button.dart';
 
 class GivenItemDetail extends StatelessWidget {
-  final String user, imageUrl, briefChat, date;
+  // final String user, imageUrl, briefChat, date;
+  final Map<String, dynamic> item;
+
+
 
   const GivenItemDetail({
     super.key,
-    required this.user,
-    required this.imageUrl,
-    required this.briefChat,
-    required this.date,
+    // required this.user,
+    // required this.imageUrl,
+    // required this.briefChat,
+    // required this.date,
+    required this.item,
   });
 
   @override
@@ -38,11 +42,24 @@ class GivenItemDetail extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
-                    child: Image.asset(
-                      imageUrl,
+                    child: 
+                    // Image.asset(
+                    //   imageUrl,
+                    //   width: 58.0,
+                    //   height: 58.0,
+                    //   fit: BoxFit.cover,
+                    // ),
+                    Container(
+                      margin: EdgeInsets.all(6.0),
                       width: 58.0,
                       height: 58.0,
-                      fit: BoxFit.cover,
+                      decoration: BoxDecoration(
+                        // borderRadius: BorderRadius.circular(8.0),
+                        image: DecorationImage(
+                          image: NetworkImage("" + item['images'][0]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -57,7 +74,7 @@ class GivenItemDetail extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 10.0),
                             child: Text(
-                              user,
+                              item['title'],
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.normal,
@@ -66,7 +83,7 @@ class GivenItemDetail extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            briefChat,
+                              (item['description'].length > 30)? (item['description'].toString().substring(0, 30) + '...'):(item['description'].toString()),
                             style: TextStyle(
                               color: Colors.black.withOpacity(0.5),
                               fontWeight: FontWeight.normal,
@@ -83,7 +100,7 @@ class GivenItemDetail extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Text(
-                        date,
+                        'Today',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.5),
                         ),

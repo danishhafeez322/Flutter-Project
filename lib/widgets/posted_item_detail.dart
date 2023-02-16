@@ -82,12 +82,12 @@ class postedItemDetail extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
-                                item['description'],
+                              (item['description'].length > 30)? (item['description'].toString().substring(0, 30) + '...'):(item['description'].toString()),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  color: Colors.black.withOpacity(0.6),
+                                  color: Colors.black.withOpacity(0.5),
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 12.0,
+                                  fontSize: 14.0,
                                 ),
                               ),
                             ),
@@ -107,7 +107,7 @@ class postedItemDetail extends StatelessWidget {
                             MaterialPageRoute(
                                 builder: (context) => EditDetailView(
                                       title: item['title'],
-                                      category: "Sports",
+                                      category: item['category_id'],
                                       subCategory: "Kids",
                                       description: item['description'],
                                       price: item['price'].toString(),

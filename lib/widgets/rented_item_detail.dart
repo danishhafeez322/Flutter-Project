@@ -81,11 +81,11 @@ class _RentedItemDetailState extends State<RentedItemDetail> {
                                 ),
                               ),
                               Text(
-                                widget.item['description'],
+                              (widget.item['description'].length > 30)? (widget.item['description'].toString().substring(0, 30) + '...'):(widget.item['description'].toString()),
                                 style: TextStyle(
                                   color: Colors.black.withOpacity(0.5),
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 12.0,
+                                  fontSize: 14.0,
                                 ),
                               ),
                             ],
@@ -100,11 +100,7 @@ class _RentedItemDetailState extends State<RentedItemDetail> {
                   child: Row(
                     children: <Widget>[
                       Text(
-                        DateTime.now()
-                                .difference(DateTime.parse(widget.item['date']))
-                                .inDays
-                                .toString() +
-                            " days ago",
+                        'Today',
                         style: TextStyle(
                             color: Colors.black.withOpacity(0.5), fontSize: 13),
                       ),

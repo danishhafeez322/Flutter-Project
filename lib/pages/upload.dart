@@ -274,7 +274,7 @@ class _UploadViewState extends State<UploadView> {
                       quantity: int.parse(controllerQuantity.text.trim()),
                       user_id: "${FirebaseAuth.instance.currentUser?.uid}",
                       images: [''],
-                      status: 0,
+                      status: '0',
                       date: DateTime.now().toString(),
                     );
                     if (item.title != "" &&
@@ -444,7 +444,7 @@ class MyItem {
   final int guarantee_price;
   final int quantity;
   var images;
-  final int status;
+  final String status;
   var date;
 
   MyItem(

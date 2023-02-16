@@ -181,8 +181,28 @@ class _OfferViewDetailState extends State<OfferViewDetail> {
                                 child: const Text('Cancel'),
                               ),
                               TextButton(
-                                onPressed: () { Navigator.pop(context, 'OK');
-                                generateNotification("your Offer has been Accepted");},
+                                onPressed: () async{ Navigator.pop(context, 'OK');
+                                generateNotification("your Offer has been Accepted");
+                                try{
+                                await FirebaseFirestore.instance
+                                        .collection('/Items')
+                                        .doc('${widget.data['itemId']}')
+                                        .update({
+                                          'status': widget.data['senderId'],
+                                        });
+                                }
+                                catch(e){
+                                  Fluttertoast.showToast(
+                                    msg: "update error" + e.toString(),
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.CENTER,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+
+                                }
+                                },
                                 child: const Text('OK'),
                               ),
                             ],

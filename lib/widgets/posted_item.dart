@@ -27,7 +27,7 @@ class _PostedItemsState extends State<PostedItems> {
       guarantee_price: 0,
       images: [],
       quantity: 0,
-      status: 0,
+      status: '0',
       date: DateTime.now());
   MyUser currentUser = MyUser(
       uname: "User Name",

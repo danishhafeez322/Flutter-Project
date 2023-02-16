@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:intl/intl.dart';
 import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/upload_page.dart';

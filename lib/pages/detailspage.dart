@@ -88,7 +88,7 @@ class DetailsPageState extends State<DetailsPage> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
     } catch (e) {
@@ -412,14 +412,9 @@ class DetailsPageState extends State<DetailsPage> {
                                         );
                                       },
                                       child: CustomElevatedButton(
-                                        onPressed: () {
-                                          createOffer(
-                                              widget.controllerStartDate1.text,
-                                              widget.controllerEndDate1.text,
-                                              widget.myItem.user_id,
-                                              widget.OfferPriceController.text,
-                                              widget.OfferGauranteecontroller
-                                                  .text);
+                                        onPressed:(){
+                                          createOffer(widget.controllerStartDate1.text, widget.controllerEndDate1.text, widget.myItem.user_id, widget.myItem!.price, widget.myItem!.guarantee_price);
+
                                         },
                                         child: Text(
                                           AppText.rentit.toUpperCase(),

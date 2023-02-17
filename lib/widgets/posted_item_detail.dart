@@ -82,7 +82,12 @@ class postedItemDetail extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(left: 5),
                               child: Text(
-                              (item['description'].length > 30)? (item['description'].toString().substring(0, 30) + '...'):(item['description'].toString()),
+                                (item['description'].length > 30)
+                                    ? (item['description']
+                                            .toString()
+                                            .substring(0, 30) +
+                                        '...')
+                                    : (item['description'].toString()),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.black.withOpacity(0.5),

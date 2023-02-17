@@ -17,69 +17,69 @@ class PostedItems extends StatefulWidget {
 }
 
 class _PostedItemsState extends State<PostedItems> {
-  MyItem myItems = MyItem(
-      id: "",
-      title: "Temp2",
-      description: "",
-      category_id: " ",
-      user_id: "",
-      price: 0,
-      guarantee_price: 0,
-      images: [],
-      quantity: 0,
-      status: '0',
-      date: DateTime.now());
-  MyUser currentUser = MyUser(
-      uname: "User Name",
-      email: "abc@xyz",
-      contact_no: "",
-      address: " ",
-      city: " ",
-      cnic: "",
-      isLogin: true,
-      isVerified: true,
-      rating: 0);
+  // MyItem myItems = MyItem(
+  //     id: "",
+  //     title: "Temp2",
+  //     description: "",
+  //     category_id: " ",
+  //     user_id: "",
+  //     price: 0,
+  //     guarantee_price: 0,
+  //     images: [],
+  //     quantity: 0,
+  //     status: '0',
+  //     date: DateTime.now());
+  // MyUser currentUser = MyUser(
+  //     uname: "User Name",
+  //     email: "abc@xyz",
+  //     contact_no: "",
+  //     address: " ",
+  //     city: " ",
+  //     cnic: "",
+  //     isLogin: true,
+  //     isVerified: true,
+  //     rating: 0);
 
-  Future<void> myCurrentUser() async {
-    final docUser = await FirebaseFirestore.instance
-        .collection('/users')
-        .doc(FirebaseAuth.instance.currentUser!.uid);
-    final doc = await docUser.get();
-    if (doc.exists) {
-      currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-    } else {
-      currentUser = MyUser(
-          uname: "User name",
-          email: "Email",
-          contact_no: "",
-          address: "MyAddress",
-          city: "city",
-          cnic: "",
-          isLogin: true,
-          isVerified: true,
-          rating: 0);
-    }
-    setState(() {});
-  }
+  // Future<void> myCurrentUser() async {
+  //   final docUser = await FirebaseFirestore.instance
+  //       .collection('/users')
+  //       .doc(FirebaseAuth.instance.currentUser!.uid);
+  //   final doc = await docUser.get();
+  //   if (doc.exists) {
+  //     currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+  //   } else {
+  //     currentUser = MyUser(
+  //         uname: "User name",
+  //         email: "Email",
+  //         contact_no: "",
+  //         address: "MyAddress",
+  //         city: "city",
+  //         cnic: "",
+  //         isLogin: true,
+  //         isVerified: true,
+  //         rating: 0);
+  //   }
+  //   setState(() {});
+  // }
 
-  Future<Stream<List<MyItem>>> myItem() async {
-    // final docItm = await FirebaseFirestore.instance.collection('/Items').doc('2');
-    final docItm = await FirebaseFirestore.instance
-        .collection('/Items')
-        .snapshots()
-        .map((snapshot) => snapshot.docs
-            .map((doc) => MyItem.fromMap(doc.data() as Map<String, dynamic>))
-            .toList());
+  // Future<Stream<List<MyItem>>> myItem() async {
+  //   // final docItm = await FirebaseFirestore.instance.collection('/Items').doc('2');
+  //   final docItm = await FirebaseFirestore.instance
+  //       .collection('/Items')
+  //       .snapshots()
+  //       .map((snapshot) => snapshot.docs
+  //           .map((doc) => MyItem.fromMap(doc.data() as Map<String, dynamic>))
+  //           .toList());
 
-    setState(() {});
-    return docItm;
-  }
+  //   setState(() {});
+  //   return docItm;
+  // }
 
   void initState() {
     super.initState();
-    myCurrentUser();
-    myItem();
-    setState(() {});
+    // myCurrentUser();
+    // myItem();
+    // setState(() {});
   }
 
   @override
@@ -128,7 +128,7 @@ class _PostedItemsState extends State<PostedItems> {
                 },
               );
             }
-            setState(() {});
+            // setState(() {});
 
             return Center(child: CircularProgressIndicator());
           },

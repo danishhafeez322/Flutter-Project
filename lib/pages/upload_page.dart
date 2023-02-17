@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mad_project/core/constant/app_color.dart';
+import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/upload.dart';
 
 import '../widgets/booked_item.dart';
@@ -19,13 +24,50 @@ class UploadPage extends StatefulWidget {
 class _ChatsPageState extends State<UploadPage> {
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          User? user = snapshot.data;
+          if (user == null) {
+            return LoginView();
+          }
+          return rentItem();
+        } else {
+          return Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
+class rentItem extends StatefulWidget {
+  const rentItem({super.key});
+
+  @override
+  State<rentItem> createState() => _rentItemState();
+}
+
+class _rentItemState extends State<rentItem> {
+  DateTime timeBackPressed = DateTime.now();
+  @override
+  Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () {
-        Navigator.pushNamed(context, "/welcome");
-        return Future.value(false);
+      onWillPop: () async {
+        DateTime now = DateTime.now();
+        if (now.difference(timeBackPressed) > Duration(seconds: 2)) {
+          timeBackPressed = now;
+          Fluttertoast.showToast(msg: "Press back again to exit", fontSize: 16);
+          return false;
+        }
+        exit(0);
+        //return true;
       },
       child: Scaffold(
-        bottomNavigationBar: CategoryBottomBar(),
         body: Stack(
           children: [
             DefaultTabController(
@@ -55,12 +97,6 @@ class _ChatsPageState extends State<UploadPage> {
                 ),
               ),
             ),
-            // Positioned(
-            //   bottom: 0,
-            //   left: 0,
-            //   right: 0,
-            //   child: CategoryBottomBar(),
-            // )
           ],
         ),
       ),

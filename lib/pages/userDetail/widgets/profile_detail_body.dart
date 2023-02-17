@@ -5,6 +5,7 @@ import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/main.dart';
 
 import '../../Registorpage.dart';
+import '../../WelcomePage.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -211,7 +212,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   await FirebaseAuth.instance.signOut();
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (BuildContext context) {
-                    return WelcomePage();
+                    return HomePage();
                   }), (r) {
                     return false;
                   });

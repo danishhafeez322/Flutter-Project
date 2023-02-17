@@ -16,6 +16,7 @@ import '../core/constant/app_text.dart';
 import '../product/widget/custom_elevated_button.dart';
 import '../widgets/DetailsCarousal.dart';
 import '../widgets/SearchDetail.dart';
+import 'WelcomePage.dart';
 import 'categorybottombar.dart';
 import 'login_view.dart';
 
@@ -138,7 +139,7 @@ class DetailsPageState extends State<DetailsPage> {
       });
     });
 
-    setState(() {});
+    // setState(() {});
   }
 
   String chatRoomId(String user1, String user2) {
@@ -162,7 +163,7 @@ class DetailsPageState extends State<DetailsPage> {
     myItems();
     return Scaffold(
         appBar: MainAppBar(),
-        bottomNavigationBar: CategoryBottomBar(),
+        // bottomNavigationBar: CategoryBottomBar(),
         body: (widget.myItem != null)
             ? (Container(
                 alignment: Alignment.center,
@@ -348,31 +349,6 @@ class DetailsPageState extends State<DetailsPage> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //       top: 10, right: 25, left: 25, bottom: 10),
-                            //   child: Row(
-                            //     mainAxisAlignment:
-                            //         MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       Text.rich(
-                            //         TextSpan(children: [
-                            //           TextSpan(text: 'Total rent price: '),
-                            //         ]),
-                            //       ),
-                            //       Text(
-                            //         widget.cost > 0
-                            //             ? '${widget.cost}'
-                            //             // : '${widget.cost = 0.0}',
-                            //             : '${widget.cost = (widget.myItem!.price + widget.myItem!.guarantee_price)}',
-                            //         style: const TextStyle(
-                            //             color: Colors.black54,
-                            //             fontSize: 18,
-                            //             fontWeight: FontWeight.bold),
-                            //       )
-                            //     ],
-                            //   ),
-                            // ),
                             Container(
                               child: Padding(
                                 padding:
@@ -396,25 +372,32 @@ class DetailsPageState extends State<DetailsPage> {
                                                         (context, snapshot) {
                                                       if (snapshot.hasData) {
                                                         return WelcomePage();
-                                                        // RegisterView(
-                                                        //     // category: widget.subCategory.name,
-                                                        //     // days: widget.days,
-                                                        //     // cost: widget.cost,
-                                                        //     );
                                                       }
-                                                      return LoginView(
-                                                          // category: widget.subCategory.name,
-                                                          // days: widget.days,
-                                                          // cost: widget.cost,
-                                                          );
+                                                      return LoginView();
                                                     }),
                                           ),
                                         );
                                       },
                                       child: CustomElevatedButton(
-                                        onPressed:(){
-                                          createOffer(widget.controllerStartDate1.text, widget.controllerEndDate1.text, widget.myItem.user_id, widget.myItem!.price, widget.myItem!.guarantee_price);
-
+                                        onPressed: () {
+                                          if (_auth.currentUser!.uid ==
+                                              widget.myItem!.user_id) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              const SnackBar(
+                                                content: Text(
+                                                    'You cannot rent yours item'),
+                                              ),
+                                            );
+                                          } else {
+                                            createOffer(
+                                                widget
+                                                    .controllerStartDate1.text,
+                                                widget.controllerEndDate1.text,
+                                                widget.myItem.user_id,
+                                                widget.myItem!.price,
+                                                widget.myItem!.guarantee_price);
+                                          }
                                         },
                                         child: Text(
                                           AppText.rentit.toUpperCase(),
@@ -432,18 +415,31 @@ class DetailsPageState extends State<DetailsPage> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        String roomId = chatRoomId(
-                                            CurrentUserMap!['uname'],
-                                            UserMap!['uname']);
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => ChatRoom(
-                                                      chatRoomId: roomId,
-                                                      userMap: UserMap!,
-                                                      user2: widget
-                                                          .myItem!.user_id,
-                                                    )));
+                                        if (_auth.currentUser!.uid ==
+                                            widget.myItem!.user_id) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'You cannot chat with yourself'),
+                                            ),
+                                          );
+                                        } else {
+                                          String roomId = chatRoomId(
+                                              CurrentUserMap!['uname'],
+                                              UserMap!['uname']);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ChatRoom(
+                                                        chatRoomId: roomId,
+                                                        userMap: UserMap!,
+                                                        user2: widget
+                                                            .myItem!.user_id,
+                                                      )));
+                                        }
+                                        ;
                                       },
                                       child: CustomElevatedButton(
                                         child: Text(

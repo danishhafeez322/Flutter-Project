@@ -145,7 +145,6 @@ class _ChatRoomState extends State<ChatRoom> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.chatColor,
-        // title: Text(userMap!['uname']),
         title: Row(
           children: [
             BackButton(),
@@ -271,16 +270,41 @@ class _ChatRoomState extends State<ChatRoom> {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppColors.chatColor.withOpacity(0.64)),
-              child: Text(
-                map['message'],
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
+              decoration: map['sendby'] == CurrentUserMap?['uname']
+                  ? BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: AppColors.chatColor.withOpacity(0.64))
+                  : BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.black.withOpacity(0.64)),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 0, right: 35, left: 0),
+                    child: Text(
+                      map['message'],
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: Text(
+                      map['time'].toDate().toString().substring(11, 16),
+                      // " " +
+                      // map['time'].toDate().toString().substring(0, 10),
+                      style: TextStyle(
+                        fontSize: 9,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
           )

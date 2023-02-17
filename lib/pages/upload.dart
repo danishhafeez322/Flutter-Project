@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
-import 'package:mad_project/main.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/AppBar.dart';
@@ -19,6 +16,7 @@ import 'dart:io';
 
 import '../core/constant/app_color.dart';
 import '../pages/categorybottombar.dart';
+import 'WelcomePage.dart';
 import 'categorybottombar.dart';
 
 class UploadView extends StatefulWidget {
@@ -78,7 +76,6 @@ class _UploadViewState extends State<UploadView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
-      bottomNavigationBar: CategoryBottomBar(),
       body: _body(context),
     );
   }
@@ -155,60 +152,60 @@ class _UploadViewState extends State<UploadView> {
                 //   padding: const EdgeInsets.only(left: 50, right: 50),
                 //   child: Row(
                 //     children: [
-                      // MyDropdownButton(controller: controllerMainCategory ),
-                      DropdownButton<String>(
-                        value: dropdownValue,
-                        icon: const Icon(Icons.arrow_downward),
-                        elevation: 20,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 4,
-                          color: AppColors.uploadColor,
-                        ),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            dropdownValue = value!;
-                          });
-                          controllerMainCategory.text = dropdownValue;
-                          // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
-                        },
-                        items: AppText.list
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                      // Spacer(),
-                      // // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
-                      // DropdownButton<String>(
-                      //   value: dropdownSubValue,
-                      //   icon: const Icon(Icons.arrow_downward),
-                      //   elevation: 16,
-                      //   style: const TextStyle(color: Colors.black),
-                      //   underline: Container(
-                      //     height: 2,
-                      //     color: AppColors.uploadColor,
-                      //   ),
-                      //   onChanged: (String? value) {
-                      //     // This is called when the user selects an item.
-                      //     setState(() {
-                      //       dropdownSubValue = value!;
-                      //     });
-                      //     controllerSubCategory.text = dropdownSubValue;
-                      //   },
-                      //   items: AppText.fashion_sub_list
-                      //       .map<DropdownMenuItem<String>>((String value) {
-                      //     return DropdownMenuItem<String>(
-                      //       value: value,
-                      //       child: Text(value),
-                      //     );
-                      //   }).toList(),
-                      // ),
-                      // Spacer(),
-                      // MyDropdownButtonSubCategory(controller: controllerSubCategory),
+                // MyDropdownButton(controller: controllerMainCategory ),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 20,
+                  style: const TextStyle(color: Colors.black),
+                  underline: Container(
+                    height: 4,
+                    color: AppColors.uploadColor,
+                  ),
+                  onChanged: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      dropdownValue = value!;
+                    });
+                    controllerMainCategory.text = dropdownValue;
+                    // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
+                  },
+                  items: AppText.list
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                // Spacer(),
+                // // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
+                // DropdownButton<String>(
+                //   value: dropdownSubValue,
+                //   icon: const Icon(Icons.arrow_downward),
+                //   elevation: 16,
+                //   style: const TextStyle(color: Colors.black),
+                //   underline: Container(
+                //     height: 2,
+                //     color: AppColors.uploadColor,
+                //   ),
+                //   onChanged: (String? value) {
+                //     // This is called when the user selects an item.
+                //     setState(() {
+                //       dropdownSubValue = value!;
+                //     });
+                //     controllerSubCategory.text = dropdownSubValue;
+                //   },
+                //   items: AppText.fashion_sub_list
+                //       .map<DropdownMenuItem<String>>((String value) {
+                //     return DropdownMenuItem<String>(
+                //       value: value,
+                //       child: Text(value),
+                //     );
+                //   }).toList(),
+                // ),
+                // Spacer(),
+                // MyDropdownButtonSubCategory(controller: controllerSubCategory),
                 //     ],
                 //   ),
                 // ),
@@ -324,16 +321,9 @@ class _UploadViewState extends State<UploadView> {
             ),
           ),
         ),
-      // ),
-      // Positioned(
-      //     bottom: 0,
-      //     left: 0,
-      //     right: 0,
-      //     child: CategoryBottomBar(),
-      //   )
-    ],
-  );
-}
+      ],
+    );
+  }
 
   Container topText(BuildContext context) {
     return Container(

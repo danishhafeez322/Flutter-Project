@@ -6,7 +6,7 @@ import 'package:mad_project/pages/notification/widgets/offer_view.dart';
 import '../categorybottombar.dart';
 
 class MyNotification extends StatefulWidget {
-  const MyNotification ({super.key});
+  const MyNotification({super.key});
 
   @override
   State<MyNotification> createState() => _NotificationsPageState();
@@ -27,16 +27,14 @@ class _NotificationsPageState extends State<MyNotification> {
                 OfferView(),
               ],
             ),
-            ),
-          
+          ),
         ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CategoryBottomBar(),
-        )
-        
+        // Positioned(
+        //   bottom: 0,
+        //   left: 0,
+        //   right: 0,
+        //   child: CategoryBottomBar(),
+        // )
       ],
     );
   }

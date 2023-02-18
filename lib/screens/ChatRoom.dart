@@ -12,8 +12,15 @@ import '../core/constant/app_color.dart';
 class ChatRoom extends StatefulWidget {
   final Map<String, dynamic>? userMap;
   final String chatRoomId;
+  final String otherUser;
+  bool validId = false;
+
   var user2;
-  ChatRoom({required this.chatRoomId, required this.userMap, this.user2});
+  ChatRoom(
+      {this.otherUser = '',
+      required this.chatRoomId,
+      required this.userMap,
+      this.user2});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -160,7 +167,9 @@ class _ChatRoomState extends State<ChatRoom> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.userMap!['uname'],
+                  (widget.userMap?['uname'] == CurrentUserMap?['uname'])
+                      ? widget.otherUser
+                      : "${widget.userMap?['uname']}",
                   style: TextStyle(fontSize: 16),
                 ),
               ],
@@ -294,7 +303,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     right: 0,
                     bottom: 0,
                     child: Text(
-                      map['time'].toDate().toString().substring(11, 16),
+                      map['time']?.toDate().toString().substring(11, 16) ?? '',
                       // " " +
                       // map['time'].toDate().toString().substring(0, 10),
                       style: TextStyle(

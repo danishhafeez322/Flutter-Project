@@ -128,7 +128,7 @@ class _PostedItemsState extends State<PostedItems> {
                 },
               );
             }
-            // setState(() {});
+            if (!snapshot.hasData) return Center(child: Text(''));
 
             return Center(child: CircularProgressIndicator());
           },

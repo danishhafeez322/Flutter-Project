@@ -1,4 +1,3 @@
-
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/models/category.dart';
@@ -70,19 +69,18 @@ class _SelectedCategoryState extends State<SelectedCategory> {
                         ),
                       ),
                       const SizedBox(height: 25),
-                      
-                      MyCategory(type:this.widget.selectedCategory.name),
+                      MyCategory(type: this.widget.selectedCategory.name),
                     ],
                   ),
                 ),
               ),
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: CategoryBottomBar(),
-            )
+            // Positioned(
+            //   bottom: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: CategoryBottomBar(),
+            // )
           ],
         ),
       ),

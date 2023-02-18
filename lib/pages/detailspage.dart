@@ -152,11 +152,10 @@ class DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState() {
-    super.initState();
     myItems();
+    super.initState();
 
     // createOffer();
-    setState(() {});
   }
 
   Widget build(BuildContext context) {
@@ -626,12 +625,11 @@ class DetailsPageState extends State<DetailsPage> {
                             ],
                           ),
                         ),
-
                         Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 8.0, left: 10, bottom: 10),
+                                  top: 2.0, left: 10, bottom: 10),
                               child: Text(
                                 "Recommended Items:",
                                 style: TextStyle(
@@ -694,12 +692,6 @@ class DetailsPageState extends State<DetailsPage> {
                             );
                           },
                         ),
-
-                        // Padding(
-                        //   padding: const EdgeInsets.only(
-                        //       left: 8.0, right: 8, bottom: 8),
-                        //   child: SearchDetails(item: doc1),
-                        // )
                       ]),
                     ),
                   ),

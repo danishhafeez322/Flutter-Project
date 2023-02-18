@@ -10,10 +10,16 @@ import 'package:mad_project/widgets/AppBar.dart';
 
 import '../categorybottombar.dart';
 
-
 class EditUserDetailView extends StatefulWidget {
-  String name, address, city, email, phone; 
-  EditUserDetailView({Key? key, required this.name, required this.address, required this.city, required this.email, required this.phone}) : super(key: key);
+  String name, address, city, email, phone;
+  EditUserDetailView(
+      {Key? key,
+      required this.name,
+      required this.address,
+      required this.city,
+      required this.email,
+      required this.phone})
+      : super(key: key);
 
   @override
   State<EditUserDetailView> createState() => _EditUserDetailViewState();
@@ -24,21 +30,31 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(),
-      body: _body(context, name :widget.name, address:widget.address, city: widget.city, email:widget.email, phone:widget.phone),
+      body: _body(context,
+          name: widget.name,
+          address: widget.address,
+          city: widget.city,
+          email: widget.email,
+          phone: widget.phone),
     );
   }
 
-  Stack _body(BuildContext context, {required String name, required String address, required String city, required String email, required String phone}) {
-  final controllerName = TextEditingController();
-  final controllerAddress = TextEditingController();
-  final controllerCity = TextEditingController();
-  final controllerEmail = TextEditingController();
-  final controllerContact = TextEditingController();
-  controllerName.text = name;
-  controllerAddress.text = address;
-  controllerCity.text = city;
-  controllerEmail.text = email;
-  controllerContact.text = phone;
+  Stack _body(BuildContext context,
+      {required String name,
+      required String address,
+      required String city,
+      required String email,
+      required String phone}) {
+    final controllerName = TextEditingController();
+    final controllerAddress = TextEditingController();
+    final controllerCity = TextEditingController();
+    final controllerEmail = TextEditingController();
+    final controllerContact = TextEditingController();
+    controllerName.text = name;
+    controllerAddress.text = address;
+    controllerCity.text = city;
+    controllerEmail.text = email;
+    controllerContact.text = phone;
     return Stack(
       children: [
         SizedBox(
@@ -98,7 +114,7 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                     color: AppColors.loginColor,
                   ),
                 ),
-                context.emptySizedHeightBoxLow,            
+                context.emptySizedHeightBoxLow,
                 CustomTextField(
                   controller: controllerContact,
                   height: context.height * 0.07,
@@ -112,28 +128,33 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                 ),
                 context.emptySizedHeightBoxLow3x,
                 CustomElevatedButton(
-                  onPressed: () async{
-                    
-                
-                // final user = User(
-                //   id: "my id",
-                //   name: "my name",
-                //   address: "my address",
-                //   city: "my city",
-                //   email: "my email",
-                //   contact_no: 789456123,
-                //   cnic: 6789456123,
-                //   password: " my password",
-                //   isLogin: false,
-                //   isVerified: false,
-                //   rating: 5,
-                //   );
-                  // updateUser(user:user);
-                    final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser?.uid);
-                    docUser.update({'uname': controllerName.text, 'email': controllerEmail.text, 'address': controllerAddress.text, 'city': controllerCity.text, 'contact_no': int.parse(controllerContact.text)}) ;
-  
-                  Navigator.pop(context);
-                
+                  onPressed: () async {
+                    // final user = User(
+                    //   id: "my id",
+                    //   name: "my name",
+                    //   address: "my address",
+                    //   city: "my city",
+                    //   email: "my email",
+                    //   contact_no: 789456123,
+                    //   cnic: 6789456123,
+                    //   password: " my password",
+                    //   isLogin: false,
+                    //   isVerified: false,
+                    //   rating: 5,
+                    //   );
+                    // updateUser(user:user);
+                    final docUser = await FirebaseFirestore.instance
+                        .collection('/users')
+                        .doc(FirebaseAuth.instance.currentUser?.uid);
+                    docUser.update({
+                      'uname': controllerName.text,
+                      'email': controllerEmail.text,
+                      'address': controllerAddress.text,
+                      'city': controllerCity.text,
+                      'contact_no': int.parse(controllerContact.text)
+                    });
+
+                    Navigator.pop(context);
                   },
                   child: Text(
                     AppText.signUp.toUpperCase(),
@@ -150,13 +171,13 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
               ],
             ),
           ),
-        ),        
-        Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: CategoryBottomBar(),
-          )
+        ),
+        // Positioned(
+        //     bottom: 0,
+        //     left: 0,
+        //     right: 0,
+        //     child: CategoryBottomBar(),
+        //   )
       ],
     );
   }
@@ -171,19 +192,18 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
         color: AppColors.loginColor,
       ),
       alignment: Alignment.center,
-
       child: Text(
         AppText.edit.toUpperCase(),
-        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+        style: context.textTheme.headline5!
+            .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }
 
-   Future updateUser({required User user}) async{
-  }
+  Future updateUser({required User user}) async {}
 }
 
-class User{
+class User {
   String id;
   final String name;
   final String email;
@@ -206,8 +226,7 @@ class User{
     // required this.isVerified,
   });
 
-  Map<String, dynamic> toMap(){
-    
+  Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
@@ -219,10 +238,5 @@ class User{
       // 'isVerified': isVerified,
       // 'rating': rating,
     };
-
   }
-
-
 }
-
-

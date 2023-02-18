@@ -10,11 +10,26 @@ import 'package:mad_project/widgets/AppBar.dart';
 
 import '../pages/categorybottombar.dart';
 
-
-class EditDetailView extends StatefulWidget {  
-  final title, category, subCategory, description, price, guaranteePrice, days, quantity;
+class EditDetailView extends StatefulWidget {
+  final title,
+      category,
+      subCategory,
+      description,
+      price,
+      guaranteePrice,
+      days,
+      quantity;
   const EditDetailView(
-    {Key? key, this.title, this.category, this.subCategory, this.description, this.price, this.guaranteePrice, this.days, this.quantity}) : super(key: key);
+      {Key? key,
+      this.title,
+      this.category,
+      this.subCategory,
+      this.description,
+      this.price,
+      this.guaranteePrice,
+      this.days,
+      this.quantity})
+      : super(key: key);
 
   @override
   State<EditDetailView> createState() => _EditDetailViewState();
@@ -27,24 +42,21 @@ class _EditDetailViewState extends State<EditDetailView> {
 
   openImages() async {
     try {
-        var pickedfiles = await imgpicker.pickMultiImage();
-        //you can use ImageCourse.camera for Camera capture
-        if(pickedfiles != null){
-            imagefiles = pickedfiles;
-            setState(() {
-            });
-        }else{
-            print("No image is selected.");
-        }
-    }catch (e) {
-        print("error while picking file.");
+      var pickedfiles = await imgpicker.pickMultiImage();
+      //you can use ImageCourse.camera for Camera capture
+      if (pickedfiles != null) {
+        imagefiles = pickedfiles;
+        setState(() {});
+      } else {
+        print("No image is selected.");
+      }
+    } catch (e) {
+      print("error while picking file.");
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: MainAppBar(),
       body: _body(context),
@@ -52,25 +64,23 @@ class _EditDetailViewState extends State<EditDetailView> {
   }
 
   Stack _body(BuildContext context) {
-    
-  final controllerTitle = TextEditingController();
-  final controllerCategory = TextEditingController();
-  final controllerSubCategory = TextEditingController();
-  final controllerDescription = TextEditingController();
-  final controllerPrice = TextEditingController();
-  final controllerGuaranteePrice = TextEditingController();
-  final controllerDays = TextEditingController();
-  final controllerQuantity = TextEditingController();
-  
-  controllerTitle.text = widget.title;
-  controllerCategory.text = widget.category;
-  controllerSubCategory.text = widget.subCategory;
-  controllerDescription.text = widget.description;
-  controllerPrice.text = widget.price;
-  controllerGuaranteePrice.text = widget.guaranteePrice;
-  controllerDays.text = widget.days;
-  controllerQuantity.text = widget.quantity;
-  
+    final controllerTitle = TextEditingController();
+    final controllerCategory = TextEditingController();
+    final controllerSubCategory = TextEditingController();
+    final controllerDescription = TextEditingController();
+    final controllerPrice = TextEditingController();
+    final controllerGuaranteePrice = TextEditingController();
+    final controllerDays = TextEditingController();
+    final controllerQuantity = TextEditingController();
+
+    controllerTitle.text = widget.title;
+    controllerCategory.text = widget.category;
+    controllerSubCategory.text = widget.subCategory;
+    controllerDescription.text = widget.description;
+    controllerPrice.text = widget.price;
+    controllerGuaranteePrice.text = widget.guaranteePrice;
+    controllerDays.text = widget.days;
+    controllerQuantity.text = widget.quantity;
 
     String dropdownValue = "";
     String dropdownSubValue = "";
@@ -88,37 +98,40 @@ class _EditDetailViewState extends State<EditDetailView> {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     children: [
-                        //open button ----------------
-                        ElevatedButton.icon(
-                          icon: Icon(
-                            Icons.upload,
-                            color: Colors.white,
-                            size: 30.0,
-                          ),
-                          label: Text('Choose Images'),
-                          onPressed: () {
-                            openImages();
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(AppColors.uploadColor),
-                          ),
+                      //open button ----------------
+                      ElevatedButton.icon(
+                        icon: Icon(
+                          Icons.upload,
+                          color: Colors.white,
+                          size: 30.0,
                         ),
-                        Divider(),
-                        Text("Picked Files:"),
-                        Divider(),
+                        label: Text('Choose Images'),
+                        onPressed: () {
+                          openImages();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              AppColors.uploadColor),
+                        ),
+                      ),
+                      Divider(),
+                      Text("Picked Files:"),
+                      Divider(),
 
-                        imagefiles != null?Wrap(
-                          children: imagefiles!.map((imageone){
-                              return Container(
-                                child:Card( 
-                                    child: Container(
-                                      height: 100, width:100,
-                                      child: Image.file(File(imageone.path)),
-                                    ),
-                                )
-                              );
-                          }).toList(),
-                        ):Container()
+                      imagefiles != null
+                          ? Wrap(
+                              children: imagefiles!.map((imageone) {
+                                return Container(
+                                    child: Card(
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: Image.file(File(imageone.path)),
+                                  ),
+                                ));
+                              }).toList(),
+                            )
+                          : Container()
                     ],
                   ),
                 ),
@@ -128,17 +141,17 @@ class _EditDetailViewState extends State<EditDetailView> {
                   height: context.height * 0.07,
                   width: context.width * 0.8,
                   hinttext: AppText.title,
-                  text:widget.title,
+                  text: widget.title,
                   prefixIcon: const Icon(
                     Icons.title,
                     color: AppColors.uploadColor,
-                  ),                        
+                  ),
                 ),
                 context.emptySizedHeightBoxLow3x,
                 Padding(
-                  padding: const EdgeInsets.only(left:50,right:50),
+                  padding: const EdgeInsets.only(left: 50, right: 50),
                   child: Row(
-                    children: [            
+                    children: [
                       DropdownButton<String>(
                         value: widget.category,
                         icon: const Icon(Icons.arrow_downward),
@@ -154,10 +167,13 @@ class _EditDetailViewState extends State<EditDetailView> {
                             dropdownValue = value!;
                           });
                           controllerCategory.text = dropdownValue;
-                          dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
-
+                          dropdownValue == AppText.list[0]
+                              ? dropdownSubValue = AppText.fashion_sub_list[0]
+                              : dropdownSubValue =
+                                  AppText.electronics_sub_list[0];
                         },
-                        items: AppText.list.map<DropdownMenuItem<String>>((String value) {
+                        items: AppText.list
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -178,11 +194,12 @@ class _EditDetailViewState extends State<EditDetailView> {
                         onChanged: (String? value) {
                           // This is called when the user selects an item.
                           setState(() {
-                            dropdownSubValue= value!;
+                            dropdownSubValue = value!;
                           });
                           controllerSubCategory.text = dropdownSubValue;
                         },
-                        items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {
+                        items: AppText.fashion_sub_list
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(value),
@@ -228,7 +245,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                     color: AppColors.uploadColor,
                   ),
                 ),
-                context.emptySizedHeightBoxLow,            
+                context.emptySizedHeightBoxLow,
                 CustomTextField(
                   controller: controllerDays,
                   height: context.height * 0.07,
@@ -270,18 +287,17 @@ class _EditDetailViewState extends State<EditDetailView> {
               ],
             ),
           ),
-        ), 
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: CategoryBottomBar(),
-        )
+        ),
+        // Positioned(
+        //   bottom: 0,
+        //   left: 0,
+        //   right: 0,
+        //   child: CategoryBottomBar(),
+        // )
       ],
     );
   }
 
- 
   Container topText(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 5, right: 5),
@@ -292,10 +308,10 @@ class _EditDetailViewState extends State<EditDetailView> {
         color: AppColors.uploadColor,
       ),
       alignment: Alignment.center,
-
       child: Text(
         AppText.edit.toUpperCase(),
-        style: context.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+        style: context.textTheme.headline5!
+            .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
   }

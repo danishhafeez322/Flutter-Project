@@ -157,7 +157,7 @@ class _MyChatState extends State<MyChat> {
                           }
                         }));
                   } else {
-                    return Container(child: Text("Nothing found"));
+                    return Container();
                   }
                 }),
           ),

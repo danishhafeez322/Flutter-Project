@@ -21,40 +21,39 @@ class _ChatCardState extends State<ChatCard> {
   Map<String, dynamic>? UserMap;
 
   Map<String, dynamic>? currentUserMap;
+  Map<String, dynamic>? myMap;
 
   Future<void> user2() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
 
-    if (widget.item['user2'] != FirebaseAuth.instance.currentUser!.uid) {
-      await FirebaseFirestore.instance
-          .collection('/users')
-          .doc(widget.item['user2'])
-          .get()
-          .then((value) {
-        setState(() {
-          UserMap = value.data();
-        });
+    // if (widget.item['user2'] != FirebaseAuth.instance.currentUser!.uid) {
+    await FirebaseFirestore.instance
+        .collection('/users')
+        .doc(widget.item['user2'])
+        .get()
+        .then((value) {
+      setState(() {
+        UserMap = value.data();
       });
-    } else {
-      await FirebaseFirestore.instance
-          .collection('/users')
-          .doc(widget.item['user1'])
-          .get()
-          .then((value) {
-        setState(() {
-          UserMap = value.data();
-        });
-      });
-    }
+    });
 
+    await FirebaseFirestore.instance
+        .collection('/users')
+        .doc(widget.item['user1'])
+        .get()
+        .then((value) {
+      setState(() {
+        currentUserMap = value.data();
+      });
+    });
     await FirebaseFirestore.instance
         .collection('/users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get()
         .then((value) {
       setState(() {
-        currentUserMap = value.data();
+        myMap = value.data();
       });
     });
 
@@ -66,6 +65,14 @@ class _ChatCardState extends State<ChatCard> {
       return "$user1$user2";
     } else {
       return "$user2$user1";
+    }
+  }
+
+  String UserName() {
+    if (myMap?['uname'] == UserMap?['uname']) {
+      return currentUserMap?['uname'] ?? '';
+    } else {
+      return UserMap?['uname'] ?? '';
     }
   }
 
@@ -94,10 +101,12 @@ class _ChatCardState extends State<ChatCard> {
             onTap: () {
               String roomId =
                   chatRoomId(currentUserMap!['uname'], UserMap!['uname']);
+
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ChatRoom(
+                            otherUser: currentUserMap!['uname'],
                             chatRoomId: roomId,
                             userMap: UserMap!,
                           )));
@@ -134,7 +143,7 @@ class _ChatCardState extends State<ChatCard> {
                               padding:
                                   const EdgeInsets.only(bottom: 10.0, left: 5),
                               child: Text(
-                                UserMap?['uname'] ?? '',
+                                UserName(),
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   color: Colors.black,

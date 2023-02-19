@@ -114,7 +114,6 @@ class postedItemDetail extends StatelessWidget {
                                       id: item['id'],
                                       title: item['title'],
                                       category: item['category_id'],
-                                      subCategory: "Kids",
                                       description: item['description'],
                                       price: item['price'].toString(),
                                       guaranteePrice:

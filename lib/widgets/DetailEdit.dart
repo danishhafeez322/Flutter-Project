@@ -18,9 +18,9 @@ import '../pages/upload.dart';
 
 
 class EditDetailView extends StatefulWidget {  
-  final title, category, subCategory, description, price, guaranteePrice, days, quantity, id;
+  final title, category, description, price, guaranteePrice, days, quantity, id;
   const EditDetailView(
-    {Key? key, this.title, this.category, this.subCategory, this.description, this.price, this.guaranteePrice, this.days, this.quantity, this.id}) : super(key: key);
+    {Key? key, this.title, this.category, this.description, this.price, this.guaranteePrice, this.days, this.quantity, this.id}) : super(key: key);
 
   @override
   State<EditDetailView> createState() => _EditDetailViewState();

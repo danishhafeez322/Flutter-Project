@@ -29,6 +29,7 @@ class _UploadViewState extends State<UploadView> {
   final controllerTitle = TextEditingController();
   final controllerMainCategory = TextEditingController();
   final controllerDescription = TextEditingController();
+  final controllerCity = TextEditingController();
   final controllerPrice = TextEditingController();
   final controllerGuaranteePrice = TextEditingController();
   final controllerQuantity = TextEditingController();
@@ -193,6 +194,18 @@ class _UploadViewState extends State<UploadView> {
                   ),
                   context.emptySizedHeightBoxLow,
                   CustomTextField(
+                    controller: controllerCity,
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    hinttext: AppText.city,
+                    text: controllerDescription.text,
+                    prefixIcon: const Icon(
+                      Icons.location_city,
+                      color: AppColors.uploadColor,
+                    ),
+                  ),
+                  context.emptySizedHeightBoxLow,
+                  CustomTextField(
                     controller: controllerPrice,
                     height: context.height * 0.07,
                     width: context.width * 0.8,
@@ -235,6 +248,7 @@ class _UploadViewState extends State<UploadView> {
                         title: controllerTitle.text.trim(),
                         category_id: controllerMainCategory.text.trim(),
                         description: controllerDescription.text.trim(),
+                        city: controllerCity.text.trim(),
                         price: int.parse(controllerPrice.text.trim()),
                         guarantee_price:
                             int.parse(controllerGuaranteePrice.text.trim()),
@@ -247,6 +261,7 @@ class _UploadViewState extends State<UploadView> {
                       if (item.title != "" &&
                           item.category_id != "" &&
                           item.description != "" &&
+                          item.city != "" &&
                           item.price != 0 &&
                           item.guarantee_price != 0 &&
                           item.quantity != 0 &&
@@ -403,6 +418,7 @@ class MyItem {
   final String category_id;
   final String? user_id;
   final String description;
+  final String city;
   final int price;
   final int guarantee_price;
   final int quantity;
@@ -411,11 +427,14 @@ class MyItem {
   var date;
 
   MyItem(
-      {required this.id,
+      
+      {
+      required this.id,
       required this.title,
       required this.category_id,
       required this.user_id,
       required this.description,
+      required this.city,
       required this.price,
       required this.guarantee_price,
       required this.quantity,
@@ -430,6 +449,7 @@ class MyItem {
       'category_id': category_id,
       'user_id': user_id,
       'description': description,
+      'city': city,
       'price': price,
       'guarantee_price': guarantee_price,
       'quantity': quantity,
@@ -445,6 +465,7 @@ class MyItem {
         category_id: map['category_id'],
         user_id: map['user_id'],
         description: map['description'],
+        city: map['city'],
         price: map['price'],
         guarantee_price: map['guarantee_price'],
         quantity: map['quantity'],

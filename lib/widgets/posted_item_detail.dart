@@ -118,7 +118,7 @@ class postedItemDetail extends StatelessWidget {
                                       price: item['price'].toString(),
                                       guaranteePrice:
                                           item['guarantee_price'].toString(),
-                                      days: '1',
+                                      city: item['city'].toString(),
                                       quantity: item['quantity'].toString(),
                                     )));
                       },

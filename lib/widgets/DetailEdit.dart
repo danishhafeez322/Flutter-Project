@@ -18,9 +18,9 @@ import '../pages/upload.dart';
 
 
 class EditDetailView extends StatefulWidget {  
-  final title, category, description, price, guaranteePrice, days, quantity, id;
+  final title, category, description, price, guaranteePrice, city, quantity, id;
   const EditDetailView(
-    {Key? key, this.title, this.category, this.description, this.price, this.guaranteePrice, this.days, this.quantity, this.id}) : super(key: key);
+    {Key? key, this.title, this.category, this.description, this.price, this.guaranteePrice, this.city, this.quantity, this.id}) : super(key: key);
 
   @override
   State<EditDetailView> createState() => _EditDetailViewState();
@@ -59,6 +59,7 @@ class _EditDetailViewState extends State<EditDetailView> {
   final controllerTitle = TextEditingController();
   final controllerMainCategory = TextEditingController();
   final controllerDescription = TextEditingController();
+  final controllerCity = TextEditingController();
   final controllerPrice = TextEditingController();
   final controllerGuaranteePrice = TextEditingController();
   final controllerDays = TextEditingController();
@@ -69,7 +70,7 @@ class _EditDetailViewState extends State<EditDetailView> {
   controllerDescription.text = widget.description;
   controllerPrice.text = widget.price;
   controllerGuaranteePrice.text = widget.guaranteePrice;
-  controllerDays.text = widget.days;
+  controllerCity.text = widget.city;
   controllerQuantity.text = widget.quantity;
   
 
@@ -177,6 +178,18 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
+                  controller: controllerCity,
+                  height: context.height * 0.07,
+                  width: context.width * 0.8,
+                  hinttext: AppText.city,
+                  text: widget.city,
+                  prefixIcon: const Icon(
+                    Icons.lock_clock,
+                    color: AppColors.uploadColor,
+                  ),
+                ),
+                context.emptySizedHeightBoxLow,
+                CustomTextField(
                   controller: controllerPrice,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
@@ -201,18 +214,6 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
-                  controller: controllerDays,
-                  height: context.height * 0.07,
-                  width: context.width * 0.8,
-                  hinttext: AppText.days,
-                  text: widget.days,
-                  prefixIcon: const Icon(
-                    Icons.lock_clock,
-                    color: AppColors.uploadColor,
-                  ),
-                ),
-                context.emptySizedHeightBoxLow,
-                CustomTextField(
                   controller: controllerQuantity,
                   height: context.height * 0.07,
                   width: context.width * 0.8,
@@ -231,6 +232,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                         title: controllerTitle.text.trim(),
                         category_id: controllerMainCategory.text.trim(),
                         description: controllerDescription.text.trim(),
+                        city: controllerCity.text.trim(),
                         price: int.parse(controllerPrice.text.trim()),
                         guarantee_price:
                             int.parse(controllerGuaranteePrice.text.trim()),
@@ -243,6 +245,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                       if (item.title != "" &&
                           item.category_id != "" &&
                           item.description != "" &&
+                          item.city != "" &&
                           item.price != 0 &&
                           item.guarantee_price != 0 &&
                           item.quantity != 0 &&

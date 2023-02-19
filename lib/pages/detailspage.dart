@@ -177,18 +177,18 @@ class DetailsPageState extends State<DetailsPage> {
         appBar: MainAppBar(),
         // bottomNavigationBar: CategoryBottomBar(),
         body: (widget.myItem != null)
-            ? (Container(
-                alignment: Alignment.center,
-                child: Stack(children: [
+            ? (Stack(children: [
                   SingleChildScrollView(
                     child: Container(
-                      // height: 900,
-                      child: Column(children: [
+                      // height: 00,
+                      child: 
+                      Column(children: [
                         Stack(
                           children: [
                             Container(
-                              height: 300,
-                              child: DetailsCarousal(
+                              height: 180,
+                              child: 
+                              DetailsCarousal(
                                   images: widget.myItem!.images),
                             ),
                           ],
@@ -229,6 +229,12 @@ class DetailsPageState extends State<DetailsPage> {
                                   padding: EdgeInsets.all(20),
                                   width: double.infinity,
                                   child: Text(widget.myItem!.description),
+                                ),
+                                 Container(
+                                  color: Colors.white10,
+                                  padding: EdgeInsets.all(20),
+                                  width: double.infinity,
+                                  child: Text("From : " + widget.myItem!.city),
                                 )
                               ],
                             ),
@@ -708,7 +714,9 @@ class DetailsPageState extends State<DetailsPage> {
                       ]),
                     ),
                   ),
-                ])))
+                ]
+                )
+                )
             : Container());
   }
 }

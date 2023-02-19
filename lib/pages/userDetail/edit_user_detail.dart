@@ -128,33 +128,12 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                 ),
                 context.emptySizedHeightBoxLow3x,
                 CustomElevatedButton(
-                  onPressed: () async {
-                    // final user = User(
-                    //   id: "my id",
-                    //   name: "my name",
-                    //   address: "my address",
-                    //   city: "my city",
-                    //   email: "my email",
-                    //   contact_no: 789456123,
-                    //   cnic: 6789456123,
-                    //   password: " my password",
-                    //   isLogin: false,
-                    //   isVerified: false,
-                    //   rating: 5,
-                    //   );
-                    // updateUser(user:user);
-                    final docUser = await FirebaseFirestore.instance
-                        .collection('/users')
-                        .doc(FirebaseAuth.instance.currentUser?.uid);
-                    docUser.update({
-                      'uname': controllerName.text,
-                      'email': controllerEmail.text,
-                      'address': controllerAddress.text,
-                      'city': controllerCity.text,
-                      'contact_no': int.parse(controllerContact.text)
-                    });
-
-                    Navigator.pop(context);
+                  onPressed: () async{                 
+                    final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser?.uid);
+                    docUser.update({'uname': controllerName.text, 'email': controllerEmail.text, 'address': controllerAddress.text, 'city': controllerCity.text, 'contact_no': int.parse(controllerContact.text)}) ;
+  
+                  Navigator.pop(context);
+                
                   },
                   child: Text(
                     AppText.signUp.toUpperCase(),

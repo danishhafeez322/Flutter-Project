@@ -41,9 +41,9 @@ class _BookedItemState extends State<BookedItem> {
                   },
                 );
               }
-              setState(() {
+              // setState(() {
                 
-              });
+              // });
 
               return Center(child: CircularProgressIndicator());
             },

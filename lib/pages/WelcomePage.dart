@@ -147,32 +147,34 @@ class _WelcomePageState extends State<WelcomePage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Container(
-                  height: (kIsWeb) ? (110) : (80),
-                  child: Expanded(
-                    child: Container(
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
+                Center(
+                  child: Container(
+                    height: (kIsWeb) ? (110) : (80),
+                    child: Expanded(
+                      child: Container(
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
 
-                        // padding: const EdgeInsets.only(bottom: 100),
-                        itemCount: categories.length,
-                        itemBuilder: (BuildContext ctx, int index) {
-                          return Categorycard(
-                              category: categories[index],
-                              onCardClick: () {
-                                // Navigator.pop(ctx);
-                                Navigator.push(
-                                  ctx,
-                                  MaterialPageRoute(
-                                    builder: (context) => SelectedCategory(
-                                        selectedCategory: categories[index]),
+                          // padding: const EdgeInsets.only(bottom: 100),
+                          itemCount: categories.length,
+                          itemBuilder: (BuildContext ctx, int index) {
+                            return Categorycard(
+                                category: categories[index],
+                                onCardClick: () {
+                                  // Navigator.pop(ctx);
+                                  Navigator.push(
+                                    ctx,
+                                    MaterialPageRoute(
+                                      builder: (context) => SelectedCategory(
+                                          selectedCategory: categories[index]),
 
-                                    // MyCategory()
-                                  ),
-                                );
-                              });
-                        },
+                                      // MyCategory()
+                                    ),
+                                  );
+                                });
+                          },
+                        ),
                       ),
                     ),
                   ),

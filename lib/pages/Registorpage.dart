@@ -12,9 +12,14 @@ import 'package:mad_project/product/widget/custom_textfield.dart';
 
 import 'login_view.dart';
 
-class RegisterView extends StatelessWidget {
+class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +27,7 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  SizedBox _body(BuildContext context) {
+  Widget _body(BuildContext context) {
     final controllerName = TextEditingController();
     final controllerAddress = TextEditingController();
     final controllerCity = TextEditingController();
@@ -31,8 +36,9 @@ class RegisterView extends StatelessWidget {
     final controllerCnic = TextEditingController();
     final controllerPassword = TextEditingController();
     final controllerConfirm = TextEditingController();
+    bool _obscureText = true;
 
-    return SizedBox(
+    return StatefulBuilder(builder: (context, setState) => SizedBox(
       height: context.height * 1,
       width: context.width * 1,
       child: SingleChildScrollView(
@@ -110,18 +116,32 @@ class RegisterView extends StatelessWidget {
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              obscureText: _obscureText,
               controller: controllerPassword,
               height: context.height * 0.07,
               width: context.width * 0.8,
-              hinttext: AppText.password,
+              hinttext: AppText.password + "(min 6 characters)",
               prefixIcon: const Icon(
                 Icons.lock,
                 color: AppColors.loginColor,
               ),
-              suffixIcon: const Icon(Icons.remove_red_eye),
+              suffixIcon: InkWell(
+                  onTap: (){                      
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+
+                  },  /// This is Magical Function
+                  child: Icon(
+                    _obscureText ?         /// CHeck Show & Hide.
+                     Icons.visibility :
+                     Icons.visibility_off,
+                  ),
+                ),
             ),
             context.emptySizedHeightBoxLow,
             CustomTextField(
+              obscureText: _obscureText,
               controller: controllerConfirm,
               height: context.height * 0.07,
               width: context.width * 0.8,
@@ -130,7 +150,19 @@ class RegisterView extends StatelessWidget {
                 Icons.lock,
                 color: AppColors.loginColor,
               ),
-              suffixIcon: const Icon(Icons.remove_red_eye),
+              suffixIcon: InkWell(
+                  onTap: (){                      
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+
+                  },  /// This is Magical Function
+                  child: Icon(
+                    _obscureText ?         /// CHeck Show & Hide.
+                     Icons.visibility :
+                     Icons.visibility_off,
+                  ),
+                ),
             ),
             context.emptySizedHeightBoxLow3x,
             CustomElevatedButton(
@@ -177,7 +209,7 @@ class RegisterView extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 
   SizedBox topImage(BuildContext context) {

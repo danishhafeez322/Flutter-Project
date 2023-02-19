@@ -70,7 +70,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 topRight: Radius.circular(20),
               ),
             ),
-            child: Column(children: [
+            child: ListView(children: [
               Row(
                 children: [
                   const Icon(

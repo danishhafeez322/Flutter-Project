@@ -30,19 +30,13 @@ class _NotificationViewState extends State<NotificationView> {
             stream: FirebaseFirestore.instance.collection('/order').doc(FirebaseAuth.instance.currentUser!.uid).collection('notification').snapshots(),
             builder: (_, snapshot) {
               if (snapshot.hasError) return Text('Error = ${snapshot.error}');
-
               if (snapshot.hasData) {
                 final docs = snapshot.data!.docs;
-                return 
-                ListView.builder(
+                return ListView.builder(
                   itemCount: docs.length,
                   itemBuilder: (_, i) {
                     final data = docs[i].data();
-                    // final temp = DateTime.now().difference( data['date'].toDate()).inDays;
-                    return 
-                            // (FirebaseAuth.instance.currentUser != null)? 
-                            //   ((FirebaseAuth.instance.currentUser!.uid == data['senderName'])? 
-                                  NotificationViewDetail( 
+                    return NotificationViewDetail( 
                                     itemId:  data['itemId'],                                   
                                     user: data['itemTitle'].toString(),
                                     briefChat: data['description'] ,
@@ -50,22 +44,17 @@ class _NotificationViewState extends State<NotificationView> {
                                       .difference(DateTime.parse(data['date']))
                                       .inDays
                                       .toString() +
-                                  " days ago",
-                                    
-                                   ); 
-                                  // Text('${data} \n');
-                              
-                              //     : Container())
-                              // : Container();
+                                  " days ago",                                    
+                                   );
                   },
                 );
               }
               else{
                 Container(child: Text('No Notifications'),);
               }
-              setState(() {
+              // setState(() {
                 
-              });
+              // });
 
               return Center(child: CircularProgressIndicator());
             },

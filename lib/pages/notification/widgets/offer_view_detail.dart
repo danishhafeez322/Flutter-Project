@@ -59,7 +59,7 @@ class _OfferViewDetailState extends State<OfferViewDetail> {
       }
     }
 
-    return Padding(
+    return (widget.user != null)? Padding(
       padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
       child: Container(
         decoration: BoxDecoration(
@@ -250,6 +250,6 @@ class _OfferViewDetailState extends State<OfferViewDetail> {
           ),
         ),
       ),
-    );
+    ):Container();
   }
 }

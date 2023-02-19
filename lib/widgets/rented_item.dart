@@ -38,9 +38,9 @@ class _RentedItemState extends State<RentedItem> {
                   },
                 );
               }
-              setState(() {
+              // setState(() {
                 
-              });
+              // });
 
               return Center(child: CircularProgressIndicator());
             },

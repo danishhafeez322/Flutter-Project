@@ -1,5 +1,9 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
@@ -8,28 +12,15 @@ import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 
+import '../pages/WelcomePage.dart';
 import '../pages/categorybottombar.dart';
+import '../pages/upload.dart';
 
-class EditDetailView extends StatefulWidget {
-  final title,
-      category,
-      subCategory,
-      description,
-      price,
-      guaranteePrice,
-      days,
-      quantity;
+
+class EditDetailView extends StatefulWidget {  
+  final title, category, subCategory, description, price, guaranteePrice, days, quantity, id;
   const EditDetailView(
-      {Key? key,
-      this.title,
-      this.category,
-      this.subCategory,
-      this.description,
-      this.price,
-      this.guaranteePrice,
-      this.days,
-      this.quantity})
-      : super(key: key);
+    {Key? key, this.title, this.category, this.subCategory, this.description, this.price, this.guaranteePrice, this.days, this.quantity, this.id}) : super(key: key);
 
   @override
   State<EditDetailView> createState() => _EditDetailViewState();
@@ -63,28 +54,27 @@ class _EditDetailViewState extends State<EditDetailView> {
     );
   }
 
-  Stack _body(BuildContext context) {
-    final controllerTitle = TextEditingController();
-    final controllerCategory = TextEditingController();
-    final controllerSubCategory = TextEditingController();
-    final controllerDescription = TextEditingController();
-    final controllerPrice = TextEditingController();
-    final controllerGuaranteePrice = TextEditingController();
-    final controllerDays = TextEditingController();
-    final controllerQuantity = TextEditingController();
-
-    controllerTitle.text = widget.title;
-    controllerCategory.text = widget.category;
-    controllerSubCategory.text = widget.subCategory;
-    controllerDescription.text = widget.description;
-    controllerPrice.text = widget.price;
-    controllerGuaranteePrice.text = widget.guaranteePrice;
-    controllerDays.text = widget.days;
-    controllerQuantity.text = widget.quantity;
+  Widget _body(BuildContext context) {
+    
+  final controllerTitle = TextEditingController();
+  final controllerMainCategory = TextEditingController();
+  final controllerDescription = TextEditingController();
+  final controllerPrice = TextEditingController();
+  final controllerGuaranteePrice = TextEditingController();
+  final controllerDays = TextEditingController();
+  final controllerQuantity = TextEditingController();
+  
+  controllerTitle.text = widget.title;
+  controllerMainCategory.text = widget.category;
+  controllerDescription.text = widget.description;
+  controllerPrice.text = widget.price;
+  controllerGuaranteePrice.text = widget.guaranteePrice;
+  controllerDays.text = widget.days;
+  controllerQuantity.text = widget.quantity;
+  
 
     String dropdownValue = "";
-    String dropdownSubValue = "";
-    return Stack(
+    return StatefulBuilder(builder: (context,setState)=>Stack(
       children: [
         SizedBox(
           height: context.height * 1,
@@ -148,10 +138,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                   ),
                 ),
                 context.emptySizedHeightBoxLow3x,
-                Padding(
-                  padding: const EdgeInsets.only(left: 50, right: 50),
-                  child: Row(
-                    children: [
+                        
                       DropdownButton<String>(
                         value: widget.category,
                         icon: const Icon(Icons.arrow_downward),
@@ -166,11 +153,7 @@ class _EditDetailViewState extends State<EditDetailView> {
                           setState(() {
                             dropdownValue = value!;
                           });
-                          controllerCategory.text = dropdownValue;
-                          dropdownValue == AppText.list[0]
-                              ? dropdownSubValue = AppText.fashion_sub_list[0]
-                              : dropdownSubValue =
-                                  AppText.electronics_sub_list[0];
+                          controllerMainCategory.text = dropdownValue;
                         },
                         items: AppText.list
                             .map<DropdownMenuItem<String>>((String value) {
@@ -180,35 +163,6 @@ class _EditDetailViewState extends State<EditDetailView> {
                           );
                         }).toList(),
                       ),
-                      Spacer(),
-                      // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
-                      DropdownButton<String>(
-                        value: widget.subCategory,
-                        icon: const Icon(Icons.arrow_downward),
-                        elevation: 16,
-                        style: const TextStyle(color: Colors.black),
-                        underline: Container(
-                          height: 2,
-                          color: AppColors.uploadColor,
-                        ),
-                        onChanged: (String? value) {
-                          // This is called when the user selects an item.
-                          setState(() {
-                            dropdownSubValue = value!;
-                          });
-                          controllerSubCategory.text = dropdownSubValue;
-                        },
-                        items: AppText.fashion_sub_list
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                ),
                 context.emptySizedHeightBoxLow,
                 CustomTextField(
                   controller: controllerDescription,
@@ -271,6 +225,51 @@ class _EditDetailViewState extends State<EditDetailView> {
                 ),
                 context.emptySizedHeightBoxLow3x,
                 CustomElevatedButton(
+                  onPressed: (){
+                    final item = MyItem(
+                        id: widget.id,
+                        title: controllerTitle.text.trim(),
+                        category_id: controllerMainCategory.text.trim(),
+                        description: controllerDescription.text.trim(),
+                        price: int.parse(controllerPrice.text.trim()),
+                        guarantee_price:
+                            int.parse(controllerGuaranteePrice.text.trim()),
+                        quantity: int.parse(controllerQuantity.text.trim()),
+                        user_id: "${FirebaseAuth.instance.currentUser?.uid}",
+                        images: [''],
+                        status: '0',
+                        date: DateTime.now().toString(),
+                      );
+                      if (item.title != "" &&
+                          item.category_id != "" &&
+                          item.description != "" &&
+                          item.price != 0 &&
+                          item.guarantee_price != 0 &&
+                          item.quantity != 0 &&
+                          item.images != null) {
+                        Navigator.pop(context);
+                        Fluttertoast.showToast(
+                            msg: "Updateing Items...",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.yellow,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        UploadItemToDatabase(
+                            item: item, context: context, imagefiles: imagefiles);
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Fill the form correctly",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                      }
+
+                  },
                   child: Text(
                     "Save".toUpperCase(),
                     style: const TextStyle(color: Colors.white),
@@ -288,14 +287,8 @@ class _EditDetailViewState extends State<EditDetailView> {
             ),
           ),
         ),
-        // Positioned(
-        //   bottom: 0,
-        //   left: 0,
-        //   right: 0,
-        //   child: CategoryBottomBar(),
-        // )
       ],
-    );
+    ));
   }
 
   Container topText(BuildContext context) {
@@ -317,87 +310,80 @@ class _EditDetailViewState extends State<EditDetailView> {
   }
 }
 
+List<String> imagesUrl = [];
+Future<String> uploadImage(File file) async {
+  final fileName = "${DateTime.now()}.jpeg";
+  final destination = 'images/$fileName';
+  final storageReference = FirebaseStorage.instance.ref().child(destination);
+  final uploadTask = storageReference.putFile(file);
+  final snapshot = await uploadTask.whenComplete(() => null);
+  final urlDownload = await snapshot.ref.getDownloadURL();
+  return urlDownload;
+}
 
+Future getImagesUrl(List<XFile>? images) async {
+  imagesUrl.clear();
+  for (int i = 0; i < images!.length; i++) {
+    final url = await uploadImage(File(images[i].path));
+    imagesUrl.add(url);
+  }
+}
 
+Future UploadItemToDatabase(
+    {required MyItem item,
+    required BuildContext context,
+    List<XFile>? imagefiles}) async {
+  // showDialog(
+  //   context: context,
+  //   barrierDismissible: false,
+  //   builder: (context) => const Center(child: CircularProgressIndicator())
+  // );
+  try {
+    // int count = await FirebaseFirestore.instance
+    //     .collection('/Items')
+    //     .get()
+    //     .then((value) => value.size);
+    if (item.images == null) {
+      Fluttertoast.showToast(
+          msg: "Please Select Images",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      return;
+    } else {
+      await getImagesUrl(imagefiles);
 
+      item.images = imagesUrl;
+      final docitem = await FirebaseFirestore.instance
+          .collection('/Items')
+          .doc(item.id.toString());
+      // item.id = (count + 1).toString();
 
-
-
-
-// class MyDropdownButton extends StatefulWidget {
-//   final category;
-//   const MyDropdownButton({super.key,this.category});
-
-//   @override
-//   State<MyDropdownButton> createState() => _DropdownButtonState();
-// }
-
-// class _DropdownButtonState extends State<MyDropdownButton> {
-//   String dropdownValue = "";
-
-//   @override
-//   Widget build(BuildContext context) {
-//     dropdownValue = widget.category;
-//     return DropdownButton<String>(
-//       value: dropdownValue,
-//       icon: const Icon(Icons.arrow_downward),
-//       elevation: 16,
-//       style: const TextStyle(color: Colors.black),
-//       underline: Container(
-//         height: 2,
-//         color: AppColors.uploadColor,
-//       ),
-//       onChanged: (String? value) {
-//         // This is called when the user selects an item.
-//         setState(() {
-//           dropdownValue = value!;
-//         });
-//       },
-//       items: AppText.list.map<DropdownMenuItem<String>>((String value) {
-//         return DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
-// class MyDropdownButtonSubCategory extends StatefulWidget {
-//   final subCategory;
-//   const MyDropdownButtonSubCategory({super.key,this.subCategory});
-
-//   @override
-//   State<MyDropdownButtonSubCategory> createState() => _DropdownButtonSubState();
-// }
-
-// class _DropdownButtonSubState extends State<MyDropdownButtonSubCategory> {
-//   String dropdownValue = "";
-
-//   @override
-//   Widget build(BuildContext context) {
-//     dropdownValue = widget.subCategory;
-//     return DropdownButton<String>(
-//       value: dropdownValue,
-//       icon: const Icon(Icons.arrow_downward),
-//       elevation: 16,
-//       style: const TextStyle(color: Colors.black),
-//       underline: Container(
-//         height: 2,
-//         color: AppColors.uploadColor,
-//       ),
-//       onChanged: (String? value) {
-//         // This is called when the user selects an item.
-//         setState(() {
-//           dropdownValue= value!;
-//         });
-//       },
-//       items: AppText.fashion_sub_list.map<DropdownMenuItem<String>>((String value) {
-//         return DropdownMenuItem<String>(
-//           value: value,
-//           child: Text(value),
-//         );
-//       }).toList(),
-//     );
-//   }
-// }
-
+      final json = item.toMap();
+      await docitem.set(json);
+      AppText.count++;
+      Fluttertoast.showToast(
+          msg: "Item Updated Successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.pop(context);
+    }
+  } catch (e) {
+    Fluttertoast.showToast(
+        msg: "" + e.toString(),
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+    print(e);
+  }
+}

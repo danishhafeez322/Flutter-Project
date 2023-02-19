@@ -23,19 +23,14 @@ class LoginView extends StatefulWidget {
 }
 
 class _MyAppState extends State<LoginView> {
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _body(context),
-    );
-  }
-}
-
-SizedBox _body(BuildContext context) {
-  Category selectedCategory;
+     Category selectedCategory;
   List<Category> categories = Utils.getMockedCategories();
   final controllerEmail = TextEditingController();
   final controllerPassword = TextEditingController();
+  bool _obscureText = true;
 
   Future signIn() async {
     await FirebaseAuth.instance
@@ -57,8 +52,8 @@ SizedBox _body(BuildContext context) {
           fontSize: 16.0);
     });
   }
-
-  return SizedBox(
+    return StatefulBuilder(builder: (context, setState) => Scaffold(
+      body: SizedBox(
     height: context.height * 1,
     width: context.width * 1,
     child: SingleChildScrollView(
@@ -74,6 +69,7 @@ SizedBox _body(BuildContext context) {
             height: context.height * 0.07,
             width: context.width * 0.8,
             hinttext: AppText.email,
+            // text: controllerEmail.text,
             prefixIcon: const Icon(
               Icons.email,
               color: AppColors.loginColor,
@@ -81,6 +77,8 @@ SizedBox _body(BuildContext context) {
           ),
           context.emptySizedHeightBoxLow,
           CustomTextField(
+            obscureText: _obscureText,
+            // text: controllerPassword.text,
             controller: controllerPassword,
             height: context.height * 0.07,
             width: context.width * 0.8,
@@ -89,7 +87,19 @@ SizedBox _body(BuildContext context) {
               Icons.lock,
               color: AppColors.loginColor,
             ),
-            suffixIcon: const Icon(Icons.remove_red_eye),
+            suffixIcon: InkWell(
+                  onTap: (){                      
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+
+                  },  /// This is Magical Function
+                  child: Icon(
+                    _obscureText ?         /// CHeck Show & Hide.
+                     Icons.visibility :
+                     Icons.visibility_off,
+                  ),
+                ),
           ),
           context.emptySizedHeightBoxLow,
           context.emptySizedHeightBoxLow3x,
@@ -126,8 +136,16 @@ SizedBox _body(BuildContext context) {
         ],
       ),
     ),
-  );
+  ),
+    ));
+  }
 }
+
+// SizedBox _body(BuildContext context) {
+ 
+
+//   return 
+// }
 
 SizedBox topImage(BuildContext context) {
   return SizedBox(

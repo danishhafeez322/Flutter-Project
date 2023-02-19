@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/pages/detailspage.dart';
@@ -17,7 +18,7 @@ class NotificationViewDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
 
-    return Padding(
+    return (itemId != null)? Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: Container(
       decoration: BoxDecoration(
@@ -25,7 +26,7 @@ class NotificationViewDetail extends StatelessWidget {
         // borderRadius: BorderRadius.circular(20),
       ),
         width: width,
-        height: 45.0,
+        height: (kIsWeb)?(60):(45.0),
         child: Material(
           color: Colors.transparent,
           child: InkWell(
@@ -107,6 +108,6 @@ class NotificationViewDetail extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ): Container();
   }
 }

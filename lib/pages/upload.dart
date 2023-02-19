@@ -28,7 +28,6 @@ class UploadView extends StatefulWidget {
 class _UploadViewState extends State<UploadView> {
   final controllerTitle = TextEditingController();
   final controllerMainCategory = TextEditingController();
-  final controllerSubCategory = TextEditingController();
   final controllerDescription = TextEditingController();
   final controllerPrice = TextEditingController();
   final controllerGuaranteePrice = TextEditingController();
@@ -80,249 +79,223 @@ class _UploadViewState extends State<UploadView> {
     );
   }
 
-  Stack _body(BuildContext context) {
+  StatefulBuilder _body(BuildContext context) {
     String dropdownValue = AppText.list.first;
     String dropdownSubValue = AppText.fashion_sub_list.first;
 
-    return Stack(
-      children: [
-        SizedBox(
-          height: context.height * 1,
-          width: context.width * 1,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                topText(context),
-                Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      //open button ----------------
-                      ElevatedButton.icon(
-                        icon: Icon(
-                          Icons.upload,
-                          color: Colors.white,
-                          size: 30.0,
+    return StatefulBuilder(builder:(context, setState)  {
+      return Stack(
+        children: [
+          SizedBox(
+            height: context.height * 1,
+            width: context.width * 1,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  topText(context),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        //open button ----------------
+                        ElevatedButton.icon(
+                          icon: Icon(
+                            Icons.upload,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                          label: Text('Choose Images'),
+                          onPressed: () {
+                            openImages();
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                AppColors.uploadColor),
+                          ),
                         ),
-                        label: Text('Choose Images'),
-                        onPressed: () {
-                          openImages();
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              AppColors.uploadColor),
-                        ),
-                      ),
-                      Divider(),
-                      Text("Picked Files:"),
-                      Divider(),
-
-                      (imagefiles != null)
-                          ? Wrap(
-                              children: imagefiles!.map((imageone) {
-                                return Container(
-                                    child: Card(
-                                  child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    child: Image.file(File(imageone.path)),
-                                  ),
-                                ));
-                              }).toList(),
-                            )
-                          : Container(),
-                    ],
+                        Divider(),
+                        Text("Picked Files:"),
+                        Divider(),
+    
+                        (imagefiles != null)
+                            ? Wrap(
+                                children: imagefiles!.map((imageone) {
+                                  return Container(
+                                      child: Card(
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      child: Image.file(File(imageone.path)),
+                                    ),
+                                  ));
+                                }).toList(),
+                              )
+                            : Container(),
+                      ],
+                    ),
                   ),
-                ),
-                context.emptySizedHeightBoxLow3x,
-                CustomTextField(
-                  controller: controllerTitle,
-                  height: context.height * 0.07,
-                  width: context.width * 0.8,
-                  hinttext: AppText.title,
-                  text: controllerTitle.text,
-                  prefixIcon: const Icon(
-                    Icons.title,
+                  context.emptySizedHeightBoxLow3x,
+                  CustomTextField(
+                    controller: controllerTitle,
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    hinttext: AppText.title,
+                    text: controllerTitle.text,
+                    prefixIcon: const Icon(
+                      Icons.title,
+                      color: AppColors.uploadColor,
+                    ),
+                  ),
+                  context.emptySizedHeightBoxLow3x,
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 50, right: 50),
+                  //   child: Row(
+                  //     children: [
+                  // MyDropdownButton(controller: controllerMainCategory ),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(Icons.arrow_downward),
+                    elevation: 20,
+                    style: const TextStyle(color: Colors.black),
+                    underline: Container(
+                      height: 4,
+                      color: AppColors.uploadColor,
+                    ),
+                   
+                    items: AppText.list
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                     onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        dropdownValue = value!;    
+                      });
+                      controllerMainCategory.text = dropdownValue;
+                      // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
+                    },
+                  ),
+                  context.emptySizedHeightBoxLow,
+                  CustomTextField(
+                    controller: controllerDescription,
+                    height: context.height * 0.1,
+                    width: context.width * 0.8,
+                    hinttext: AppText.description,
+                    text: controllerDescription.text,
+                    prefixIcon: const Icon(
+                      Icons.description,
+                      color: AppColors.uploadColor,
+                    ),
+                  ),
+                  context.emptySizedHeightBoxLow,
+                  CustomTextField(
+                    controller: controllerPrice,
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    hinttext: AppText.price,
+                    text: controllerPrice.text,
+                    prefixIcon: const Icon(
+                      Icons.price_change,
+                      color: AppColors.uploadColor,
+                    ),
+                  ),
+                  context.emptySizedHeightBoxLow,
+                  CustomTextField(
+                    controller: controllerGuaranteePrice,
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    hinttext: AppText.guaranteeprice,
+                    text: controllerGuaranteePrice.text,
+                    prefixIcon: const Icon(
+                      Icons.price_check,
+                      color: AppColors.uploadColor,
+                    ),
+                  ),
+                  context.emptySizedHeightBoxLow,
+                  CustomTextField(
+                    controller: controllerQuantity,
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    hinttext: AppText.quantity,
+                    text: controllerQuantity.text,
+                    prefixIcon: const Icon(
+                      Icons.production_quantity_limits,
+                      color: AppColors.uploadColor,
+                    ),
+                  ),
+                  context.emptySizedHeightBoxLow3x,
+                  CustomElevatedButton(
+                    onPressed: () {
+                      final item = MyItem(
+                        id: (documents + 1).toString(),
+                        title: controllerTitle.text.trim(),
+                        category_id: controllerMainCategory.text.trim(),
+                        description: controllerDescription.text.trim(),
+                        price: int.parse(controllerPrice.text.trim()),
+                        guarantee_price:
+                            int.parse(controllerGuaranteePrice.text.trim()),
+                        quantity: int.parse(controllerQuantity.text.trim()),
+                        user_id: "${FirebaseAuth.instance.currentUser?.uid}",
+                        images: [''],
+                        status: '0',
+                        date: DateTime.now().toString(),
+                      );
+                      if (item.title != "" &&
+                          item.category_id != "" &&
+                          item.description != "" &&
+                          item.price != 0 &&
+                          item.guarantee_price != 0 &&
+                          item.quantity != 0 &&
+                          item.images != null) {
+                        Navigator.pop(context);
+                        Fluttertoast.showToast(
+                            msg: "Adding Items...",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.yellow,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        UploadItemToDatabase(
+                            item: item, context: context, imagefiles: imagefiles);
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Fill the form correctly",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                            fontSize: 16.0);
+                        // print("password not match");
+                      }
+                    },
+                    child: Text(
+                      AppText.upload.toUpperCase(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    borderRadius: 20,
                     color: AppColors.uploadColor,
+                    height: context.height * 0.07,
+                    width: context.width * 0.6,
                   ),
-                ),
-                context.emptySizedHeightBoxLow3x,
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 50, right: 50),
-                //   child: Row(
-                //     children: [
-                // MyDropdownButton(controller: controllerMainCategory ),
-                DropdownButton<String>(
-                  value: dropdownValue,
-                  icon: const Icon(Icons.arrow_downward),
-                  elevation: 20,
-                  style: const TextStyle(color: Colors.black),
-                  underline: Container(
-                    height: 4,
-                    color: AppColors.uploadColor,
-                  ),
-                  onChanged: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      dropdownValue = value!;
-                    });
-                    controllerMainCategory.text = dropdownValue;
-                    // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
-                  },
-                  items: AppText.list
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-                // Spacer(),
-                // // MyDropdownButtonSubCategory(subCategory: widget.subCategory,),
-                // DropdownButton<String>(
-                //   value: dropdownSubValue,
-                //   icon: const Icon(Icons.arrow_downward),
-                //   elevation: 16,
-                //   style: const TextStyle(color: Colors.black),
-                //   underline: Container(
-                //     height: 2,
-                //     color: AppColors.uploadColor,
-                //   ),
-                //   onChanged: (String? value) {
-                //     // This is called when the user selects an item.
-                //     setState(() {
-                //       dropdownSubValue = value!;
-                //     });
-                //     controllerSubCategory.text = dropdownSubValue;
-                //   },
-                //   items: AppText.fashion_sub_list
-                //       .map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(value),
-                //     );
-                //   }).toList(),
-                // ),
-                // Spacer(),
-                // MyDropdownButtonSubCategory(controller: controllerSubCategory),
-                //     ],
-                //   ),
-                // ),
-                context.emptySizedHeightBoxLow,
-                CustomTextField(
-                  controller: controllerDescription,
-                  height: context.height * 0.1,
-                  width: context.width * 0.8,
-                  hinttext: AppText.description,
-                  text: controllerDescription.text,
-                  prefixIcon: const Icon(
-                    Icons.description,
-                    color: AppColors.uploadColor,
-                  ),
-                ),
-                context.emptySizedHeightBoxLow,
-                CustomTextField(
-                  controller: controllerPrice,
-                  height: context.height * 0.07,
-                  width: context.width * 0.8,
-                  hinttext: AppText.price,
-                  text: controllerPrice.text,
-                  prefixIcon: const Icon(
-                    Icons.price_change,
-                    color: AppColors.uploadColor,
-                  ),
-                ),
-                context.emptySizedHeightBoxLow,
-                CustomTextField(
-                  controller: controllerGuaranteePrice,
-                  height: context.height * 0.07,
-                  width: context.width * 0.8,
-                  hinttext: AppText.guaranteeprice,
-                  text: controllerGuaranteePrice.text,
-                  prefixIcon: const Icon(
-                    Icons.price_check,
-                    color: AppColors.uploadColor,
-                  ),
-                ),
-                context.emptySizedHeightBoxLow,
-                CustomTextField(
-                  controller: controllerQuantity,
-                  height: context.height * 0.07,
-                  width: context.width * 0.8,
-                  hinttext: AppText.quantity,
-                  text: controllerQuantity.text,
-                  prefixIcon: const Icon(
-                    Icons.production_quantity_limits,
-                    color: AppColors.uploadColor,
-                  ),
-                ),
-                context.emptySizedHeightBoxLow3x,
-                CustomElevatedButton(
-                  onPressed: () {
-                    final item = MyItem(
-                      id: (documents + 1).toString(),
-                      title: controllerTitle.text.trim(),
-                      category_id: controllerMainCategory.text.trim(),
-                      description: controllerDescription.text.trim(),
-                      price: int.parse(controllerPrice.text.trim()),
-                      guarantee_price:
-                          int.parse(controllerGuaranteePrice.text.trim()),
-                      quantity: int.parse(controllerQuantity.text.trim()),
-                      user_id: "${FirebaseAuth.instance.currentUser?.uid}",
-                      images: [''],
-                      status: '0',
-                      date: DateTime.now().toString(),
-                    );
-                    if (item.title != "" &&
-                        item.category_id != "" &&
-                        item.description != "" &&
-                        item.price != 0 &&
-                        item.guarantee_price != 0 &&
-                        item.quantity != 0 &&
-                        item.images != null) {
-                      Navigator.pop(context);
-                      Fluttertoast.showToast(
-                          msg: "Adding Items...",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.yellow,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                      UploadItemToDatabase(
-                          item: item, context: context, imagefiles: imagefiles);
-                    } else {
-                      Fluttertoast.showToast(
-                          msg: "Fill the form correctly",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          timeInSecForIosWeb: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
-                      // print("password not match");
-                    }
-                  },
-                  child: Text(
-                    AppText.upload.toUpperCase(),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  borderRadius: 20,
-                  color: AppColors.uploadColor,
-                  height: context.height * 0.07,
-                  width: context.width * 0.6,
-                ),
-                context.emptySizedHeightBoxLow,
-                context.emptySizedHeightBoxLow3x,
-                context.emptySizedHeightBoxLow3x,
-                context.emptySizedHeightBoxLow3x,
-              ],
+                  context.emptySizedHeightBoxLow,
+                  context.emptySizedHeightBoxLow3x,
+                  context.emptySizedHeightBoxLow3x,
+                  context.emptySizedHeightBoxLow3x,
+                ],
+              ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      ); 
+      
+      });
+    
   }
 
   Container topText(BuildContext context) {

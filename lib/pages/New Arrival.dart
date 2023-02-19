@@ -56,7 +56,7 @@ class _NewArrivalState extends State<NewArrival> {
           ? Container(
               child: Expanded(
                 child: GridView.count(
-                  crossAxisCount: (kIsWeb)? (3): (2),
+                  crossAxisCount: (kIsWeb)? (4): (2),
                   shrinkWrap: true,
                   padding: EdgeInsets.only(bottom: 2, top: 10),
                   physics: const NeverScrollableScrollPhysics(),

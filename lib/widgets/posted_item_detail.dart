@@ -111,6 +111,7 @@ class postedItemDetail extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => EditDetailView(
+                                      id: item['id'],
                                       title: item['title'],
                                       category: item['category_id'],
                                       subCategory: "Kids",

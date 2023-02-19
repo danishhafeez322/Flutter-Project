@@ -9,6 +9,7 @@ class CustomTextField extends StatefulWidget {
   final Widget? prefixIcon;
   final String? hinttext;
   final String? text;
+  final bool? obscureText;
   final TextEditingController controller;
   
 
@@ -21,7 +22,7 @@ class CustomTextField extends StatefulWidget {
     this.text,
     this.suffixIcon,
     this.prefixIcon,
-    this.child, 
+    this.child, this.obscureText, 
   }) : super(key: key);
 
   @override
@@ -59,6 +60,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               ),
             ),
             controller: widget.controller,
+              obscureText: widget.obscureText ?? false,
             
             
           ),

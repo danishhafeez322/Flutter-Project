@@ -68,30 +68,43 @@ class DetailsPageState extends State<DetailsPage> {
         print(CurrentUserMap);
       });
 
-      await FirebaseFirestore.instance
+      if(st_date.toString() != "" && end_date.toString() != "" && price.toString() != "" && gaurantee_price.toString() != "")
+      { 
+        await FirebaseFirestore.instance
           .collection('order')
           .doc(itemUser)
           .collection('offer')
           .doc()
           .set({
-        'startDate': st_date.toString(),
-        'endDate': end_date.toString(),
-        'itemId': widget.myItem!.id,
-        'itemTitle': widget.myItem!.title,
-        'itemImage': widget.myItem!.images,
-        'senderId': FirebaseAuth.instance.currentUser!.uid,
-        'price': price,
-        'gaurantee_price': gaurantee_price,
-      });
+            'startDate': st_date.toString(),
+            'endDate': end_date.toString(),
+            'itemId': widget.myItem!.id,
+            'itemTitle': widget.myItem!.title,
+            'itemImage': widget.myItem!.images,
+            'senderId': FirebaseAuth.instance.currentUser!.uid,
+            'price': price,
+            'gaurantee_price': gaurantee_price,
+          });
 
-      Fluttertoast.showToast(
-          msg: "Offer Send Successfully",
+          Fluttertoast.showToast(
+            msg: "Offer Send Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+      else{
+        Fluttertoast.showToast(
+          msg: "Please Fill All Fields",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
+      }
     } catch (e) {
       Fluttertoast.showToast(
           msg: "" + e.toString(),

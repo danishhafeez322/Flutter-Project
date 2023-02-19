@@ -36,8 +36,8 @@ class _OfferViewState extends State<OfferView> {
                   itemBuilder: (_, i) {
                     final data = docs[i].data();
                     return 
-                            // (FirebaseAuth.instance.currentUser != null)? 
-                            //   ((FirebaseAuth.instance.currentUser!.uid == data['senderName'])? 
+                            (FirebaseAuth.instance.currentUser != null)? 
+                              ((FirebaseAuth.instance.currentUser!.uid != data['senderName'])? 
                                   OfferViewDetail( 
                                     user: data['itemTitle'].toString(),               
                                     imageUrl: data['itemImage'][0],
@@ -45,20 +45,20 @@ class _OfferViewState extends State<OfferView> {
                                     briefChat: 'from: ${data['startDate']} till: ${data['endDate']}',
                                     data: data,
                                     
-                                   ); 
+                                   ) 
                                   // Text('${data} \n');
                               
-                              //     : Container())
-                              // : Container();
+                                  : null)
+                              : null;
                   },
                 );
               }
               else{
                 Container(child: Text('No Offer'),);
               }
-              setState(() {
+              // setState(() {
                 
-              });
+              // });
 
               return Center(child: CircularProgressIndicator());
             },

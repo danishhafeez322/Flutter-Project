@@ -94,8 +94,9 @@ class _MyWidgetState extends State<SearchPage> {
                           .toLowerCase()
                           .contains(data["title"].toLowerCase().toString()) ||
                       data["price"].toString().startsWith(name.toLowerCase()) ||
-                      data["city"].toString().startsWith(name.toLowerCase()) ||
+                      data["city"].toLowerCase().toString().startsWith(name.toLowerCase()) ||
                       data["description"]
+                          .toLowerCase()
                           .toString()
                           .contains(name.toLowerCase()) ||
                       data["guarantee_price"]

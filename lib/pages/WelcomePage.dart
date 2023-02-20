@@ -50,7 +50,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   showDialogBox() => showCupertinoDialog<String>(
         context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
+        builder: (BuildContext context) => AlertDialog(
           title: const Text('No Connection'),
           content: const Text('Please check your internet connectivity'),
           actions: <Widget>[

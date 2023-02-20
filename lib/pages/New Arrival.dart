@@ -1,7 +1,9 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mad_project/pages/login_view.dart';
 
 import 'package:mad_project/pages/upload.dart';
 
@@ -68,10 +70,10 @@ class _NewArrivalState extends State<NewArrival> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailsPage(
+                              builder: (context) => (FirebaseAuth.instance.currentUser != null )? (DetailsPage(
                                 // subCategory: this.widget.selectedCategory.subCategories[2],
                                 myItem_id: temp[index]['id'],
-                              ),
+                              )) : LoginView()
                             ),
                           );
                         },

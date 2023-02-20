@@ -65,7 +65,6 @@ class DetailsPageState extends State<DetailsPage> {
         setState(() {
           CurrentUserMap = value.data();
         });
-        print(CurrentUserMap);
       });
 
       if(st_date.toString() != "" && end_date.toString() != "" && price.toString() != "" && gaurantee_price.toString() != "")

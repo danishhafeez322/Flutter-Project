@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/pages/detailspage.dart';
 import 'package:mad_project/pages/upload.dart';
+
+import '../pages/login_view.dart';
 
 class SearchDetails extends StatefulWidget {
   final Map<String, dynamic> item;
@@ -34,10 +37,10 @@ class _RentedItemDetailState extends State<SearchDetails> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailsPage(
+                  builder: (context) =>(FirebaseAuth.instance.currentUser != null )?  DetailsPage(
                     myItem_id: widget.item['id'],
-                    // data1: widget.item,
-                  ),
+                  ) : LoginView()
+                  ,
                 ),
               );
             },

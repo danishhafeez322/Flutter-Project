@@ -44,7 +44,7 @@ class _OfferViewState extends State<OfferView> {
                             // ((FirebaseAuth.instance.currentUser!.uid != data['senderName'])?
                             OfferViewDetail(
                                 user: data['itemTitle'].toString(),
-                                imageUrl: data['itemImage'][0].toString(),
+                                imageUrl: data['itemImage'][0],
                                 date:
                                     'rent: ${data['price']} - gaurantee ${data['gaurantee_price']}',
                                 briefChat:

@@ -19,26 +19,25 @@ class MyCategory extends StatefulWidget {
   State<MyCategory> createState() => _NewArrivalState();
 }
 
-class _NewArrivalState extends State<MyCategory> {  
+class _NewArrivalState extends State<MyCategory> {
   var typeCount = 0;
   var temp;
   Future<void> myItems() async {
     // var mytemp = await FirebaseFirestore.instance.collection('/Items').get();
-    var mytemp = await FirebaseFirestore
-                .instance
-                .collection('/Items') 
-                .where("category_id", isEqualTo: widget.type)// 👈 Your where condition here
-                .get();
+    var mytemp = await FirebaseFirestore.instance
+        .collection('/Items')
+        .where("category_id",
+            isEqualTo: widget.type) // 👈 Your where condition here
+        .get();
     List<Map<String, dynamic>> temp1 =
         mytemp.docs.map((doc) => doc.data()).toList();
     temp = temp1;
 
-  for (var e in temp ?? []) {
-    if (e['category_id'] == widget.type) {        
-      typeCount += 1;
+    for (var e in temp ?? []) {
+      if (e['category_id'] == widget.type) {
+        typeCount += 1;
+      }
     }
-  }
-
 
     //   builder: (_, snapshot) {
     //     if (snapshot.hasError) return Text('Error = ${snapshot.error}');
@@ -70,122 +69,125 @@ class _NewArrivalState extends State<MyCategory> {
       padding: const EdgeInsets.only(top: 8.0, bottom: 20),
       child: (temp != null)
           ? Container(
-              child: Expanded(
-                child: GridView.count(
-                  crossAxisCount: (kIsWeb)? (3): (2),
-                  shrinkWrap: true,
-                  padding: (kIsWeb)? (EdgeInsets.only(bottom: 2)): (EdgeInsets.only(bottom: 2, top: 10)),
-                  physics: NeverScrollableScrollPhysics(),
-                  children: List.generate(
-                    temp.length,
-                    // typeCount,
-                    (index) => (temp[index]['category_id'] == widget.type)? Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => (FirebaseAuth.instance.currentUser != null )? (DetailsPage(
-                                // subCategory: this.widget.selectedCategory.subCategories[2],
-                                myItem_id: temp[index]['id'],
-                              )) : LoginView()
-                            ),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            // Badge(
-                            //   position: BadgePosition.topStart(),
-                            //   child:
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(
-                                  color: Colors.black54,
-                                  width: 1,
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black45,
-                                    offset: const Offset(
-                                      2.0,
-                                      2.0,
-                                    ), //Offset
-                                    blurRadius: 4.0,
-                                    spreadRadius: 1.0,
-                                  )
-                                ],
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(15),
-                                ),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(15),
-                                ),
-                                child:
-                                    // Image.asset(
-                                    //   "assets/images/" +
-                                    //       this
-                                    //           .widget.selectedCategory
-                                    //           .subCategories[index]
-                                    //           .imgName +
-                                    //       ".jpg",
-                                    Container(
-                                  width: 125,
-                                  height: 125,
-                                  // margin: EdgeInsets.all(6.0),
+              // child: Expanded(
+              child: GridView.count(
+                crossAxisCount: (kIsWeb) ? (3) : (2),
+                shrinkWrap: true,
+                padding: (kIsWeb)
+                    ? (EdgeInsets.only(bottom: 2))
+                    : (EdgeInsets.only(bottom: 2, top: 10)),
+                physics: NeverScrollableScrollPhysics(),
+                children: List.generate(
+                  temp.length,
+                  // typeCount,
+                  (index) => (temp[index]['category_id'] == widget.type)
+                      ? Container(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        (FirebaseAuth.instance.currentUser !=
+                                                null)
+                                            ? (DetailsPage(
+                                                myItem_id: temp[index]['id'],
+                                              ))
+                                            : LoginView()),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Container(
                                   decoration: BoxDecoration(
-                                    // borderRadius: BorderRadius.circular(8.0),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          temp[index]['images'][0]),
-                                      fit: BoxFit.cover,
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                      color: Colors.black54,
+                                      width: 1,
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black45,
+                                        offset: const Offset(
+                                          2.0,
+                                          2.0,
+                                        ), //Offset
+                                        blurRadius: 4.0,
+                                        spreadRadius: 1.0,
+                                      )
+                                    ],
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(15),
                                     ),
                                   ),
-                                ),
-                                // NetworkImage(
-                                //   index['images'][0],)
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(15),
+                                    ),
+                                    child:
+                                        // Image.asset(
+                                        //   "assets/images/" +
+                                        //       this
+                                        //           .widget.selectedCategory
+                                        //           .subCategories[index]
+                                        //           .imgName +
+                                        //       ".jpg",
+                                        Container(
+                                      width: 125,
+                                      height: 125,
+                                      // margin: EdgeInsets.all(6.0),
+                                      decoration: BoxDecoration(
+                                        // borderRadius: BorderRadius.circular(8.0),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              temp[index]['images'][0]),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    // NetworkImage(
+                                    //   index['images'][0],)
 
-                                //   fit: BoxFit.cover,
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                  ),
+                                ),
+                                //   badgeContent: SizedBox(
+                                //     width: 50, height: 30, //badge size
+                                //     child: Center(
+                                //       //align badge content to center
+                                //       child: Text("New",
+                                //           style: TextStyle(
+                                //               color: Colors.white, //badge font color
+                                //               fontSize: 16 //badge font size
+                                //               )),
+                                //     ),
+                                //   ),
+                                //   badgeColor: this.widget.selectedCategory.color,
                                 // ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    temp[index]['title'],
+                                    style: const TextStyle(
+                                        color: Colors.black54,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ],
                             ),
-                            //   badgeContent: SizedBox(
-                            //     width: 50, height: 30, //badge size
-                            //     child: Center(
-                            //       //align badge content to center
-                            //       child: Text("New",
-                            //           style: TextStyle(
-                            //               color: Colors.white, //badge font color
-                            //               fontSize: 16 //badge font size
-                            //               )),
-                            //     ),
-                            //   ),
-                            //   badgeColor: this.widget.selectedCategory.color,
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                temp[index]['title'],
-                                style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ):Container(child: Text('temp')),
-                    // }
-                    // else
-                    // {
-                    //   Container();
-                    // }
-                    // }
-                  ).reversed.toList(),
-                ),
+                          ),
+                        )
+                      : Container(child: Text('temp')),
+                  // }
+                  // else
+                  // {
+                  //   Container();
+                  // }
+                  // }
+                ).reversed.toList(),
               ),
+              // ),
             )
           : Container(),
       // )

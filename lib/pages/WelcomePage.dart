@@ -50,7 +50,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   showDialogBox() => showCupertinoDialog<String>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
+        builder: (BuildContext context) => CupertinoAlertDialog(
           title: const Text('No Connection'),
           content: const Text('Please check your internet connectivity'),
           actions: <Widget>[
@@ -92,14 +92,11 @@ class _WelcomePageState extends State<WelcomePage> {
           return false;
         }
         exit(0);
-        //return true;
       },
       child: Scaffold(
         appBar: MainAppBar(
           flag: false,
         ),
-        // bottomNavigationBar: CategoryBottomBar(),
-
         body: Container(
           child: SingleChildScrollView(
             child: Column(
@@ -147,37 +144,35 @@ class _WelcomePageState extends State<WelcomePage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Center(
+                Container(
+                  height: (kIsWeb) ? (110) : (80),
+                  // child: Expanded(
                   child: Container(
-                    height: (kIsWeb) ? (110) : (80),
-                    child: Expanded(
-                      child: Container(
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
 
-                          // padding: const EdgeInsets.only(bottom: 100),
-                          itemCount: categories.length,
-                          itemBuilder: (BuildContext ctx, int index) {
-                            return Categorycard(
-                                category: categories[index],
-                                onCardClick: () {
-                                  // Navigator.pop(ctx);
-                                  Navigator.push(
-                                    ctx,
-                                    MaterialPageRoute(
-                                      builder: (context) => SelectedCategory(
-                                          selectedCategory: categories[index]),
+                      // padding: const EdgeInsets.only(bottom: 100),
+                      itemCount: categories.length,
+                      itemBuilder: (BuildContext ctx, int index) {
+                        return Categorycard(
+                            category: categories[index],
+                            onCardClick: () {
+                              // Navigator.pop(ctx);
+                              Navigator.push(
+                                ctx,
+                                MaterialPageRoute(
+                                  builder: (context) => SelectedCategory(
+                                      selectedCategory: categories[index]),
 
-                                      // MyCategory()
-                                    ),
-                                  );
-                                });
-                          },
-                        ),
-                      ),
+                                  // MyCategory()
+                                ),
+                              );
+                            });
+                      },
                     ),
                   ),
+                  // ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16, bottom: 8, top: 10),
@@ -189,7 +184,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                NewArrival(selectedCategory: categories[1]),
+                NewArrival(),
               ],
             ),
           ),

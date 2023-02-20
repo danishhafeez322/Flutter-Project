@@ -668,7 +668,9 @@ class DetailsPageState extends State<DetailsPage> {
                               return Text("something is wrong");
                             }
 
-                            return Padding(
+                            if(snapshot.hasData)
+                            {
+                              return Padding(
                               padding: const EdgeInsets.only(
                                   top: 10, bottom: 20, right: 5, left: 5),
                               child: Container(
@@ -693,6 +695,7 @@ class DetailsPageState extends State<DetailsPage> {
                                                   .toLowerCase()
                                                   .toString()) ||
                                           data["description"]
+                                            .toLowerCase()
                                               .toString()
                                               .contains(widget.myItem!.title
                                                   .toLowerCase())) {
@@ -708,6 +711,11 @@ class DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                             );
+                            }
+                            else
+                            {
+                              return Container();
+                            }
                           },
                         ),
                       ]),

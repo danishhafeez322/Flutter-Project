@@ -2,15 +2,13 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:mad_project/pages/categorybottombar.dart';
 import 'package:mad_project/widgets/AppBar.dart';
+
 // import '../chats/components/body.dart';
 import '../../pages/login_view.dart';
 import 'components/chat_card.dart';
@@ -29,22 +27,22 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   void initState() {
-    getConnectivity();
+    // getConnectivity();
     super.initState();
   }
 
-  getConnectivity() =>
-      subscription = Connectivity().onConnectivityChanged.listen(
-        (ConnectivityResult result) async {
-          isDeviceConnected = await InternetConnectionChecker().hasConnection;
-          if (!isDeviceConnected && isAlertSet == false) {
-            showDialogBox();
-            setState(() {
-              isAlertSet = true;
-            });
-          }
-        },
-      );
+  // getConnectivity() =>
+  //     subscription = Connectivity().onConnectivityChanged.listen(
+  //       (ConnectivityResult result) async {
+  //         isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  //         if (!isDeviceConnected && isAlertSet == false) {
+  //           showDialogBox();
+  //           setState(() {
+  //             isAlertSet = true;
+  //           });
+  //         }
+  //       },
+  //     );
 
   showDialogBox() => showCupertinoDialog<String>(
         context: context,

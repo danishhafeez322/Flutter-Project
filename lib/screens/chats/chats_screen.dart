@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,7 +20,7 @@ class ChatsScreen extends StatefulWidget {
 }
 
 class _ChatsScreenState extends State<ChatsScreen> {
-  late StreamSubscription subscription;
+  // late StreamSubscription subscription;
   var isDeviceConnected = false;
   bool isAlertSet = false;
 
@@ -72,7 +71,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
 
   @override
   void dispose() {
-    subscription.cancel();
+    // subscription.cancel();
     super.dispose();
   }
 

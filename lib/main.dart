@@ -1,32 +1,15 @@
 import 'dart:async';
-import 'dart:io';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:intl/intl.dart';
-import 'package:mad_project/models/category.dart';
 import 'package:mad_project/pages/WelcomePage.dart';
 import 'package:mad_project/pages/login_view.dart';
 import 'package:mad_project/pages/upload_page.dart';
 import 'package:mad_project/pages/userDetail/user_view.dart';
 import 'package:mad_project/screens/chats/chats_screen.dart';
-import 'package:mad_project/widgets/AppBar.dart';
-import 'package:mad_project/pages/New%20Arrival.dart';
-import 'package:mad_project/pages/categorybottombar.dart';
-import 'package:mad_project/pages/categorycard.dart';
-import 'package:mad_project/pages/selectedcategory.dart';
-import 'package:mad_project/widgets/Carousel.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:mad_project/widgets/Search.dart';
-import 'helper/utils.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-
-// import 'dart:js';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
@@ -65,7 +48,7 @@ Future<void> main() async {
 
 class SplashPage extends StatelessWidget {
   int duration = 0;
-  Widget gotoPage;
+  final gotoPage;
   SplashPage({required this.gotoPage, required this.duration});
 
   @override
@@ -124,14 +107,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: MainAppBar(),
-      body: currentPage,
+      body: IndexedStack(
+        index: currentTab,
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentTab,
           onTap: (int index) {
-            setState(() {
-              currentTab = index;
-              currentPage = pages[index];
-            });
+            currentTab = index;
+            setState(() {});
           },
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[

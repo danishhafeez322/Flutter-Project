@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -24,7 +23,7 @@ class _WelcomePageState extends State<WelcomePage> {
   List<Category> categories = Utils.getMockedCategories();
 
   DateTime timeBackPressed = DateTime.now();
-  late StreamSubscription subscription;
+  // late StreamSubscription subscription;
   var isDeviceConnected = false;
   bool isAlertSet = false;
 
@@ -75,7 +74,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   void dispose() {
-    subscription.cancel();
+    // subscription.cancel();
     super.dispose();
   }
 

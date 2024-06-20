@@ -31,8 +31,7 @@ Future<void> main() async {
   }
   runApp(MaterialApp(
     navigatorKey: navigatorKey,
-    // //debugShowCheckedModeBanner: false,
-    // home: SplashPage(duration: 3, gotoPage: WelcomePage()),
+    debugShowCheckedModeBanner: false,
     routes: {
       "login": (context) => LoginView(),
       "/": (context) => SplashPage(gotoPage: HomePage(), duration: 1),
@@ -106,7 +105,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: MainAppBar(),
       body: IndexedStack(
         index: currentTab,
         children: pages,

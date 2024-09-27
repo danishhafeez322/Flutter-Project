@@ -5,7 +5,6 @@ import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/main.dart';
 
 import '../../Registorpage.dart';
-import '../../WelcomePage.dart';
 
 class ProfileBody extends StatefulWidget {
   const ProfileBody({Key? key}) : super(key: key);
@@ -47,13 +46,11 @@ class _ProfileBodyState extends State<ProfileBody> {
           rating: 0);
     }
     // print("hello ${currentUser.uname}1 1 1 1 1 1 1 1 1 1 1 1 1 ==========================================1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1");
-    setState(() {});
   }
 
   void initState() {
     super.initState();
     myCurrentUser();
-    setState(() {});
   }
 
   @override

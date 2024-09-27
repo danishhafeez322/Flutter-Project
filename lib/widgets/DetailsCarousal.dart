@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class DetailsCarousal extends StatefulWidget {
   var images;
@@ -18,25 +19,24 @@ class _DetailsCarousalState extends State<DetailsCarousal> {
       physics: NeverScrollableScrollPhysics(),
       children: [
         CarouselSlider(
-          items: widget.images.map<Widget>((i)  =>
-                 Container(
-                  margin: EdgeInsets.all(6.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image:  DecorationImage(
-                      // image: NetworkImage(widget.images[i]),
-                      image: NetworkImage(i),
-                      fit: BoxFit.cover,
+          items: widget.images
+              .map<Widget>((i) => Container(
+                    margin: EdgeInsets.all(6.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      image: DecorationImage(
+                        // image: NetworkImage(widget.images[i]),
+                        image: CachedNetworkImageProvider(i),
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                )
-            ).toList(growable: false),
-            // ),          
-          
+                  ))
+              .toList(growable: false),
+          // ),
 
           //Slider Container properties
           options: CarouselOptions(
-            height: (kIsWeb)? (300):(180.0),
+            height: (kIsWeb) ? (300) : (180.0),
             // enlargeCenterPage: true,
             // autoPlay: true,
             aspectRatio: 16 / 9,

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mad_project/core/constant/app_color.dart';
-import 'package:mad_project/pages/upload.dart';
 
 import '../../Registorpage.dart';
 import '../edit_user_detail.dart';
@@ -15,40 +14,52 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  MyUser currentUser = MyUser(uname: "User Name", email: "abc@xyz", contact_no: "", address: " ", city: " ", cnic: "", isLogin: true,isVerified: true,rating: 0);
+  MyUser currentUser = MyUser(
+      uname: "User Name",
+      email: "abc@xyz",
+      contact_no: "",
+      address: " ",
+      city: " ",
+      cnic: "",
+      isLogin: true,
+      isVerified: true,
+      rating: 0);
   // var currentUser;
-    Future<void> myCurrentUser() async{  
-      
-      final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser!.uid);
-      final doc = await docUser.get();
-      if(doc.exists)
-      {        
-        currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-      }
-      else
-      {
-       currentUser = MyUser(uname: "User name", email: "Email", contact_no: "1234", address: "MyAddress", city: "city", cnic: "", isLogin: true,isVerified: true,rating: 0);   
-      }
-      setState(() {
-         
-       }); 
+  Future<void> myCurrentUser() async {
+    final docUser = await FirebaseFirestore.instance
+        .collection('/users')
+        .doc(FirebaseAuth.instance.currentUser!.uid);
+    final doc = await docUser.get();
+    if (doc.exists) {
+      currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
+    } else {
+      currentUser = MyUser(
+          uname: "User name",
+          email: "Email",
+          contact_no: "1234",
+          address: "MyAddress",
+          city: "city",
+          cnic: "",
+          isLogin: true,
+          isVerified: true,
+          rating: 0);
     }
-    void initState()  {
-      super.initState();
-       myCurrentUser();
-      setState(() {
-        
-      });
-      
-      // if(!(currentUser.uname == 'User name')){
-        
-      // }
-    }
+  }
+
+  void initState() {
+    super.initState();
+    myCurrentUser();
+
+    // if(!(currentUser.uname == 'User name')){
+
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     myCurrentUser();
-    
-    return  Stack(
+
+    return Stack(
       children: [
         Container(
           height: 200,
@@ -113,7 +124,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                         email: currentUser.email,
                         phone: currentUser.contact_no,
                         address: currentUser.address,
-                        city: currentUser.city,                        
+                        city: currentUser.city,
                       ),
                     ),
                   );
@@ -127,10 +138,6 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           ),
         ),
       ],
-    ) ;
+    );
   }
 }
-
-
-
-

@@ -179,7 +179,6 @@ Container topText(BuildContext context) {
 
 SizedBox bottomText(BuildContext context) {
   return SizedBox(
-    width: context.width * 0.7,
     height: context.height * 0.08,
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,

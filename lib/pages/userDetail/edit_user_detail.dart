@@ -8,8 +8,6 @@ import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 
-import '../categorybottombar.dart';
-
 class EditUserDetailView extends StatefulWidget {
   String name, address, city, email, phone;
   EditUserDetailView(
@@ -128,12 +126,19 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
                 ),
                 context.emptySizedHeightBoxLow3x,
                 CustomElevatedButton(
-                  onPressed: () async{                 
-                    final docUser = await FirebaseFirestore.instance.collection('/users').doc(FirebaseAuth.instance.currentUser?.uid);
-                    docUser.update({'uname': controllerName.text, 'email': controllerEmail.text, 'address': controllerAddress.text, 'city': controllerCity.text, 'contact_no': int.parse(controllerContact.text)}) ;
-  
-                  Navigator.pop(context);
-                
+                  onPressed: () async {
+                    final docUser = await FirebaseFirestore.instance
+                        .collection('/users')
+                        .doc(FirebaseAuth.instance.currentUser?.uid);
+                    docUser.update({
+                      'uname': controllerName.text,
+                      'email': controllerEmail.text,
+                      'address': controllerAddress.text,
+                      'city': controllerCity.text,
+                      'contact_no': int.parse(controllerContact.text)
+                    });
+
+                    Navigator.pop(context);
                   },
                   child: Text(
                     AppText.signUp.toUpperCase(),
@@ -173,7 +178,7 @@ class _EditUserDetailViewState extends State<EditUserDetailView> {
       alignment: Alignment.center,
       child: Text(
         AppText.edit.toUpperCase(),
-        style: context.textTheme.headline5!
+        style: context.textTheme.headlineMedium!
             .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );

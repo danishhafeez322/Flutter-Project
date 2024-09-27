@@ -11,7 +11,6 @@ class CustomTextField extends StatefulWidget {
   final String? text;
   final bool? obscureText;
   final TextEditingController controller;
-  
 
   const CustomTextField({
     Key? key,
@@ -22,7 +21,8 @@ class CustomTextField extends StatefulWidget {
     this.text,
     this.suffixIcon,
     this.prefixIcon,
-    this.child, this.obscureText, 
+    this.child,
+    this.obscureText,
   }) : super(key: key);
 
   @override
@@ -46,25 +46,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
         border: Border.all(color: Colors.black12),
         borderRadius: const BorderRadius.all(Radius.circular(15.0)),
       ),
-        child: Center(
-          child: TextField(
-            decoration: InputDecoration(
-              prefixIcon: widget.prefixIcon,
-              suffixIcon: widget.suffixIcon,
-              hintText: widget.hinttext,
-              hintStyle: context.textTheme.bodyText1!
-                  .copyWith(fontWeight: FontWeight.normal),
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
+      child: Center(
+        child: TextField(
+          decoration: InputDecoration(
+            prefixIcon: widget.prefixIcon,
+            suffixIcon: widget.suffixIcon,
+            hintText: widget.hinttext,
+            hintStyle: context.textTheme.bodySmall!
+                .copyWith(fontWeight: FontWeight.normal),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            controller: widget.controller,
-              obscureText: widget.obscureText ?? false,
-            
-            
           ),
+          controller: widget.controller,
+          obscureText: widget.obscureText ?? false,
         ),
+      ),
     );
   }
 }

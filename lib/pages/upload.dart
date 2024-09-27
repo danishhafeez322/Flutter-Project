@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,12 +13,7 @@ import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 import 'package:mad_project/widgets/AppBar.dart';
 
-import 'dart:io';
-
-import '../core/constant/app_color.dart';
-import '../pages/categorybottombar.dart';
 import 'WelcomePage.dart';
-import 'categorybottombar.dart';
 
 class UploadView extends StatefulWidget {
   const UploadView({Key? key}) : super(key: key);
@@ -84,7 +80,7 @@ class _UploadViewState extends State<UploadView> {
     String dropdownValue = AppText.list.first;
     String dropdownSubValue = AppText.fashion_sub_list.first;
 
-    return StatefulBuilder(builder:(context, setState)  {
+    return StatefulBuilder(builder: (context, setState) {
       return Stack(
         children: [
           SizedBox(
@@ -118,7 +114,7 @@ class _UploadViewState extends State<UploadView> {
                         Divider(),
                         Text("Picked Files:"),
                         Divider(),
-    
+
                         (imagefiles != null)
                             ? Wrap(
                                 children: imagefiles!.map((imageone) {
@@ -163,7 +159,6 @@ class _UploadViewState extends State<UploadView> {
                       height: 4,
                       color: AppColors.uploadColor,
                     ),
-                   
                     items: AppText.list
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
@@ -171,10 +166,10 @@ class _UploadViewState extends State<UploadView> {
                         child: Text(value),
                       );
                     }).toList(),
-                     onChanged: (String? value) {
+                    onChanged: (String? value) {
                       // This is called when the user selects an item.
                       setState(() {
-                        dropdownValue = value!;    
+                        dropdownValue = value!;
                       });
                       controllerMainCategory.text = dropdownValue;
                       // dropdownValue == AppText.list[0] ? dropdownSubValue = AppText.fashion_sub_list[0] : dropdownSubValue = AppText.electronics_sub_list[0];
@@ -276,7 +271,9 @@ class _UploadViewState extends State<UploadView> {
                             textColor: Colors.white,
                             fontSize: 16.0);
                         UploadItemToDatabase(
-                            item: item, context: context, imagefiles: imagefiles);
+                            item: item,
+                            context: context,
+                            imagefiles: imagefiles);
                       } else {
                         Fluttertoast.showToast(
                             msg: "Fill the form correctly",
@@ -307,10 +304,8 @@ class _UploadViewState extends State<UploadView> {
             ),
           ),
         ],
-      ); 
-      
-      });
-    
+      );
+    });
   }
 
   Container topText(BuildContext context) {
@@ -325,7 +320,7 @@ class _UploadViewState extends State<UploadView> {
       alignment: Alignment.center,
       child: Text(
         AppText.upload.toUpperCase(),
-        style: context.textTheme.headline5!
+        style: context.textTheme.headlineMedium!
             .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );
@@ -427,9 +422,7 @@ class MyItem {
   var date;
 
   MyItem(
-      
-      {
-      required this.id,
+      {required this.id,
       required this.title,
       required this.category_id,
       required this.user_id,

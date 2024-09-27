@@ -5,12 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartal/kartal.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 import 'package:mad_project/core/constant/app_text.dart';
-import 'package:mad_project/main.dart';
 import 'package:mad_project/pages/verify_email_view.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
-
-import 'login_view.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -38,178 +35,187 @@ class _RegisterViewState extends State<RegisterView> {
     final controllerConfirm = TextEditingController();
     bool _obscureText = true;
 
-    return StatefulBuilder(builder: (context, setState) => SizedBox(
-      height: context.height * 1,
-      width: context.width * 1,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            // context.emptySizedHeightBoxLow3x,
-            topImage(context),
-            // context.emptySizedHeightBoxLow3x,
-            topText(context),
-            context.emptySizedHeightBoxLow3x,
-            CustomTextField(
-              controller: controllerName,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.uname,
-              prefixIcon: const Icon(
-                Icons.person,
-                color: AppColors.loginColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              controller: controllerAddress,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.address,
-              prefixIcon: const Icon(
-                Icons.location_city,
-                color: AppColors.loginColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              controller: controllerCity,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.city,
-              prefixIcon: const Icon(
-                Icons.home,
-                color: AppColors.loginColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              controller: controllerEmail,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.email,
-              prefixIcon: const Icon(
-                Icons.email,
-                color: AppColors.loginColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              controller: controllerContact,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.contact,
-              prefixIcon: const Icon(
-                Icons.phone,
-                color: AppColors.loginColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              controller: controllerCnic,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.cnic,
-              prefixIcon: const Icon(
-                Icons.card_membership,
-                color: AppColors.loginColor,
-              ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              obscureText: _obscureText,
-              controller: controllerPassword,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.password + "(min 6 characters)",
-              prefixIcon: const Icon(
-                Icons.lock,
-                color: AppColors.loginColor,
-              ),
-              suffixIcon: InkWell(
-                  onTap: (){                      
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
+    return StatefulBuilder(
+        builder: (context, setState) => SizedBox(
+              height: context.height * 1,
+              width: context.width * 1,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    // context.emptySizedHeightBoxLow3x,
+                    topImage(context),
+                    // context.emptySizedHeightBoxLow3x,
+                    topText(context),
+                    context.emptySizedHeightBoxLow3x,
+                    CustomTextField(
+                      controller: controllerName,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.uname,
+                      prefixIcon: const Icon(
+                        Icons.person,
+                        color: AppColors.loginColor,
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      controller: controllerAddress,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.address,
+                      prefixIcon: const Icon(
+                        Icons.location_city,
+                        color: AppColors.loginColor,
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      controller: controllerCity,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.city,
+                      prefixIcon: const Icon(
+                        Icons.home,
+                        color: AppColors.loginColor,
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      controller: controllerEmail,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.email,
+                      prefixIcon: const Icon(
+                        Icons.email,
+                        color: AppColors.loginColor,
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      controller: controllerContact,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.contact,
+                      prefixIcon: const Icon(
+                        Icons.phone,
+                        color: AppColors.loginColor,
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      controller: controllerCnic,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.cnic,
+                      prefixIcon: const Icon(
+                        Icons.card_membership,
+                        color: AppColors.loginColor,
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      obscureText: _obscureText,
+                      controller: controllerPassword,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.password + "(min 6 characters)",
+                      prefixIcon: const Icon(
+                        Icons.lock,
+                        color: AppColors.loginColor,
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
 
-                  },  /// This is Magical Function
-                  child: Icon(
-                    _obscureText ?         /// CHeck Show & Hide.
-                     Icons.visibility :
-                     Icons.visibility_off,
-                  ),
-                ),
-            ),
-            context.emptySizedHeightBoxLow,
-            CustomTextField(
-              obscureText: _obscureText,
-              controller: controllerConfirm,
-              height: context.height * 0.07,
-              width: context.width * 0.8,
-              hinttext: AppText.confirm,
-              prefixIcon: const Icon(
-                Icons.lock,
-                color: AppColors.loginColor,
-              ),
-              suffixIcon: InkWell(
-                  onTap: (){                      
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
+                        /// This is Magical Function
+                        child: Icon(
+                          _obscureText
+                              ?
 
-                  },  /// This is Magical Function
-                  child: Icon(
-                    _obscureText ?         /// CHeck Show & Hide.
-                     Icons.visibility :
-                     Icons.visibility_off,
-                  ),
+                              /// CHeck Show & Hide.
+                              Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow,
+                    CustomTextField(
+                      obscureText: _obscureText,
+                      controller: controllerConfirm,
+                      height: context.height * 0.07,
+                      width: context.width * 0.8,
+                      hinttext: AppText.confirm,
+                      prefixIcon: const Icon(
+                        Icons.lock,
+                        color: AppColors.loginColor,
+                      ),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+
+                        /// This is Magical Function
+                        child: Icon(
+                          _obscureText
+                              ?
+
+                              /// CHeck Show & Hide.
+                              Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                      ),
+                    ),
+                    context.emptySizedHeightBoxLow3x,
+                    CustomElevatedButton(
+                      onPressed: () {
+                        final user = MyUser(
+                          uname: controllerName.text.trim(),
+                          address: controllerAddress.text.trim(),
+                          city: controllerCity.text.trim(),
+                          email: controllerEmail.text.trim(),
+                          contact_no: controllerContact.text.trim(),
+                          cnic: controllerCnic.text.trim(),
+                          isLogin: false,
+                          isVerified: false,
+                          rating: 5,
+                        );
+                        if (controllerPassword.text == controllerConfirm.text) {
+                          createUser(
+                              user: user,
+                              context: context,
+                              text: controllerPassword.text);
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "password not match",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                              fontSize: 16.0);
+                          // print("password not match");
+                        }
+                      },
+                      child: Text(
+                        AppText.signUp.toUpperCase(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      borderRadius: 20,
+                      color: AppColors.loginColor,
+                      height: context.height * 0.07,
+                      width: context.width * 0.6,
+                    ),
+                    // context.emptySizedHeightBoxLow3x,
+                    bottomText(context),
+                  ],
                 ),
-            ),
-            context.emptySizedHeightBoxLow3x,
-            CustomElevatedButton(
-              onPressed: () {
-                final user = MyUser(
-                  uname: controllerName.text.trim(),
-                  address: controllerAddress.text.trim(),
-                  city: controllerCity.text.trim(),
-                  email: controllerEmail.text.trim(),
-                  contact_no: controllerContact.text.trim(),
-                  cnic: controllerCnic.text.trim(),
-                  isLogin: false,
-                  isVerified: false,
-                  rating: 5,
-                );
-                if (controllerPassword.text == controllerConfirm.text) {
-                  createUser(
-                      user: user,
-                      context: context,
-                      text: controllerPassword.text);
-                } else {
-                  Fluttertoast.showToast(
-                      msg: "password not match",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0);
-                  // print("password not match");
-                }
-              },
-              child: Text(
-                AppText.signUp.toUpperCase(),
-                style: const TextStyle(color: Colors.white),
               ),
-              borderRadius: 20,
-              color: AppColors.loginColor,
-              height: context.height * 0.07,
-              width: context.width * 0.6,
-            ),
-            // context.emptySizedHeightBoxLow3x,
-            bottomText(context),
-          ],
-        ),
-      ),
-    ));
+            ));
   }
 
   SizedBox topImage(BuildContext context) {
@@ -230,7 +236,7 @@ class _RegisterViewState extends State<RegisterView> {
       alignment: Alignment.center,
       child: Text(
         AppText.signUp.toUpperCase(),
-        style: context.textTheme.headline5!
+        style: context.textTheme.headlineMedium!
             .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
       ),
     );

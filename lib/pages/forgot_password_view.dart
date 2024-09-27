@@ -7,8 +7,6 @@ import 'package:mad_project/core/constant/app_text.dart';
 import 'package:mad_project/product/widget/custom_elevated_button.dart';
 import 'package:mad_project/product/widget/custom_textfield.dart';
 
-
-
 class ForgotPasswordView extends StatelessWidget {
   const ForgotPasswordView({Key? key}) : super(key: key);
 
@@ -40,22 +38,22 @@ class ForgotPasswordView extends StatelessWidget {
                   prefixIcon: const Icon(
                     Icons.email,
                     color: AppColors.loginColor,
-                  ), 
+                  ),
                   controller: controllerEmail,
                 ),
                 context.emptySizedHeightBoxLow,
                 CustomElevatedButton(
-                  height: context.height * 0.07,
-                  width: context.width * 0.8,
-                  onPressed: () => resetPassowrd(controllerEmail.text,context: context), 
-                  child: Text(
-                    AppText.send,
-                    style: context.textTheme.headline6!.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ),
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    onPressed: () =>
+                        resetPassowrd(controllerEmail.text, context: context),
+                    child: Text(
+                      AppText.send,
+                      style: context.textTheme.headlineLarge!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )),
                 context.emptySizedHeightBoxLow3x,
               ],
             ),
@@ -68,41 +66,35 @@ class ForgotPasswordView extends StatelessWidget {
   Text topText(BuildContext context) {
     return Text(
       AppText.forgotPassword,
-      style: context.textTheme.headline4!.copyWith(
+      style: context.textTheme.headlineSmall!.copyWith(
         color: AppColors.loginColor,
         fontWeight: FontWeight.bold,
       ),
     );
   }
+
   Future resetPassowrd(String email, {required BuildContext context}) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       Fluttertoast.showToast(
-        msg: "We have sent you instructions to reset your password. you can check your spam email",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+          msg:
+              "We have sent you instructions to reset your password. you can check your spam email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Fluttertoast.showToast(
-        msg: "Wrong email",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
+          msg: "Wrong email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 }
-
-
-
-
-
-

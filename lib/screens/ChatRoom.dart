@@ -233,7 +233,7 @@ class _ChatRoomState extends State<ChatRoom> {
                                   suffixIcon: IconButton(
                                     color: Theme.of(context)
                                         .textTheme
-                                        .bodyText1
+                                        .bodySmall
                                         ?.color
                                         ?.withOpacity(0.64),
                                     onPressed: (() {

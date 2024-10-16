@@ -52,98 +52,96 @@ class _MyAppState extends State<LoginView> {
       });
     }
 
-    return StatefulBuilder(
-        builder: (context, setState) => Scaffold(
-              body: SizedBox(
-                height: context.height * 1,
-                width: context.width * 1,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      context.emptySizedHeightBoxLow3x,
-                      topImage(context),
-                      context.emptySizedHeightBoxLow3x,
-                      topText(context),
-                      context.emptySizedHeightBoxLow3x,
-                      CustomTextField(
-                        controller: controllerEmail,
-                        height: context.height * 0.07,
-                        width: context.width * 0.8,
-                        hinttext: AppText.email,
-                        // text: controllerEmail.text,
-                        prefixIcon: const Icon(
-                          Icons.email,
-                          color: AppColors.loginColor,
-                        ),
-                      ),
-                      context.emptySizedHeightBoxLow,
-                      CustomTextField(
-                        obscureText: _obscureText,
-                        // text: controllerPassword.text,
-                        controller: controllerPassword,
-                        height: context.height * 0.07,
-                        width: context.width * 0.8,
-                        hinttext: AppText.password,
-                        prefixIcon: const Icon(
-                          Icons.lock,
-                          color: AppColors.loginColor,
-                        ),
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            setState(() {
-                              _obscureText = !_obscureText;
-                            });
-                          },
+    return Scaffold(
+      body: SizedBox(
+        height: context.height * 1,
+        width: context.width * 1,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              context.emptySizedHeightBoxLow3x,
+              topImage(context),
+              context.emptySizedHeightBoxLow3x,
+              topText(context),
+              context.emptySizedHeightBoxLow3x,
+              CustomTextField(
+                controller: controllerEmail,
+                height: context.height * 0.07,
+                width: context.width * 0.8,
+                hinttext: controllerEmail.text == ""
+                    ? AppText.email
+                    : controllerEmail.text,
+                // text: controllerEmail.text,
+                prefixIcon: const Icon(
+                  Icons.email,
+                  color: AppColors.loginColor,
+                ),
+              ),
+              context.emptySizedHeightBoxLow,
+              CustomTextField(
+                obscureText: _obscureText,
+                // text: controllerPassword.text,
+                controller: controllerPassword,
+                height: context.height * 0.07,
+                width: context.width * 0.8,
+                hinttext: controllerPassword.text == ""
+                    ? AppText.password
+                    : controllerPassword.text,
+                prefixIcon: const Icon(
+                  Icons.lock,
+                  color: AppColors.loginColor,
+                ),
+                suffixIcon: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+                    });
+                  },
 
-                          /// This is Magical Function
-                          child: Icon(
-                            _obscureText
-                                ?
-
-                                /// CHeck Show & Hide.
-                                Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                        ),
-                      ),
-                      context.emptySizedHeightBoxLow,
-                      context.emptySizedHeightBoxLow3x,
-                      context.emptySizedHeightBoxLow3x,
-                      CustomElevatedButton(
-                        onPressed: () => signIn(),
-                        child: Text(
-                          AppText.login.toUpperCase(),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        borderRadius: 20,
-                        color: AppColors.loginColor,
-                        height: context.height * 0.07,
-                        width: context.width * 0.6,
-                      ),
-                      context.emptySizedHeightBoxLow3x,
-                      context.emptySizedHeightBoxLow3x,
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPasswordView()),
-                          );
-                        },
-                        child: const Text(
-                          AppText.forgotPassword,
-                          style: TextStyle(
-                            color: AppColors.loginColor,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                      bottomText(context),
-                    ],
+                  /// This is Magical Function
+                  child: Icon(
+                    _obscureText ? Icons.visibility : Icons.visibility_off,
                   ),
                 ),
               ),
-            ));
+              context.emptySizedHeightBoxLow,
+              context.emptySizedHeightBoxLow3x,
+              context.emptySizedHeightBoxLow3x,
+              CustomElevatedButton(
+                onPressed: () => signIn(),
+                child: Text(
+                  AppText.login.toUpperCase(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                borderRadius: 20,
+                color: AppColors.loginColor,
+                height: context.height * 0.07,
+                width: context.width * 0.6,
+              ),
+              context.emptySizedHeightBoxLow3x,
+              context.emptySizedHeightBoxLow3x,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordView()),
+                  );
+                },
+                child: const Text(
+                  AppText.forgotPassword,
+                  style: TextStyle(
+                    color: AppColors.loginColor,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+              bottomText(context),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 

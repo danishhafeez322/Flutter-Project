@@ -136,23 +136,22 @@ class _MyChatState extends State<MyChat> {
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.data != null) {
                     return ListView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: ((context, index) {
-                          // var data = snapshot.data!.docs[index].data()
-                          //     as Map<String, dynamic>;
-                          QueryDocumentSnapshot<Object?> map =
-                              snapshot.data!.docs[index];
-                          Map<String, dynamic> map1 =
-                              map.data() as Map<String, dynamic>;
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: ((context, index) {
+                        QueryDocumentSnapshot<Object?> map =
+                            snapshot.data!.docs[index];
+                        Map<String, dynamic> map1 =
+                            map.data() as Map<String, dynamic>;
 
-                          if (map1['user1'].contains(_auth.currentUser!.uid) ||
-                              map1['user2'].contains(_auth.currentUser!.uid)) {
-                            return ChatCard(
-                                item: map.data() as Map<String, dynamic>);
-                          } else {
-                            return Container();
-                          }
-                        }));
+                        if (map1['user1'].contains(_auth.currentUser!.uid) ||
+                            map1['user2'].contains(_auth.currentUser!.uid)) {
+                          return ChatCard(
+                              item: map.data() as Map<String, dynamic>);
+                        } else {
+                          return Container();
+                        }
+                      }),
+                    );
                   } else {
                     return Container();
                   }

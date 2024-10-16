@@ -87,12 +87,8 @@ class _ChatCardState extends State<ChatCard> {
     // var width = MediaQuery.of(context).size.width;
 
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, left: 8.0, right: 8.0),
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Container(
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(width: 1, color: Colors.black45)),
-          // borderRadius: BorderRadius.circular(20),
-        ),
         //width: 160,
         height: 75.0,
         child: Material(
@@ -140,8 +136,7 @@ class _ChatCardState extends State<ChatCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 10.0, left: 5),
+                              padding: const EdgeInsets.only(left: 5),
                               child: Text(
                                 UserName(),
                                 overflow: TextOverflow.ellipsis,

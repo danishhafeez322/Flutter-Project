@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 
 import 'SearchDetail.dart';
 
@@ -28,7 +30,7 @@ class _MyWidgetState extends State<SearchPage> {
         //backgroundColor: Colors.white,
         title: Container(
           decoration: BoxDecoration(
-              color: Colors.blue.shade200,
+              border: Border.all(color: Colors.blueAccent),
               borderRadius: BorderRadius.circular(30)),
           child: TextField(
             controller: cont,
@@ -41,7 +43,7 @@ class _MyWidgetState extends State<SearchPage> {
                 border: InputBorder.none,
                 errorBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                contentPadding: EdgeInsets.all(15),
+                contentPadding: EdgeInsets.symmetric(horizontal: 15),
                 enabledBorder: InputBorder.none,
                 //suffixIcon: Icon(Icons.cancel),
                 suffixIcon: (name.isNotEmpty)
@@ -94,7 +96,10 @@ class _MyWidgetState extends State<SearchPage> {
                           .toLowerCase()
                           .contains(data["title"].toLowerCase().toString()) ||
                       data["price"].toString().startsWith(name.toLowerCase()) ||
-                      data["city"].toLowerCase().toString().startsWith(name.toLowerCase()) ||
+                      data["city"]
+                          .toLowerCase()
+                          .toString()
+                          .startsWith(name.toLowerCase()) ||
                       data["description"]
                           .toLowerCase()
                           .toString()
@@ -102,14 +107,11 @@ class _MyWidgetState extends State<SearchPage> {
                       data["guarantee_price"]
                           .toString()
                           .startsWith(name.toLowerCase())) {
-                    // return Card(
-                    //   child: ListTile(
-                    //     title: Text(
-                    //       snapshot.data!.docChanges[index].doc['title'],
-                    //     ),
-                    //   ),
-                    // );
-                    return SearchDetails(item: data);
+                    log('diff: ${DateTime.now().difference(DateTime.parse(data['date'])).inDays}');
+                    if (DateTime.now()
+                            .difference(DateTime.parse(data['date']))
+                            .inDays <
+                        300) return SearchDetails(item: data);
                   }
                   return Container();
                 },

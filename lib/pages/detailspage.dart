@@ -1,11 +1,12 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:kartal/kartal.dart';
-import 'package:mad_project/main.dart';
 import 'package:mad_project/pages/upload.dart';
 import 'package:mad_project/screens/ChatRoom.dart';
 import 'package:mad_project/widgets/AppBar.dart';
@@ -17,7 +18,6 @@ import '../product/widget/custom_elevated_button.dart';
 import '../widgets/DetailsCarousal.dart';
 import '../widgets/SearchDetail.dart';
 import 'WelcomePage.dart';
-import 'categorybottombar.dart';
 import 'login_view.dart';
 
 // ignore: must_be_immutable
@@ -118,9 +118,6 @@ class DetailsPageState extends State<DetailsPage> {
   }
 
   Future<void> myItems() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-
     await FirebaseFirestore.instance
         .collection('/users')
         .doc(_auth.currentUser!.uid)
@@ -165,7 +162,9 @@ class DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState() {
-    myItems();
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      myItems();
+    });
     super.initState();
 
     // createOffer();
@@ -692,7 +691,13 @@ class DetailsPageState extends State<DetailsPage> {
                                                 .toLowerCase())) {
                                       if (!data["id"]
                                           .contains(widget.myItem_id)) {
-                                        return SearchDetails(item: data);
+                                        log('diff: ${DateTime.now().difference(DateTime.parse(data['date'])).inDays}');
+                                        if (DateTime.now()
+                                                .difference(DateTime.parse(
+                                                    data['date']))
+                                                .inDays <
+                                            300)
+                                          return SearchDetails(item: data);
                                       }
                                       // return SearchDetails(item: data);
                                     }
@@ -711,6 +716,6 @@ class DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
               ]))
-            : Container());
+            : Center(child: CircularProgressIndicator()));
   }
 }

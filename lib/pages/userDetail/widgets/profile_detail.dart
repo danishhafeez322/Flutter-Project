@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:mad_project/core/constant/app_color.dart';
 
 import '../../Registorpage.dart';
@@ -14,16 +15,7 @@ class ProfileHeader extends StatefulWidget {
 }
 
 class _ProfileHeaderState extends State<ProfileHeader> {
-  MyUser currentUser = MyUser(
-      uname: "User Name",
-      email: "abc@xyz",
-      contact_no: "",
-      address: " ",
-      city: " ",
-      cnic: "",
-      isLogin: true,
-      isVerified: true,
-      rating: 0);
+  MyUser? currentUser;
   // var currentUser;
   Future<void> myCurrentUser() async {
     final docUser = await FirebaseFirestore.instance
@@ -32,33 +24,19 @@ class _ProfileHeaderState extends State<ProfileHeader> {
     final doc = await docUser.get();
     if (doc.exists) {
       currentUser = MyUser.fromMap(doc.data() as Map<String, dynamic>);
-    } else {
-      currentUser = MyUser(
-          uname: "User name",
-          email: "Email",
-          contact_no: "1234",
-          address: "MyAddress",
-          city: "city",
-          cnic: "",
-          isLogin: true,
-          isVerified: true,
-          rating: 0);
+      setState(() {});
     }
   }
 
   void initState() {
     super.initState();
-    myCurrentUser();
-
-    // if(!(currentUser.uname == 'User name')){
-
-    // }
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      myCurrentUser();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    myCurrentUser();
-
     return Stack(
       children: [
         Container(
@@ -87,7 +65,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    currentUser.uname,
+                    currentUser?.uname ?? 'User Name',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -98,7 +76,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                     height: 5,
                   ),
                   Text(
-                    currentUser.email,
+                    currentUser?.email ?? 'abc@xyz',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 15,
@@ -120,11 +98,11 @@ class _ProfileHeaderState extends State<ProfileHeader> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => EditUserDetailView(
-                        name: currentUser.uname,
-                        email: currentUser.email,
-                        phone: currentUser.contact_no,
-                        address: currentUser.address,
-                        city: currentUser.city,
+                        name: currentUser?.uname ?? 'User Name',
+                        email: currentUser?.email ?? 'abc@xyz',
+                        phone: currentUser?.contact_no ?? '92xxxxxxxxxx',
+                        address: currentUser?.address ?? 'Address',
+                        city: currentUser?.city ?? 'City',
                       ),
                     ),
                   );

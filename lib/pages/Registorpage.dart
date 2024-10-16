@@ -277,8 +277,18 @@ class _RegisterViewState extends State<RegisterView> {
     //   builder: (context) => const Center(child: CircularProgressIndicator())
     // );
     try {
+      if (user.email!.isEmpty) {
+        Fluttertoast.showToast(
+            msg: "Email is Empty",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
       final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: user.email, password: text);
+          .createUserWithEmailAndPassword(email: user.email!, password: text);
       final docUser = await FirebaseFirestore.instance
           .collection('/users')
           .doc(credential.user!.uid);
@@ -343,26 +353,26 @@ class _RegisterViewState extends State<RegisterView> {
 }
 
 class MyUser {
-  String uname;
-  String email;
-  String address;
-  String city;
-  String contact_no;
-  String cnic;
-  int rating;
-  bool isLogin;
-  bool isVerified;
+  String? uname;
+  String? email;
+  String? address;
+  String? city;
+  String? contact_no;
+  String? cnic;
+  int? rating;
+  bool? isLogin;
+  bool? isVerified;
 
   MyUser({
-    required this.uname,
-    required this.email,
-    required this.address,
-    required this.city,
-    required this.contact_no,
-    required this.cnic,
-    required this.rating,
-    required this.isLogin,
-    required this.isVerified,
+    this.uname,
+    this.email,
+    this.address,
+    this.city,
+    this.contact_no,
+    this.cnic,
+    this.rating,
+    this.isLogin,
+    this.isVerified,
   });
 
   Map<String, dynamic> toMap() {
